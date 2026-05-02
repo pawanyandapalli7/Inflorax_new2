@@ -1,32 +1,32 @@
-// MARQUEE — running text strip between sections (logos / words)
-const Marquee = ({words, speed=40, reverse=false, big=false}) => {
-  const dir = window.useDir();
+// MARQUEE — bigger Kinetic
+const Marquee = ({words, speed=42, reverse=false, big=true}) => {
   const list = words || ['STRATEGY', 'SCRIPTS', 'EDITS', 'DISTRIBUTION', 'ANALYTICS', 'GROWTH', 'RETENTION', 'HOOKS', 'BRAND', 'SYSTEMS'];
   return (
     <div style={{
       padding: big ? '40px 0' : '20px 0',
       borderTop:'1px solid var(--line)', borderBottom:'1px solid var(--line)',
-      overflow:'hidden', background:'transparent',
+      overflow:'hidden', background:'rgba(26,20,10,.03)',
     }}>
       <div style={{
         display:'flex', gap: big ? 48 : 36, whiteSpace:'nowrap',
         animation:`mqRun ${speed}s linear infinite`,
         animationDirection: reverse ? 'reverse' : 'normal',
-        fontFamily: dir==='editorial' ? 'var(--serif)' : 'var(--sans)',
-        fontStyle: dir==='editorial' ? 'italic' : 'normal',
-        fontWeight: dir==='editorial' ? 400 : 800,
-        fontSize: big ? 'clamp(48px,8vw,120px)' : 16,
-        letterSpacing: dir==='editorial' ? '-.02em' : (big ? '-.04em' : '.12em'),
-        textTransform: dir==='editorial' || big ? 'none' : 'uppercase',
+        fontFamily:'var(--sans)',
+        fontWeight: 900,
+        fontSize: big ? 'clamp(56px, 11vw, 160px)' : 16,
+        letterSpacing: big ? '-.05em' : '.12em',
+        textTransform:'uppercase',
         color:'var(--ink)',
+        lineHeight:.9,
       }}>
         {[...list, ...list, ...list].map((w,i) => (
           <span key={i} style={{display:'inline-flex', alignItems:'center', gap: big ? 48 : 36}}>
-            {w}
+            {i % 3 === 1 ? <span style={{fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300, letterSpacing:'-.04em', textTransform:'none', color:'var(--accent)'}}>{w.toLowerCase()}</span> : w}
             <span style={{
               display:'inline-block',
-              width: big ? 14 : 6, height: big ? 14 : 6,
+              width: big ? 18 : 6, height: big ? 18 : 6,
               borderRadius: '50%', background:'var(--accent)',
+              boxShadow: big ? '0 0 30px var(--accent)' : 'none',
             }}/>
           </span>
         ))}

@@ -1,14 +1,9 @@
-// Shared utilities & constants
+// Shared utilities & constants — Kinetic-only (locked direction)
 const { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } = React;
 
-// Direction context: 'editorial' | 'kinetic' | 'grid'
-window.DirectionCtx = React.createContext('editorial');
-window.useDir = () => React.useContext(window.DirectionCtx);
-
-// Class joiner
 window.cx = (...xs) => xs.filter(Boolean).join(' ');
 
-// useMouse hook (for parallax / hover)
+// useMouse hook
 window.useMouse = (ref) => {
   const [m, setM] = useState({x:.5, y:.5, active:false});
   useEffect(() => {
@@ -36,79 +31,73 @@ window.useScrollY = () => {
   return y;
 };
 
-// Direction-aware section background colors
-window.sectionBgFor = (dir, idx=0) => {
-  if (dir === 'editorial') return idx % 2 ? '#fbf8f1' : '#f6f1e6';
-  if (dir === 'kinetic')   return idx % 2 ? '#f4ede0' : '#ffe9c8';
-  return idx % 2 ? '#f5f5f3' : '#ececea';
-};
+// Dummy DirectionCtx kept for compat (always 'kinetic')
+window.DirectionCtx = React.createContext('kinetic');
+window.useDir = () => 'kinetic';
 
-// Section component — applies reveal + dir-aware background
+// Section component
 window.Section = ({id, children, padded=true, bg, style, className}) => {
-  const dir = window.useDir();
-  const bgVal = bg ?? (dir==='editorial' ? 'transparent' : 'transparent');
   return (
-    <section id={id} data-screen-label={id} style={{padding: padded ? 'clamp(80px,10vw,140px) 0' : 0, background:bgVal, position:'relative', ...style}} className={className}>
+    <section id={id} data-screen-label={id} style={{
+      padding: padded ? 'clamp(64px,9vw,120px) 0' : 0,
+      background:bg ?? 'transparent',
+      position:'relative',
+      ...style,
+    }} className={className}>
       {children}
     </section>
   );
 };
 
 // Pill button
-window.Btn = ({children, primary, href, onClick, sm}) => {
-  const dir = window.useDir();
+window.Btn = ({children, primary, href, onClick, sm, mag=true}) => {
   const base = {
     display:'inline-flex', alignItems:'center', gap:8,
-    padding: sm ? '8px 14px' : '14px 22px',
+    padding: sm ? '9px 16px' : '15px 24px',
     borderRadius: 999,
     fontSize: sm ? 13 : 14,
     fontWeight: 600,
-    transition:'transform .2s, background .2s, box-shadow .2s',
+    transition:'background .2s, box-shadow .2s, color .2s',
     border:'1px solid transparent',
     cursor:'pointer',
+    whiteSpace:'nowrap',
   };
   const styles = primary
-    ? {...base, background:'var(--accent)', color: dir==='kinetic' ? '#fff' : (dir==='grid' ? '#fff' : '#fff')}
+    ? {...base, background:'var(--accent)', color:'#fff', boxShadow:'0 0 0 0 rgba(255,122,58,.5)'}
     : {...base, background:'transparent', color:'var(--ink)', border:'1px solid var(--line)'};
   const Comp = href ? 'a' : 'button';
   return (
     <Comp href={href} onClick={onClick} style={styles}
-      onMouseEnter={(e)=>{e.currentTarget.style.transform='translateY(-2px)'}}
-      onMouseLeave={(e)=>{e.currentTarget.style.transform='none'}}>
+      className={mag ? 'magnet' : ''}
+      onMouseEnter={(e)=>{ if(primary) e.currentTarget.style.boxShadow='0 12px 40px -10px rgba(255,122,58,.7)'; else e.currentTarget.style.background='var(--line)'; }}
+      onMouseLeave={(e)=>{ if(primary) e.currentTarget.style.boxShadow='0 0 0 0 rgba(255,122,58,.5)'; else e.currentTarget.style.background='transparent'; }}>
       {children}
     </Comp>
   );
 };
 
-// Heading helpers — direction-aware big display type
-window.bigHeadStyle = (dir) => {
-  if (dir==='editorial') return {
-    fontFamily:'var(--serif)', fontWeight:400, lineHeight:.92, letterSpacing:'-.03em',
-    fontSize:'clamp(48px, 8vw, 132px)', color:'var(--ink)',
-  };
-  if (dir==='kinetic') return {
-    fontFamily:'var(--sans)', fontWeight:900, lineHeight:.85, letterSpacing:'-.05em',
-    fontSize:'clamp(56px, 11vw, 180px)', color:'var(--ink)', textTransform:'uppercase',
-  };
-  return {
-    fontFamily:'var(--sans)', fontWeight:700, lineHeight:.95, letterSpacing:'-.04em',
-    fontSize:'clamp(44px, 7.5vw, 116px)', color:'var(--ink)',
-  };
-};
+// Big display headline style — Kinetic
+window.bigHeadStyle = () => ({
+  fontFamily:'var(--sans)', fontWeight:900, lineHeight:.84, letterSpacing:'-.05em',
+  fontSize:'clamp(56px, 12vw, 200px)', color:'var(--ink)', textTransform:'uppercase',
+});
 
-// Label/eyebrow style
+// Label/eyebrow
 window.labelStyle = {
   fontFamily:'var(--mono)', fontSize:11, letterSpacing:'.18em', textTransform:'uppercase',
   color:'var(--ink-3)', display:'inline-flex', alignItems:'center', gap:10,
 };
 
-// Italic em helper for editorial direction
-window.Em = ({children}) => {
-  const dir = window.useDir();
-  if (dir==='editorial') return <em style={{fontStyle:'italic', fontWeight:300, color:'var(--accent)'}}>{children}</em>;
-  if (dir==='kinetic')   return <span style={{color:'var(--accent)', fontStyle:'italic', fontFamily:'var(--serif)', fontWeight:300}}>{children}</span>;
-  return <span style={{color:'var(--accent)', fontWeight:600, borderBottom:'3px solid var(--accent)', paddingBottom:'.05em'}}>{children}</span>;
-};
+// Italic em (accent serif italic)
+window.Em = ({children}) => (
+  <span style={{
+    color:'var(--accent)',
+    fontStyle:'italic',
+    fontFamily:'var(--serif)',
+    fontWeight:300,
+    textTransform:'none',
+    letterSpacing:'-.04em',
+  }}>{children}</span>
+);
 
-// Number formatter
 window.fmtNum = (n) => n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? (n/1e3).toFixed(0)+'K' : String(n);

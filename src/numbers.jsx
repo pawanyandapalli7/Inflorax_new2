@@ -1,6 +1,5 @@
-// NUMBERS — animated counter row
+// NUMBERS — dark warm
 const Numbers = () => {
-  const dir = window.useDir();
   const stats = [
     {n:24, suf:'', l:'creators in residency'},
     {n:182, suf:'%', l:'avg follower lift / yr'},
@@ -10,19 +9,16 @@ const Numbers = () => {
   return (
     <window.Section id="numbers" padded>
       <div className="wrap">
-        <span className="reveal" style={{...window.labelStyle, marginBottom:40, display:'inline-flex'}}>By the numbers · 2025</span>
-        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:0, marginTop:24, borderTop:'1px solid var(--line)'}}>
-          {stats.map((s,i) => (
-            <Stat key={i} {...s} delay={i*120}/>
-          ))}
+        <span className="reveal" style={{...window.labelStyle, marginBottom:32, display:'inline-flex'}}>By the numbers · 2025</span>
+        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:0, marginTop:18, borderTop:'1px solid var(--line)'}}>
+          {stats.map((s,i) => <Stat key={i} {...s} delay={i*120} idx={i}/>)}
         </div>
       </div>
     </window.Section>
   );
 };
 
-const Stat = ({n, suf, l, delay}) => {
-  const dir = window.useDir();
+const Stat = ({n, suf, l, delay, idx}) => {
   const ref = useRef(null);
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -46,16 +42,15 @@ const Stat = ({n, suf, l, delay}) => {
     return () => io.disconnect();
   }, []);
   return (
-    <div ref={ref} className="reveal" style={{padding:'48px 24px 48px 0', borderBottom:'1px solid var(--line)', borderRight:'1px solid var(--line)', background:'transparent'}}>
+    <div ref={ref} className="reveal" style={{padding:'40px 22px 40px 0', borderBottom:'1px solid var(--line)', borderRight:'1px solid var(--line)', background:'transparent', position:'relative'}}>
       <div style={{
-        fontFamily: dir==='editorial' ? 'var(--serif)' : 'var(--sans)',
-        fontStyle: dir==='editorial' ? 'italic' : 'normal',
-        fontWeight: dir==='editorial' ? 400 : 800,
-        fontSize:'clamp(56px, 9vw, 132px)', letterSpacing:'-.04em', lineHeight:1, color:'var(--accent)',
+        fontFamily:'var(--sans)', fontWeight:900,
+        fontSize:'clamp(56px, 9vw, 132px)', letterSpacing:'-.05em', lineHeight:1,
+        color:'var(--accent)',
       }}>
-        {n < 10 ? val.toFixed(1) : Math.round(val)}<span style={{fontSize:'.5em'}}>{suf}</span>
+        {n < 10 ? val.toFixed(1) : Math.round(val)}<span style={{fontSize:'.5em', fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300}}>{suf}</span>
       </div>
-      <div style={{marginTop:16, color:'var(--ink-2)', fontSize:14, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.08em'}}>{l}</div>
+      <div style={{marginTop:14, color:'var(--ink-2)', fontSize:13, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.08em'}}>{l}</div>
     </div>
   );
 };
