@@ -1,254 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Inflorax® — Creator Growth, Engineered</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700;1,9..144,800;1,9..144,900&display=swap" rel="stylesheet"/>
+    <!-- Primary SEO -->
+    <title>Threads Beauty Bar and Spa | Eyebrow Threading, Waxing & Facials in Dublin, CA</title>
+    <meta name="description" content="Threads Beauty Bar & Spa — Dublin's premier full-service beauty salon. Expert threading, waxing, HydraFacials, hair color, head massage & henna. Walk-ins welcome. Call (925) 833-1710." />
+    <meta name="keywords" content="eyebrow threading Dublin CA, threading near me, waxing salon Dublin, Brazilian wax Dublin CA, facials Dublin CA, HydraFacial Dublin, beauty salon Dublin California" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://threads2-five.vercel.app/" />
 
-<style>
-  :root{
-    /* shared */
-    --moss:#1f5d2f;
-    --moss-d:#0f3d1c;
-    --moss-l:#e9f1e3;
-    --cream:#f6f1e6;
-    --bone:#fbf8f1;
-    --paper:#ffffff;
-    --ink:#0e1a0e;
-    --ink-2:#3b463b;
-    --ink-3:#6b766b;
-    --ink-4:#9aa39a;
-    --line:rgba(14,26,14,.10);
-    --line-soft:rgba(14,26,14,.06);
-    --hot:#ff5b2e;
-    --sun:#f6c453;
-    --sky:#cfe6ff;
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://threads2-five.vercel.app/" />
+    <meta property="og:title" content="Threads Beauty Bar & Spa | Dublin, CA" />
+    <meta property="og:description" content="Expert threading, waxing, facials, hair & henna in Dublin, CA. 4.5★ on Google. Walk-ins welcome." />
+    <meta property="og:image" content="https://threads2-five.vercel.app/photos/hero-1.jpg" />
 
-    --serif:'Fraunces','Instrument Serif',serif;
-    --sans:'Geist','Inter',system-ui,sans-serif;
-    --mono:'Geist Mono','JetBrains Mono',ui-monospace,monospace;
-  }
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Threads Beauty Bar & Spa | Dublin, CA" />
+    <meta name="twitter:description" content="Expert threading, waxing, facials & hair in Dublin, CA." />
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-  html{scroll-behavior:smooth}
-  body{overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-  img,svg{display:block;max-width:100%}
-  ::selection{background:var(--moss);color:#fff}
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
 
-  /* Body class controls direction */
-  body[data-dir="editorial"]{ --bg: var(--bone); --accent: var(--moss); --accent-d: var(--moss-d); --soft: var(--cream); }
-  body[data-dir="kinetic"]  { --bg: #f4ede0;       --accent: #ff5b2e;   --accent-d:#c4421f;     --soft: #ffe9c8; }
-  body[data-dir="grid"]     { --bg: #f5f5f3;       --accent: #0e1a0e;   --accent-d:#000;        --soft: #ececea; }
-
-  body{background:var(--bg);transition:background-color .6s ease}
-
-  /* helpers */
-  .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
-  .wrap-narrow{max-width:1040px;margin:0 auto;padding:0 28px}
-  @media (max-width:720px){ .wrap, .wrap-narrow{padding:0 20px} }
-
-  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;gap:10px;align-items:center}
-  .eyebrow::before{content:"";width:18px;height:1px;background:currentColor;display:inline-block}
-
-  /* Scroll progress */
-  #prog{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:9999;transition:width .15s linear}
-
-  /* Cursor */
-  #cur{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .25s,height .25s,opacity .25s}
-  #cur.big{width:64px;height:64px;opacity:.85}
-  @media (hover:none){#cur{display:none}}
-
-  /* Marker reveal animation */
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-  .reveal-d1{transition-delay:.06s}
-  .reveal-d2{transition-delay:.12s}
-  .reveal-d3{transition-delay:.18s}
-  .reveal-d4{transition-delay:.24s}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-
-  /* ───── NAV ───── */
-  nav.top{
-    position:fixed;top:14px;left:14px;right:14px;z-index:1000;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:10px 14px 10px 18px;border-radius:999px;
-    background:color-mix(in oklab, var(--bg) 78%, transparent);
-    backdrop-filter:blur(20px) saturate(140%);
-    -webkit-backdrop-filter:blur(20px) saturate(140%);
-    border:1px solid var(--line);
-  }
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;font-size:18px}
-  .brand-mark{width:22px;height:22px;border-radius:6px;background:var(--accent);position:relative;overflow:hidden}
-  .brand-mark::before,.brand-mark::after{content:"";position:absolute;inset:0;background:var(--bg)}
-  .brand-mark::before{clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:var(--bg);transform:scale(.5)}
-  .brand-mark::after{width:6px;height:6px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:var(--accent);inset:auto}
-
-  .nav-mid{display:flex;gap:6px}
-  .nav-mid a{padding:8px 14px;border-radius:999px;font-size:13px;font-weight:500;color:var(--ink-2);transition:background .2s, color .2s}
-  .nav-mid a:hover{background:var(--soft);color:var(--ink)}
-  @media (max-width:900px){ .nav-mid{display:none} }
-
-  .nav-right{display:flex;align-items:center;gap:8px}
-  .pill-btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;
-    background:var(--ink);color:var(--bg);transition:transform .2s, background .2s;
-  }
-  .pill-btn:hover{transform:translateY(-1px)}
-  .pill-btn .arr{display:inline-block;transition:transform .25s}
-  .pill-btn:hover .arr{transform:translate(3px,-3px) rotate(-10deg)}
-
-  .ham{display:none;width:40px;height:40px;border-radius:999px;align-items:center;justify-content:center;background:var(--soft)}
-  .ham span{display:block;width:16px;height:2px;background:var(--ink);position:relative}
-  .ham span::before,.ham span::after{content:"";position:absolute;left:0;width:16px;height:2px;background:var(--ink)}
-  .ham span::before{top:-5px}
-  .ham span::after{top:5px}
-  @media (max-width:900px){ .ham{display:inline-flex} }
-
-  /* ───── FOOTER (shared) ───── */
-  footer.site{padding:80px 0 32px;background:var(--ink);color:var(--bone);position:relative;overflow:hidden;margin-top:80px}
-  footer.site::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,color-mix(in oklab,var(--accent) 35%,transparent),transparent 50%);pointer-events:none;opacity:.5}
-  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;position:relative}
-  @media (max-width:780px){ .foot-grid{grid-template-columns:1fr 1fr;gap:36px} }
-  .foot-h{font-size:14px;font-weight:600;color:var(--bone);margin-bottom:18px;opacity:.9}
-  .foot-grid ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-  .foot-grid a{font-size:14px;color:rgba(255,255,255,.6);transition:color .2s}
-  .foot-grid a:hover{color:#fff}
-  .foot-bottom{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.5);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;flex-wrap:wrap;gap:12px}
-
-  .foot-mega{font-family:var(--serif);font-style:italic;font-size:clamp(64px,14vw,200px);line-height:.85;letter-spacing:-.04em;margin:80px 0 40px;color:var(--bone);opacity:.95}
-
-  /* ───── DRAWER (mobile) ───── */
-  #drawer{
-    position:fixed;inset:74px 14px auto 14px;z-index:999;
-    background:var(--bg);border:1px solid var(--line);border-radius:24px;
-    padding:14px;display:none;flex-direction:column;gap:6px;
-    box-shadow:0 24px 60px rgba(0,0,0,.08);
-  }
-  #drawer.open{display:flex}
-  #drawer a{padding:14px 16px;border-radius:14px;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
-  #drawer a:hover{background:var(--soft)}
-  #drawer a span{color:var(--ink-3)}
-  #drawer .pill-btn{justify-content:center;margin-top:6px}
-
-  /* ───── Tweaks panel placeholder mount ───── */
-  #tweaks-root{position:fixed;z-index:99999}
-</style>
-</head>
-<body data-dir="editorial">
-  <div id="prog"></div>
-  <div id="cur"></div>
-
-  <!-- ───── NAV ───── -->
-  <nav class="top">
-    <a href="#top" class="brand"><span class="brand-mark"></span>Inflorax<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);font-weight:500;margin-left:4px;vertical-align:super">®</span></a>
-    <div class="nav-mid">
-      <a href="#problem">Why</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#about">Studio</a>
-      <a href="#faq">FAQ</a>
-    </div>
-    <div class="nav-right">
-      <a href="#audit" class="pill-btn">Free Audit <span class="arr">↗</span></a>
-      <button class="ham" id="ham" aria-label="Menu"><span></span></button>
-    </div>
-  </nav>
-  <div id="drawer">
-    <a href="#work" onclick="closeDrawer()">Work <span>→</span></a>
-    <a href="#process" onclick="closeDrawer()">Process <span>→</span></a>
-    <a href="#pricing" onclick="closeDrawer()">Pricing <span>→</span></a>
-    <a href="#about" onclick="closeDrawer()">Studio <span>→</span></a>
-    <a href="#faq" onclick="closeDrawer()">FAQ <span>→</span></a>
-    <a href="#audit" onclick="closeDrawer()" class="pill-btn">Get a Free Audit ↗</a>
-  </div>
-
-  <!-- ───── ROOTS for React component sections ───── -->
-  <div id="top"></div>
-  <main id="app"></main>
-  <div id="tweaks-root"></div>
-
-  <!-- React + Babel -->
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-  <!-- Tweaks panel -->
-  <script type="text/babel" src="tweaks-panel.jsx"></script>
-
-  <!-- App parts -->
-  <script type="text/babel" src="src/utils.jsx"></script>
-  <script type="text/babel" src="src/hero.jsx"></script>
-  <script type="text/babel" src="src/marquee.jsx"></script>
-  <script type="text/babel" src="src/problem.jsx"></script>
-  <script type="text/babel" src="src/who.jsx"></script>
-  <script type="text/babel" src="src/services.jsx"></script>
-  <script type="text/babel" src="src/work.jsx"></script>
-  <script type="text/babel" src="src/process.jsx"></script>
-  <script type="text/babel" src="src/numbers.jsx"></script>
-  <script type="text/babel" src="src/pricing.jsx"></script>
-  <script type="text/babel" src="src/testimonials.jsx"></script>
-  <script type="text/babel" src="src/about.jsx"></script>
-  <script type="text/babel" src="src/faq.jsx"></script>
-  <script type="text/babel" src="src/audit.jsx"></script>
-  <script type="text/babel" src="src/footer.jsx"></script>
-  <script type="text/babel" src="src/app.jsx"></script>
-
-  <!-- Plain JS for nav & cursor -->
-  <script>
-    // scroll progress
-    const prog = document.getElementById('prog');
-    const onScroll = () => {
-      const h = document.documentElement;
-      const max = h.scrollHeight - h.clientHeight;
-      prog.style.width = (max ? (h.scrollTop / max) * 100 : 0) + '%';
-    };
-    document.addEventListener('scroll', onScroll, {passive:true});
-    onScroll();
-
-    // cursor
-    const cur = document.getElementById('cur');
-    let cx=0,cy=0,tx=0,ty=0;
-    addEventListener('pointermove', e => { tx=e.clientX; ty=e.clientY; });
-    function tick(){ cx+=(tx-cx)*.22; cy+=(ty-cy)*.22; cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`; requestAnimationFrame(tick); }
-    tick();
-    document.addEventListener('pointerover', e=>{
-      const t = e.target.closest('a,button,[data-cur]');
-      cur.classList.toggle('big', !!t);
-    });
-
-    // reveal observer
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, {rootMargin:'-2% 0px -2% 0px', threshold:0});
-    function watchReveals(){
-      document.querySelectorAll('.reveal:not(.in)').forEach(el => {
-        // If already in viewport, mark immediately
-        const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) {
-          el.classList.add('in');
-        } else {
-          io.observe(el);
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BeautySalon",
+      "name": "Threads Beauty Bar and Spa",
+      "image": "https://threads2-five.vercel.app/photos/hero-1.jpg",
+      "url": "https://threads2-five.vercel.app",
+      "telephone": "+19258331710",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6620 Dublin Blvd",
+        "addressLocality": "Dublin",
+        "addressRegion": "CA",
+        "postalCode": "94568",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.7160,
+        "longitude": -121.9019
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday","Wednesday","Thursday"],
+          "opens": "10:30",
+          "closes": "18:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "10:00",
+          "closes": "18:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday","Sunday"],
+          "opens": "10:00",
+          "closes": "17:00"
         }
-      });
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "94"
+      },
+      "hasMap": "https://maps.google.com/?q=6620+Dublin+Blvd+Dublin+CA+94568",
+      "sameAs": [
+        "https://www.google.com/maps/place/Threads+Beauty+Bar+and+Spa"
+      ],
+      "servesCuisine": null,
+      "description": "Threads Beauty Bar and Spa — full-service beauty salon offering eyebrow threading, waxing, HydraFacials, hair services, head massage, and henna in Dublin, CA."
     }
-    // Wait for React mount, then start watching
-    setTimeout(watchReveals, 100);
-    setTimeout(watchReveals, 500);
-    new MutationObserver(() => { clearTimeout(window.__revT); window.__revT = setTimeout(watchReveals, 50); }).observe(document.body, {childList:true, subtree:true});
+    </script>
 
-    // Drawer
-    const drawer = document.getElementById('drawer');
-    document.getElementById('ham').addEventListener('click', () => drawer.classList.toggle('open'));
-    function closeDrawer(){ drawer.classList.remove('open'); }
-    window.closeDrawer = closeDrawer;
-  </script>
-</body>
+    <!-- Google Fonts — preconnect for speed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
