@@ -111,7 +111,7 @@ const Hero = () => {
   return (
     <section id="hero-section" data-screen-label="01 hero" ref={ref} style={{
       minHeight: '100svh', position: 'relative', overflow: 'hidden',
-      paddingTop: 'calc(74px + clamp(24px, 5vw, 56px))',
+      paddingTop: 'calc(74px + clamp(12px, 3vw, 56px))',
       paddingBottom: 'clamp(40px,6vw,80px)',
       display: 'flex', flexDirection: 'column',
     }}>
@@ -137,12 +137,12 @@ const Hero = () => {
         {/* LEFT */}
         <div>
           {/* Status pill */}
-          <div className="reveal" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '6px 14px', borderRadius: 999,
+          <div className="reveal hero-pill" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            padding: '5px 12px', borderRadius: 999,
             background: 'rgba(22,101,52,.10)', border: '1px solid rgba(22,101,52,.22)',
-            fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase',
-            color: 'var(--accent)', marginBottom: 22,
+            fontFamily: 'var(--mono)', fontSize: 9, letterSpacing: '.06em', textTransform: 'uppercase',
+            color: 'var(--accent)', marginBottom: 16,
           }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', animation: 'heroDot 2s ease-in-out infinite' }}/>
             Now accepting creators — Instagram &amp; YouTube
@@ -156,20 +156,21 @@ const Hero = () => {
           </h1>
 
           <p className="reveal reveal-d2" style={{
-            fontSize: 18, lineHeight: 1.55, color: 'var(--ink-2)', maxWidth: 520, marginTop: 24,
+            fontSize: 'clamp(14px,1.6vw,18px)', lineHeight: 1.55, color: 'var(--ink-2)', maxWidth: 520, marginTop: 20,
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
           }}>
             You try, you post, you stay consistent — but your videos don't reach enough people.<br/>
-            Not because your content is bad… but because it's not getting the <span style={{ color: 'var(--accent)', fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 600 }}>visibility it needs.</span>
+            Not because your content is bad… but because it's not getting the <span style={{ color: 'var(--accent)', fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 600 }}>visibility it needs.</span><br/>
+            <span style={{ fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 400 }}>We help your content finally get seen.</span>
           </p>
 
-          <div className="reveal reveal-d3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }}>
+          <div className="reveal reveal-d3" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 20 }}>
             <window.Btn primary href="#pricing">Start My Growth →</window.Btn>
             <window.Btn href="#process">See How It Works</window.Btn>
           </div>
 
           {/* Trust icons */}
-          <div className="reveal reveal-d4 hero-trust" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginTop: 24 }}>
+          <div className="reveal reveal-d4 hero-trust" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16 }}>
             {[['🔒','No passwords required'],['🛡️','Secure checkout via Stripe'],['⚡','Results in 24–72 hours']].map(([ic,l]) => (
               <div key={l} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 15 }}>{ic}</span>
@@ -179,7 +180,7 @@ const Hero = () => {
           </div>
 
           {/* Social proof avatars */}
-          <div className="reveal reveal-d4 hero-social" style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 20 }}>
+          <div className="reveal reveal-d4 hero-social" style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 14 }}>
             <div style={{ display: 'flex' }}>
               {[['M','#2d6a4f,#1b4332'],['J','#1e6091,#023e8a'],['S','#6d4c41,#4e342e'],['K','#4a1942,#6a1e5e'],['R','#2d6a4f,#40916c']].map(([l,g], i) => (
                 <div key={i} style={{ width:28, height:28, borderRadius:'50%', background:`linear-gradient(135deg,${g})`, border:'2px solid var(--bg)', marginLeft: i ? -8 : 0, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontWeight:700, color:'#fff' }}>{l}</div>
@@ -252,8 +253,10 @@ const Hero = () => {
         @keyframes hfc2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
         @media(max-width:900px){.hero-inner-grid{grid-template-columns:1fr !important;padding-bottom:clamp(32px,6vw,60px)}.hero-right-col{display:none !important}}
         @media(max-width:900px){#hero-section{min-height:auto !important;padding-bottom:0}}
-        @media(max-width:480px){.hero-trust{gap:12px !important;flex-direction:column}}
-        @media(max-width:480px){.hero-social{flex-direction:column;align-items:flex-start !important;gap:10px !important}}
+        @media(max-width:480px){.hero-trust{gap:10px !important;flex-direction:column}}
+        @media(max-width:480px){.hero-social{flex-direction:column;align-items:flex-start !important;gap:8px !important}}
+        @media(max-width:480px){#hero-section{padding-top:calc(74px + 10px) !important}}
+        @media(max-width:380px){.hero-pill{font-size:8px !important;letter-spacing:.04em !important;padding:4px 10px !important}}
       `}</style>
     </section>
   );

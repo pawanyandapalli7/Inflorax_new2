@@ -4,13 +4,13 @@ const audiences = [
     n:'01', tag:'Under 5K followers',
     t:"Posting… but no one's seeing it",
     d:"You're trying your best. Posting regularly. Following trends. But your videos don't reach people. You're waiting for something to click — but it never does.",
-    cta:'Get your first push',
+    cta:'You just need that first visibility push.',
   },
   {
     n:'02', tag:'Plateau',
     t:'Your growth suddenly stopped',
     d:"You had some posts doing okay before. But now everything feels slow again. Less reach. Less engagement. And you don't know what changed.",
-    cta:'Break through the plateau',
+    cta:'You need momentum again.',
   },
   {
     n:'03', tag:'Serious creator',

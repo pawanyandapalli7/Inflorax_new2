@@ -71,7 +71,7 @@ const igPlans = [
   },
   {
     name:'Icon', tier:'Authority', n:'05', emoji:'💎', tag:'Dominate your niche',
-    price:1499, popular:false,
+    price:1199, popular:false,
     tagline:'For creators building a media brand',
     desc:"Full-scale brand-building. Dominate your niche and turn content into a real, lasting media presence.",
     feats:[
@@ -238,84 +238,84 @@ const PriceCard = ({plan: p, showCount}) => {
   return (
     <div className="reveal price-card-inner" style={{
       position:'relative',
-      background:'rgba(255,255,255,.75)',
+      background:'rgba(255,255,255,.8)',
       color:'var(--ink)',
       border:'1.5px solid var(--line)',
-      borderRadius:22,
-      padding:'26px 20px 22px',
+      borderRadius:18,
+      padding:'18px 16px 16px',
       display:'flex', flexDirection:'column',
-      boxShadow:'0 4px 20px rgba(15,31,15,.06)',
-      transform: isPop ? 'translateY(-10px)' : 'none',
+      boxShadow:'0 2px 12px rgba(15,31,15,.05)',
+      transform: isPop ? 'translateY(-8px)' : 'none',
       backdropFilter:'blur(8px)',
       transition:'transform .25s, border-color .25s, box-shadow .25s',
     }}
-    onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.boxShadow='0 12px 40px rgba(22,101,52,.14)'; e.currentTarget.style.transform=isPop?'translateY(-14px)':'translateY(-4px)'; }}
-    onMouseLeave={e => { e.currentTarget.style.borderColor='var(--line)'; e.currentTarget.style.boxShadow='0 4px 20px rgba(15,31,15,.06)'; e.currentTarget.style.transform=isPop?'translateY(-10px)':'none'; }}>
+    onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.boxShadow='0 8px 32px rgba(22,101,52,.12)'; e.currentTarget.style.transform=isPop?'translateY(-12px)':'translateY(-3px)'; }}
+    onMouseLeave={e => { e.currentTarget.style.borderColor='var(--line)'; e.currentTarget.style.boxShadow='0 2px 12px rgba(15,31,15,.05)'; e.currentTarget.style.transform=isPop?'translateY(-8px)':'none'; }}>
 
       {/* Most popular badge */}
       {isPop && (
         <div style={{
-          position:'absolute', top:-14, left:'50%', transform:'translateX(-50%)',
-          padding:'5px 14px', background:'var(--accent)', color:'#fff',
+          position:'absolute', top:-12, left:'50%', transform:'translateX(-50%)',
+          padding:'4px 12px', background:'var(--accent)', color:'#fff',
           fontSize:9, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.14em',
           borderRadius:999, fontWeight:700, whiteSpace:'nowrap',
-          boxShadow:'0 4px 16px rgba(22,101,52,.35)',
+          boxShadow:'0 4px 12px rgba(22,101,52,.3)',
         }}>★ Most Popular</div>
       )}
 
-      {/* Top row: n · NAME on left, emoji on right */}
-      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:14}}>
-        <div style={{fontFamily:'var(--mono)', fontSize:10, letterSpacing:'.12em', textTransform:'uppercase', color:'var(--ink-3)'}}>
-          {p.n} · {p.name}
+      {/* Top: n · tier-name small, emoji right */}
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:4}}>
+        <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.12em', textTransform:'uppercase', color:'var(--ink-3)'}}>
+          {p.n} · {p.tier}
         </div>
-        <span style={{fontSize:20, lineHeight:1}}>{p.emoji}</span>
+        <span style={{fontSize:18, lineHeight:1}}>{p.emoji}</span>
       </div>
 
-      {/* Plan title */}
+      {/* Plan NAME — big and bold (swapped) */}
       <h3 style={{
         fontFamily:'var(--sans)', fontWeight:900,
-        fontSize:'clamp(20px,2.2vw,26px)', letterSpacing:'-.02em', lineHeight:1.05,
-        color:'var(--ink)', marginBottom:6,
-      }}>{p.tier}</h3>
+        fontSize:'clamp(22px,2.4vw,30px)', letterSpacing:'-.03em', lineHeight:1,
+        color:'var(--ink)', marginBottom:4,
+      }}>{p.name}</h3>
 
-      {/* Tagline */}
+      {/* Tagline — small italic */}
       <p style={{
-        fontSize:12, color:'var(--ink-3)', marginBottom:18,
-        lineHeight:1.45, fontStyle:'italic', fontFamily:'var(--serif)',
+        fontSize:11, color:'var(--ink-3)', marginBottom:12,
+        lineHeight:1.4, fontStyle:'italic', fontFamily:'var(--serif)',
       }}>{p.tagline}</p>
 
       {/* Price */}
-      <div style={{display:'flex', alignItems:'baseline', gap:8, marginBottom:4}}>
-        <span style={{fontFamily:'var(--sans)', fontWeight:900, fontSize:'clamp(30px,3.5vw,42px)', lineHeight:1, color:'var(--accent)', letterSpacing:'-.03em'}}>${p.price}</span>
-        <span style={{fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)'}}>one-time</span>
+      <div style={{display:'flex', alignItems:'baseline', gap:6, marginBottom:2}}>
+        <span style={{fontFamily:'var(--sans)', fontWeight:900, fontSize:'clamp(26px,3vw,38px)', lineHeight:1, color:'var(--accent)', letterSpacing:'-.03em'}}>${p.price}</span>
+        <span style={{fontSize:10, color:'var(--ink-3)', fontFamily:'var(--mono)'}}>one-time</span>
       </div>
-      <div style={{fontSize:10, fontFamily:'var(--mono)', color:'var(--ink-3)', letterSpacing:'.06em', textTransform:'uppercase', marginBottom:18}}>
+      <div style={{fontSize:9, fontFamily:'var(--mono)', color:'var(--ink-3)', letterSpacing:'.06em', textTransform:'uppercase', marginBottom:12}}>
         Delivered in {p.delivery} · Launch pricing
       </div>
 
       {/* Divider */}
-      <div style={{height:1, background:'var(--line)', marginBottom:14}}/>
+      <div style={{height:1, background:'var(--line)', marginBottom:10}}/>
 
-      {/* Feature count indicator */}
-      <div style={{marginBottom:12}}>
-        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:5}}>
-          <span style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.1em', textTransform:'uppercase', color:'var(--ink-3)'}}>What's included</span>
+      {/* Feature count bar */}
+      <div style={{marginBottom:8}}>
+        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:4}}>
+          <span style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)'}}>What's included</span>
           <span style={{
-            fontFamily:'var(--mono)', fontSize:10, fontWeight:700,
-            color:'var(--accent)', padding:'2px 7px', borderRadius:4,
+            fontFamily:'var(--mono)', fontSize:9, fontWeight:700,
+            color:'var(--accent)', padding:'2px 6px', borderRadius:4,
             background:'var(--accent-l)',
           }}>{showCount} services</span>
         </div>
-        <div style={{height:3, background:'var(--line)', borderRadius:999}}>
+        <div style={{height:2, background:'var(--line)', borderRadius:999}}>
           <div style={{height:'100%', borderRadius:999, width:`${fillRatio*100}%`, background:'var(--accent)', transition:'width .4s ease'}}/>
         </div>
       </div>
 
-      {/* Features */}
-      <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:8, marginBottom:18, flex:1}}>
+      {/* Features — tighter gap */}
+      <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:5, marginBottom:12, flex:1}}>
         {p.feats.slice(0, showCount).map((f, i) => (
-          <li key={i} style={{display:'flex', gap:9, fontSize:13, lineHeight:1.45, color:'var(--ink-2)'}}>
-            <span style={{color:'var(--accent)', fontWeight:700, fontSize:11, marginTop:2, flexShrink:0}}>✓</span>
+          <li key={i} style={{display:'flex', gap:7, fontSize:12, lineHeight:1.4, color:'var(--ink-2)'}}>
+            <span style={{color:'var(--accent)', fontWeight:700, fontSize:10, marginTop:1, flexShrink:0}}>✓</span>
             <span>{f}</span>
           </li>
         ))}
@@ -323,21 +323,21 @@ const PriceCard = ({plan: p, showCount}) => {
 
       {/* Best for */}
       <div style={{
-        padding:'10px 12px', borderRadius:10, marginBottom:14,
+        padding:'8px 10px', borderRadius:8, marginBottom:10,
         background:'rgba(22,101,52,.06)',
         border:'1px solid rgba(22,101,52,.12)',
       }}>
-        <div style={{fontSize:9, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.08em', color:'var(--ink-3)', marginBottom:3}}>Best for</div>
-        <div style={{fontSize:12, fontWeight:600, color:'var(--ink)', lineHeight:1.4}}>{p.best}</div>
+        <div style={{fontSize:8, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.08em', color:'var(--ink-3)', marginBottom:2}}>Best for</div>
+        <div style={{fontSize:11, fontWeight:600, color:'var(--ink)', lineHeight:1.35}}>{p.best}</div>
       </div>
 
       {/* CTA */}
       <a href={p.stripe} target="_blank" rel="noopener" style={{
         display:'flex', alignItems:'center', justifyContent:'center', gap:8,
-        padding:'13px 16px', borderRadius:999,
+        padding:'11px 14px', borderRadius:999,
         background:'var(--ink)', color:'#fff',
         border:'1.5px solid var(--ink)',
-        fontSize:13, fontWeight:700, textDecoration:'none',
+        fontSize:12, fontWeight:700, textDecoration:'none',
         letterSpacing:'.01em', transition:'transform .2s, background .2s, border-color .2s',
       }}
       onMouseEnter={e => { e.currentTarget.style.background='var(--accent)'; e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.transform='translateY(-1px)'; }}
