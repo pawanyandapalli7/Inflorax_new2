@@ -74,6 +74,14 @@ const About = () => (
 
       </div>
     </div>
+        {/* CTA */}
+        <div className="reveal" style={{marginTop:48, textAlign:'center'}}>
+          <div style={{display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap'}}>
+            <window.Btn primary href="#pricing">View packages →</window.Btn>
+            <window.Btn onClick={() => window.openAuditModal && window.openAuditModal()}>Get free audit</window.Btn>
+          </div>
+        </div>
+
     <style>{`
       @media(max-width:900px){.about-grid{grid-template-columns:1fr !important;gap:28px}}
       @media(max-width:480px){.about-mission-card{padding:28px 22px !important}}

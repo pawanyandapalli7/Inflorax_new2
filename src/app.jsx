@@ -1,4 +1,4 @@
-// APP — lean composition (11 sections)
+// APP — conversion-optimised order
 const App = () => {
   const tw = window.useTweaks ? window.useTweaks(window.TWEAK_DEFAULTS) : [window.TWEAK_DEFAULTS, () => {}];
   const [tweaks, setTweak] = tw;
@@ -20,7 +20,6 @@ const App = () => {
       <window.Who/>
       <window.Process/>
       <window.Pricing/>
-      <window.Testimonials/>
       <window.Showcase/>
       <window.About/>
       <window.FAQ/>
@@ -31,15 +30,15 @@ const App = () => {
       {window.TweaksPanel && (
         <window.TweaksPanel title="Tweaks">
           <window.TweakSection label="Density"/>
-          <window.TweakRadio label="Spacing" value={tweaks.density || 'tight'} onChange={v => setTweak('density', v)} options={['cozy', 'tight', 'compressed']}/>
+          <window.TweakRadio label="Spacing" value={tweaks.density||'tight'} onChange={v=>setTweak('density',v)} options={['cozy','tight','compressed']}/>
           <window.TweakSection label="Motion"/>
-          <window.TweakRadio label="Intensity" value={tweaks.motion || 'high'} onChange={v => setTweak('motion', v)} options={['calm', 'high', 'extra']}/>
-          <window.TweakToggle label="Background glow" value={!!tweaks.glow} onChange={v => setTweak('glow', v)}/>
+          <window.TweakRadio label="Intensity" value={tweaks.motion||'high'} onChange={v=>setTweak('motion',v)} options={['calm','high','extra']}/>
+          <window.TweakToggle label="Background glow" value={!!tweaks.glow} onChange={v=>setTweak('glow',v)}/>
           <window.TweakSection label="Accent"/>
-          <window.TweakColor label="Accent color" value={tweaks.accent || '#166534'} onChange={v => setTweak('accent', v)}/>
-          <div style={{display:'flex', gap:6, padding:'4px 0', flexWrap:'wrap'}}>
-            {[{n:'Forest',c:'#166534'},{n:'Emerald',c:'#059669'},{n:'Lime',c:'#65a30d'},{n:'Teal',c:'#0d9488'},{n:'Sage',c:'#4d7c5f'},{n:'Mint',c:'#16a34a'}].map(p => (
-              <button key={p.c} onClick={() => setTweak('accent', p.c)} title={p.n}
+          <window.TweakColor label="Accent color" value={tweaks.accent||'#166534'} onChange={v=>setTweak('accent',v)}/>
+          <div style={{display:'flex',gap:6,padding:'4px 0',flexWrap:'wrap'}}>
+            {[{n:'Forest',c:'#166534'},{n:'Emerald',c:'#059669'},{n:'Lime',c:'#65a30d'},{n:'Teal',c:'#0d9488'},{n:'Sage',c:'#4d7c5f'},{n:'Mint',c:'#16a34a'}].map(p=>(
+              <button key={p.c} onClick={()=>setTweak('accent',p.c)} title={p.n}
                 style={{width:24,height:24,borderRadius:'50%',background:p.c,border:tweaks.accent===p.c?'2px solid #fff':'2px solid rgba(0,0,0,.1)',cursor:'pointer',boxShadow:tweaks.accent===p.c?`0 0 0 2px ${p.c}`:'none'}}/>
             ))}
           </div>

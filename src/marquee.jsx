@@ -1,6 +1,6 @@
 // MARQUEE — bigger Kinetic
 const Marquee = ({words, speed=42, reverse=false, big=true}) => {
-  const list = words || ['VISIBILITY', 'REACH', 'GROWTH', 'PROMOTION', 'DISCOVERY', 'AUDIENCE', 'MOMENTUM', 'EXPOSURE', 'INSTAGRAM', 'YOUTUBE'];
+  const list = words || ['VISIBILITY', 'REACH', 'GROWTH', 'PROMOTION', 'DISCOVERY', 'AUDIENCE', 'MOMENTUM', 'EXPOSURE', 'ENGAGEMENT', 'RESULTS'];
   return (
     <div style={{
       padding: big ? '40px 0' : '20px 0',

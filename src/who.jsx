@@ -1,22 +1,22 @@
 // WHO — 3 cards, no redundant header (Problem above already sets the stage)
 const audiences = [
   {
-    n:'01', tag:'Under 5K',
+    n:'01', tag:'Under 5K followers',
     t:"Posting… but no one's seeing it",
-    d:"You're trying your best. Posting regularly. But your videos don't reach people. You just need that first visibility push.",
+    d:"You're trying your best. Posting regularly. Following trends. But your videos don't reach people. You're waiting for something to click — but it never does.",
     cta:'Get your first push',
   },
   {
     n:'02', tag:'Plateau',
     t:'Your growth suddenly stopped',
-    d:"Some posts did okay before. Now everything's slow again — less reach, less engagement. You need momentum back.",
+    d:"You had some posts doing okay before. But now everything feels slow again. Less reach. Less engagement. And you don't know what changed.",
     cta:'Break through the plateau',
   },
   {
     n:'03', tag:'Serious creator',
-    t:"Good content. Not enough reach.",
-    d:"You care about what you make. You're consistent. But without visibility, even great content stays hidden.",
-    cta:'Get the right push forward',
+    t:"You're serious… but something is missing",
+    d:"You care about your content. You want to grow properly. But without visibility, even good content stays hidden.",
+    cta:'You need the right push to move forward.',
   },
 ];
 
@@ -26,12 +26,18 @@ const Who = () => (
       <div style={{marginBottom:40}}>
         <span className="reveal" style={window.labelStyle}>This is for you</span>
         <h2 className="wreveal" style={{...window.bigHeadStyle(), fontSize:'clamp(40px,7vw,108px)', marginTop:14}}>
-          If you feel stuck.
+          If you feel stuck<br/>right now.
         </h2>
+        <p className="reveal reveal-d1" style={{marginTop:16, fontSize:16, color:'var(--ink-2)', maxWidth:600, lineHeight:1.6}}>
+          No matter where you are in your journey — this is the stage where most creators struggle.
+        </p>
       </div>
       <div style={{display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16}} className="who-grid">
         {audiences.map((a,i) => <WhoCard key={i} {...a}/>)}
       </div>
+    </div>
+    <div className="reveal" style={{marginTop:36, textAlign:'center', fontSize:15, fontWeight:600, color:'var(--ink)', fontFamily:'var(--serif)', fontStyle:'italic'}}>
+      Wherever you are — this is the stage we help you move past.
     </div>
     <style>{`
       @media(max-width:900px){.who-grid{grid-template-columns:1fr !important}}
@@ -55,7 +61,7 @@ const WhoCard = ({n,t,tag,d,cta}) => (
     </div>
     <h3 style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:'clamp(18px,2vw,24px)', letterSpacing:'-.02em', lineHeight:1.15, color:'var(--ink)', marginBottom:12}}>{t}</h3>
     <p style={{fontSize:14, lineHeight:1.6, color:'var(--ink-2)', flex:1}}>{d}</p>
-    <div style={{marginTop:20, paddingTop:16, borderTop:'1px solid var(--line)', fontSize:13, color:'var(--accent)', fontWeight:600, fontFamily:'var(--serif)', fontStyle:'italic'}}>→ {cta}</div>
+    <a href="#pricing" style={{marginTop:20, paddingTop:16, borderTop:'1px solid var(--line)', fontSize:13, color:'var(--accent)', fontWeight:600, fontFamily:'var(--serif)', fontStyle:'italic', display:'block', textDecoration:'none', transition:'opacity .2s'}} onMouseEnter={e=>e.currentTarget.style.opacity='.7'} onMouseLeave={e=>e.currentTarget.style.opacity='1'}>→ {cta}</a>
   </div>
 );
 

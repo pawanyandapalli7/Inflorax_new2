@@ -35,7 +35,7 @@ const Process = () => {
             </h2>
           </div>
           <p className="reveal reveal-d2" style={{fontSize:17, lineHeight:1.55, color:'var(--ink-2)', maxWidth:480, justifySelf:'end', fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300}}>
-            No confusion. No complicated setup. Just a clear process — from picking a plan to seeing real movement.
+            Simple steps to get your content seen. No confusion. No complicated setup. Just a clear process.
           </p>
         </header>
 
@@ -65,6 +65,17 @@ const Process = () => {
             ))}
           </div>
         </div>
+        {/* CTA after process */}
+        <div className="reveal" style={{marginTop:56, textAlign:'center'}}>
+          <p style={{fontSize:16, color:'var(--ink-2)', marginBottom:20, fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300}}>
+            That's it. No complicated setup. Just results.
+          </p>
+          <div style={{display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap'}}>
+            <window.Btn primary href="#pricing">View packages →</window.Btn>
+            <window.Btn onClick={() => window.openAuditModal && window.openAuditModal()}>Get free audit</window.Btn>
+          </div>
+        </div>
+
         <style>{`
           @media(max-width:900px){
             .proc-head{grid-template-columns:1fr !important; gap:16px}
@@ -168,11 +179,11 @@ const PVChart = () => {
       <div style={{display:'flex', justifyContent:'space-between', marginTop:12, padding:'12px 14px', background:'rgba(240,246,232,.05)', border:'1px solid rgba(240,246,232,.12)', borderRadius:10}}>
         <div>
           <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.55)', textTransform:'uppercase'}}>Reach</div>
-          <div style={{fontSize:20, fontWeight:800, color:'var(--accent)'}}>+412%</div>
+          <div style={{fontSize:20, fontWeight:800, color:'var(--accent)'}}>↑ Up</div>
         </div>
         <div>
-          <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.55)', textTransform:'uppercase'}}>Avg views</div>
-          <div style={{fontSize:20, fontWeight:800, color:'var(--accent)'}}>38K</div>
+          <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.55)', textTransform:'uppercase'}}>Visibility</div>
+          <div style={{fontSize:20, fontWeight:800, color:'var(--accent)'}}>Growing</div>
         </div>
       </div>
     </div>

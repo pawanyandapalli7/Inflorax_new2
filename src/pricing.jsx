@@ -69,6 +69,26 @@ const igPlans = [
     delivery:'14–21 days',
     stripe:'https://buy.stripe.com/bJe6oAa1VbtT5Wlbie67S03',
   },
+  {
+    name:'Icon', tier:'Authority', n:'05', emoji:'💎', tag:'Dominate your niche',
+    price:1499, popular:false,
+    tagline:'For creators building a media brand',
+    desc:"Full-scale brand-building. Dominate your niche and turn content into a real, lasting media presence.",
+    feats:[
+      'Full-scale promotion system',
+      'Content + profile overhaul support',
+      'Long-term audience building',
+      'Profile positioning strategy',
+      'Personal growth roadmap',
+      'Audience targeting — advanced',
+      'Multi-post + multi-platform campaign',
+      'Collab & brand outreach support',
+      'Detailed performance summary',
+    ],
+    best:'Creators building a serious media brand',
+    delivery:'21–30 days',
+    stripe:'https://buy.stripe.com/cNicMY2zt69z0C14TQ67S04',
+  },
 ];
 
 const ytPlans = [
@@ -125,7 +145,7 @@ const ytPlans = [
 ];
 
 const FEAT_SHOW = {
-  'Spark':4, 'Ignite':6, 'Momentum':7, 'Influence':8,
+  'Spark':4, 'Ignite':6, 'Momentum':7, 'Influence':8, 'Icon':9,
   'Foundation':4, 'Accelerate':6, 'Scale':7,
 };
 
@@ -170,15 +190,40 @@ const Pricing = () => {
           {plans.map((p, i) => <PriceCard key={`${platform}-${i}`} plan={p} showCount={FEAT_SHOW[p.name] || p.feats.length}/>)}
         </div>
 
-        {/* Disclaimer — one line */}
-        <p className="reveal" style={{marginTop:24, textAlign:'center', fontFamily:'var(--mono)', fontSize:11, color:'var(--ink-3)', letterSpacing:'.06em', textTransform:'uppercase'}}>
-          Real accounts only · No passwords · Results vary by content quality &amp; consistency
-        </p>
+        {/* Undecided CTA */}
+        <div className="reveal" style={{marginTop:32, padding:'20px 24px', background:'rgba(22,101,52,.06)', border:'1px solid rgba(22,101,52,.15)', borderRadius:16, display:'flex', alignItems:'center', justifyContent:'space-between', gap:20, flexWrap:'wrap'}}>
+          <p style={{fontSize:15, color:'var(--ink-2)', fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300}}>
+            Not sure which plan fits you?
+          </p>
+          <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
+            background:'var(--accent)', color:'#fff', border:'none',
+            padding:'11px 22px', borderRadius:999, fontSize:13, fontWeight:700,
+            cursor:'pointer', whiteSpace:'nowrap', transition:'opacity .2s',
+          }}
+          onMouseEnter={e=>e.currentTarget.style.opacity='.85'}
+          onMouseLeave={e=>e.currentTarget.style.opacity='1'}>
+            Get a free audit — we'll recommend one →
+          </button>
+        </div>
+
+        {/* Disclaimer — 3 lines from doc */}
+        <div className="reveal" style={{marginTop:16, display:'flex', flexDirection:'column', gap:6, alignItems:'center'}}>
+          {[
+            'Results depend on content quality, consistency, and audience response.',
+            'We never ask for passwords or login access.',
+            'Designed for real visibility — not fake numbers.',
+          ].map(t => (
+            <p key={t} style={{fontFamily:'var(--mono)', fontSize:11, color:'var(--ink-3)', letterSpacing:'.04em', textAlign:'center'}}>
+              → {t}
+            </p>
+          ))}
+        </div>
 
         <style>{`
-          @media(max-width:960px){.price-grid{grid-template-columns:repeat(2,1fr) !important; gap:10px}}
-          @media(max-width:540px){.price-grid{grid-template-columns:1fr !important; gap:12px}}
-          @media(max-width:540px){.price-card-inner{padding:20px 16px 18px !important}}
+          @media(max-width:1200px){.price-grid{grid-template-columns:repeat(3,1fr) !important; gap:10px}}
+          @media(max-width:720px){.price-grid{grid-template-columns:repeat(2,1fr) !important; gap:10px}}
+          @media(max-width:480px){.price-grid{grid-template-columns:1fr !important; gap:12px}}
+          @media(max-width:480px){.price-card-inner{padding:20px 16px 18px !important}}
         `}</style>
       </div>
     </window.Section>
@@ -187,7 +232,7 @@ const Pricing = () => {
 
 const PriceCard = ({plan: p, showCount}) => {
   const isPop = p.popular;
-  const maxFeats = 8;
+  const maxFeats = 9;
   const fillRatio = showCount / maxFeats;
 
   return (

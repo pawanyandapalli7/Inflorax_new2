@@ -99,7 +99,7 @@ const Showcase = () => {
                 }}
                 onMouseEnter={e => e.currentTarget.style.background='rgba(255,255,255,.25)'}
                 onMouseLeave={e => e.currentTarget.style.background='rgba(255,255,255,.15)'}>
-                  Get a free audit for {cur.niche.charAt(0) + cur.niche.slice(1).toLowerCase()} →
+                  Get a free audit →
                 </button>
               </div>
             </div>

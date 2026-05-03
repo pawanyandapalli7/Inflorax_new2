@@ -77,6 +77,23 @@ const FAQ = () => {
           </div>
         </div>
       </div>
+      {/* Closing CTA */}
+      <div className="reveal" style={{marginTop:48, padding:'28px 32px', background:'var(--accent)', borderRadius:20, display:'flex', alignItems:'center', justifyContent:'space-between', gap:20, flexWrap:'wrap'}}>
+        <div>
+          <div style={{fontWeight:800, fontSize:18, color:'#fff', letterSpacing:'-.01em', marginBottom:4}}>Ready to get started?</div>
+          <div style={{fontSize:14, color:'rgba(255,255,255,.75)'}}>Get a free audit — takes 2 minutes, no credit card.</div>
+        </div>
+        <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
+          background:'#fff', color:'var(--accent)', border:'none',
+          padding:'12px 24px', borderRadius:999, fontSize:13, fontWeight:700,
+          cursor:'pointer', whiteSpace:'nowrap', flexShrink:0, transition:'opacity .2s',
+        }}
+        onMouseEnter={e=>e.currentTarget.style.opacity='.9'}
+        onMouseLeave={e=>e.currentTarget.style.opacity='1'}>
+          Start my free audit →
+        </button>
+      </div>
+
       <style>{`
         @media(max-width:900px){.faq-grid{grid-template-columns:1fr !important;gap:24px}.faq-grid>div:first-child{position:static !important}}
         @media(max-width:480px){.faq-btn{padding:16px 0 !important}}

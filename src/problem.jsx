@@ -40,6 +40,9 @@ const Problem = () => {
                 <span style={{paddingLeft:12, borderLeft:'2px solid var(--accent)', fontStyle:'italic'}}>"Am I doing something wrong?"</span>
               </div>
             </div>
+            <p style={{marginTop:20, fontSize:14, fontWeight:700, color:'var(--ink)', lineHeight:1.5}}>
+              This is the stage where most people give up.
+            </p>
           </div>
 
           {/* RIGHT — truth */}
@@ -64,8 +67,26 @@ const Problem = () => {
               <div style={{fontSize:13, color:'rgba(240,246,232,.55)', marginBottom:6, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.1em'}}>That's not your fault.</div>
               <div style={{fontSize:'clamp(20px,2.5vw,28px)', fontWeight:800, color:'var(--accent)', letterSpacing:'-.02em'}}>It's a visibility problem.</div>
             </div>
+            <p style={{marginTop:24, fontSize:16, lineHeight:1.55, color:'rgba(240,246,232,.78)', position:'relative', fontWeight:600}}>
+              And that's exactly where we help you.
+            </p>
           </div>
         </div>
+        {/* Bridge to next section */}
+        <div className="reveal" style={{marginTop:48, display:'flex', alignItems:'center', justifyContent:'center', gap:16, flexWrap:'wrap'}}>
+          <span style={{fontSize:15, color:'var(--ink-2)', fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:600}}>You're not alone. This is where most creators get stuck.</span>
+          <a href="#process" style={{
+            display:'inline-flex', alignItems:'center', gap:8,
+            fontSize:14, fontWeight:700, color:'var(--accent)', textDecoration:'none',
+            borderBottom:'1.5px solid var(--accent-l)', paddingBottom:2,
+            transition:'border-color .2s',
+          }}
+          onMouseEnter={e=>e.currentTarget.style.borderColor='var(--accent)'}
+          onMouseLeave={e=>e.currentTarget.style.borderColor='var(--accent-l)'}>
+            See how we fix it →
+          </a>
+        </div>
+
         <style>{`
           @media(max-width:900px){.prob-grid{grid-template-columns:1fr !important; gap:16px}}
           @media(max-width:480px){.prob-card{padding:24px 20px !important}}

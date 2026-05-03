@@ -150,21 +150,22 @@ const Hero = () => {
 
           {/* Clean headline — no mid-word splits */}
           <h1 className="wreveal" style={{ ...window.bigHeadStyle(), fontSize: 'clamp(44px, 8.5vw, 148px)', marginBottom: 0 }}>
-            Your content<br/>
-            deserves<br/>
-            to be <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, textTransform: 'none', letterSpacing: '-.04em', color: 'var(--accent)' }}>seen.</span>
+            You've been<br/>
+            posting… but<br/>
+            <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, textTransform: 'none', letterSpacing: '-.04em', color: 'var(--accent)' }}>no one is seeing it.</span>
           </h1>
 
           <p className="reveal reveal-d2" style={{
             fontSize: 18, lineHeight: 1.55, color: 'var(--ink-2)', maxWidth: 520, marginTop: 24,
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
           }}>
-            We put your content in front of the right people — so <span style={{ color: 'var(--accent)', fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 600 }}>real momentum</span> can finally build.
+            You try, you post, you stay consistent — but your videos don't reach enough people.<br/>
+            Not because your content is bad… but because it's not getting the <span style={{ color: 'var(--accent)', fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 600 }}>visibility it needs.</span>
           </p>
 
           <div className="reveal reveal-d3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }}>
-            <window.Btn primary href="#pricing">View packages →</window.Btn>
-            <window.Btn onClick={() => window.openAuditModal && window.openAuditModal()}>Get free audit</window.Btn>
+            <window.Btn primary href="#pricing">Start My Growth →</window.Btn>
+            <window.Btn href="#process">See How It Works</window.Btn>
           </div>
 
           {/* Trust icons */}
@@ -183,10 +184,10 @@ const Hero = () => {
               {[['M','#2d6a4f,#1b4332'],['J','#1e6091,#023e8a'],['S','#6d4c41,#4e342e'],['K','#4a1942,#6a1e5e'],['R','#2d6a4f,#40916c']].map(([l,g], i) => (
                 <div key={i} style={{ width:28, height:28, borderRadius:'50%', background:`linear-gradient(135deg,${g})`, border:'2px solid var(--bg)', marginLeft: i ? -8 : 0, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontWeight:700, color:'#fff' }}>{l}</div>
               ))}
-              <div style={{ width:28, height:28, borderRadius:'50%', background:'var(--accent)', border:'2px solid var(--bg)', marginLeft:-8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:8, fontWeight:700, color:'#fff' }}>18+</div>
+              <div style={{ width:28, height:28, borderRadius:'50%', background:'var(--accent)', border:'2px solid var(--bg)', marginLeft:-8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:8, fontWeight:700, color:'#fff' }}>+</div>
             </div>
             <div>
-              <div style={{ fontWeight:700, fontSize:12, color:'var(--ink)' }}>18 creators joined this week</div>
+              <div style={{ fontWeight:700, fontSize:12, color:'var(--ink)' }}>Creators joining every week</div>
               <div style={{ fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)', display:'flex', alignItems:'center', gap:5 }}>
                 <span style={{ width:6, height:6, borderRadius:'50%', background:'var(--accent)', display:'inline-block' }}/>
                 Avg first results in 24–72 hours
@@ -202,11 +203,11 @@ const Hero = () => {
             <canvas id="hero-chart-canvas" style={{ width:'100%', height:'auto' }}/>
           </div>
 
-          {/* Stat cards */}
+          {/* Trust signal cards */}
           {[
-            { icon:'👥', num:'+12.4K', label:'Followers Gained', sub:'This Month', style:{top:-20, right:-20} },
-            { icon:'👁️', num:'+280%', label:'Reach Increase', sub:'vs Last Month', style:{top:'38%', right:-28} },
-            { icon:'🚀', num:'3.4×', label:'Engagement Rate', sub:'vs Last Month', style:{bottom:50, right:-20} },
+            { icon:'🔒', num:'Zero', label:'Passwords ever asked', sub:'Your account stays yours', style:{top:-20, right:-20} },
+            { icon:'✓', num:'Real', label:'Accounts only', sub:'No bots, no fakes', style:{top:'38%', right:-28} },
+            { icon:'⚡', num:'24–72h', label:'To first results', sub:'From campaign launch', style:{bottom:50, right:-20} },
           ].map((c, i) => (
             <div key={i} style={{
               position:'absolute', ...c.style,
@@ -226,7 +227,7 @@ const Hero = () => {
             </div>
           ))}
 
-          {/* Review card */}
+          {/* Trust card */}
           <div style={{
             position:'absolute', bottom:-20, left:-20,
             background:'var(--ink)', color:'var(--bone)',
@@ -234,9 +235,12 @@ const Hero = () => {
             boxShadow:'0 8px 32px rgba(15,31,15,.18)',
             animation:'hfc2 4.8s ease-in-out infinite', zIndex:3,
           }}>
-            <div style={{color:'var(--accent)', fontSize:11, marginBottom:4}}>★★★★★</div>
-            <p style={{fontSize:12, lineHeight:1.5, color:'rgba(240,246,232,.85)', marginBottom:6}}>"Finally real growth, real people. My reach doubled in the first week."</p>
-            <div style={{fontSize:10, color:'rgba(240,246,232,.4)', fontFamily:'var(--mono)'}}>@creative.jade · Lifestyle ✓</div>
+            <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.1em', textTransform:'uppercase', color:'rgba(240,246,232,.4)', marginBottom:8}}>Why creators trust us</div>
+            {[['🔒','No passwords, ever'],['✓','Real accounts only'],['⚡','Results in 24–72h']].map(([ic,t]) => (
+              <div key={t} style={{display:'flex', alignItems:'center', gap:8, fontSize:12, color:'rgba(240,246,232,.8)', marginBottom:6}}>
+                <span style={{color:'var(--accent)', fontSize:11, flexShrink:0}}>{ic}</span>{t}
+              </div>
+            ))}
           </div>
         </div>
       </div>
