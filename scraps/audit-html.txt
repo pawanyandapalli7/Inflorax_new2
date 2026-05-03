@@ -1,0 +1,165 @@
+<!-- ══ AUDIT MODAL ══ -->
+<div id="audit-modal" role="dialog" aria-modal="true" aria-label="Free Creator Audit">
+  <div class="am-panel">
+    <button class="am-close" onclick="closeAuditModal()" aria-label="Close">✕</button>
+
+    <!-- sidebar -->
+    <div class="am-sidebar">
+      <div class="am-sidebar-bg" aria-hidden="true">Audit</div>
+      <div>
+        <div class="am-brand">INFLORAX<span class="am-brand-dot"></span></div>
+        <div class="am-sub">Free Creator Audit</div>
+      </div>
+      <div class="am-mid">
+        <h2 class="am-h">Let's find your growth <em>opportunity.</em></h2>
+        <p class="am-p">Answer a few quick questions. We'll send you a personalized breakdown — free, within 48 hours.</p>
+        <div class="am-perks">
+          <div class="am-perk"><div class="am-perk-ico">📊</div>Personalized profile breakdown</div>
+          <div class="am-perk"><div class="am-perk-ico">🎯</div>Your single biggest opportunity</div>
+          <div class="am-perk"><div class="am-perk-ico">⚡</div>Delivered within 48 hours</div>
+          <div class="am-perk"><div class="am-perk-ico">🔒</div>No password required</div>
+        </div>
+      </div>
+      <div class="am-trust">
+        <div class="am-ti">No purchase required</div>
+        <div class="am-ti">No passwords ever asked</div>
+        <div class="am-ti">48h turnaround guaranteed</div>
+      </div>
+    </div>
+
+    <!-- form panel -->
+    <div class="am-form" id="am-form-panel">
+
+      <!-- progress -->
+      <div class="am-prog">
+        <div class="am-prog-top">
+          <span class="am-prog-lbl">Question <span id="am-idx">1</span> of 10</span>
+          <span class="am-prog-pct" id="am-pct">0%</span>
+        </div>
+        <div class="am-prog-track"><div class="am-prog-fill" id="am-fill"></div></div>
+        <div class="am-segs" id="am-segs"></div>
+      </div>
+
+      <!-- questions -->
+      <div class="am-qa" id="am-qa">
+
+        <div class="am-qcard active" data-q="1" data-type="contact" data-key="contact">
+          <div class="am-ey">01 of 10 — Your details</div>
+          <div class="am-qt">What's your name and email?</div>
+          <div class="am-cstack">
+            <input class="am-ti2" type="text" id="am-fname" placeholder="First name" autocomplete="given-name" oninput="amContact()"/>
+            <input class="am-ti2" type="text" id="am-lname" placeholder="Last name" autocomplete="family-name" oninput="amContact()"/>
+            <input class="am-ti2" type="email" id="am-email" placeholder="you@email.com" autocomplete="email" oninput="amContact()"/>
+          </div>
+        </div>
+
+        <div class="am-qcard" data-q="2" data-type="text" data-key="handle">
+          <div class="am-ey">02 of 10 — Your profile</div>
+          <div class="am-qt">What's your Instagram or YouTube handle?</div>
+          <div class="am-hint">e.g. @yourhandle or youtube.com/yourchannel</div>
+          <input class="am-ti2" type="text" id="am-handle" placeholder="@handle or profile URL" oninput="amText(this)"/>
+        </div>
+
+        <div class="am-qcard" data-q="3" data-type="choice" data-key="platform">
+          <div class="am-ey">03 of 10 — Platform</div>
+          <div class="am-qt">Which platform are you focusing on?</div>
+          <div class="am-choices">
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Instagram</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">YouTube</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Both</div></div>
+          </div>
+        </div>
+
+        <div class="am-qcard" data-q="4" data-type="choice" data-key="frequency">
+          <div class="am-ey">04 of 10 — Posting frequency</div>
+          <div class="am-qt">How often do you post content?</div>
+          <div class="am-choices">
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Daily</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">3–5x per week</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">1–2x per week</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Rarely</div></div>
+          </div>
+        </div>
+
+        <div class="am-qcard" data-q="5" data-type="choice" data-key="goal">
+          <div class="am-ey">05 of 10 — Your goal</div>
+          <div class="am-qt">What's your main goal right now?</div>
+          <div class="am-choices">
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">More followers</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">More views</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Better engagement</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Build my brand</div></div>
+          </div>
+        </div>
+
+        <div class="am-qcard" data-q="6" data-type="text" data-key="challenge">
+          <div class="am-ey">06 of 10 — Your challenge</div>
+          <div class="am-qt">What's your biggest challenge right now?</div>
+          <div class="am-hint">Be honest — this helps us give the most useful feedback.</div>
+          <textarea class="am-ti2" id="am-challenge" rows="4" placeholder="e.g. My reach dropped, I don't know what to post…" oninput="amText(this)"></textarea>
+        </div>
+
+        <div class="am-qcard" data-q="7" data-type="text" data-key="niche">
+          <div class="am-ey">07 of 10 — Your niche</div>
+          <div class="am-qt">What is your content niche or category?</div>
+          <div class="am-hint">e.g. fitness, finance, travel, cooking, comedy…</div>
+          <input class="am-ti2" type="text" id="am-niche" placeholder="Describe your niche…" oninput="amText(this)"/>
+        </div>
+
+        <div class="am-qcard" data-q="8" data-type="choice" data-key="experience">
+          <div class="am-ey">08 of 10 — Experience</div>
+          <div class="am-qt">How long have you been creating content?</div>
+          <div class="am-choices">
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">Under 6 months</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">6–12 months</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">1–2 years</div></div>
+            <div class="am-ch" onclick="amPick(this)"><div class="am-radio"></div><div class="am-cl">2+ years</div></div>
+          </div>
+        </div>
+
+        <div class="am-qcard" data-q="9" data-type="text" data-key="extra" data-optional="true">
+          <div class="am-ey">09 of 10 — Extra info <span class="aopt">(Optional)</span></div>
+          <div class="am-qt">Anything else we should know?</div>
+          <div class="am-hint">Any context that would help us give better feedback.</div>
+          <textarea class="am-ti2" id="am-extra" rows="4" placeholder="Share anything relevant…" oninput="amText(this)"></textarea>
+        </div>
+
+        <div class="am-qcard" data-q="10" data-type="confirm" data-key="confirm">
+          <div class="am-ey">10 of 10 — Ready to submit</div>
+          <div class="am-qt">We're ready to review your profile.</div>
+          <div class="am-hint">Hit submit and we'll send your personalized audit within 48 hours — no pitch, no pressure.</div>
+          <div style="margin-top:16px;padding:16px;background:var(--green-l);border:1px solid var(--green-m);font-size:13px;color:var(--ink60);line-height:1.7">
+            ✓ Free · No purchase required<br>
+            ✓ Delivered within 48 hours<br>
+            ✓ No passwords or login access asked
+          </div>
+        </div>
+
+      </div><!-- /am-qa -->
+
+      <!-- nav -->
+      <div class="am-nav">
+        <span class="am-rem" id="am-rem">9 questions remaining</span>
+        <div class="am-navr">
+          <button class="am-skip" id="am-skip" onclick="amSkip()" style="display:none">Skip</button>
+          <button class="am-back" id="am-back" onclick="amPrev()" style="display:none">← Back</button>
+          <button class="am-next" id="am-next" onclick="amNext()" disabled>Continue →</button>
+        </div>
+      </div>
+
+      <!-- thank you -->
+      <div class="am-ty" id="am-ty">
+        <div class="am-ty-ck">✓</div>
+        <div class="am-ty-h">You're on the list.</div>
+        <p class="am-ty-p">We'll review your profile and send your personalized audit within 48 hours.</p>
+        <div class="am-ty-list">
+          <div class="am-ty-row">Delivered to your email within 48 hours</div>
+          <div class="am-ty-row">Personalized based on your answers</div>
+          <div class="am-ty-row">No purchase required — ever</div>
+        </div>
+        <button class="am-ty-btn" onclick="closeAuditModal()">Close ✕</button>
+      </div>
+
+    </div><!-- /am-form -->
+  </div><!-- /am-panel -->
+</div><!-- /audit-modal -->
