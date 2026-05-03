@@ -6,28 +6,46 @@ const App = () => {
   // Apply density + accent + glow to root
   useEffect(() => {
     document.body.dataset.density = tweaks.density || 'tight';
-    document.documentElement.style.setProperty('--accent', tweaks.accent || '#ff7a3a');
-    document.documentElement.style.setProperty('--accent-d', shade(tweaks.accent || '#ff7a3a', -.18));
-    document.documentElement.style.setProperty('--accent-l', hexToRgba(tweaks.accent || '#ff7a3a', .18));
+    document.documentElement.style.setProperty('--accent', tweaks.accent || '#d85f1f');
+    document.documentElement.style.setProperty('--accent-d', shade(tweaks.accent || '#d85f1f', -.18));
+    document.documentElement.style.setProperty('--accent-l', hexToRgba(tweaks.accent || '#d85f1f', .18));
     document.body.dataset.glow = tweaks.glow ? 'on' : 'off';
     document.body.dataset.motion = tweaks.motion || 'high';
   }, [tweaks.density, tweaks.accent, tweaks.glow, tweaks.motion]);
 
   return (
     <window.DirectionCtx.Provider value="kinetic">
+      {/* Preloader */}
+      {window.Preloader && <window.Preloader/>}
+
       <window.Hero/>
       <window.Marquee big speed={tweaks.motion === 'extra' ? 32 : 50}/>
       <window.Problem/>
-      <window.Showcase/>
+
+      {/* Trust strip between problem + who */}
+      {window.TrustStrip && <window.TrustStrip/>}
+
       <window.Who/>
       <window.Process/>
       <window.Numbers/>
       <window.Pricing/>
+
+      {/* What happens after you pay */}
+      {window.After && <window.After/>}
+
       <window.Testimonials/>
+      <window.Showcase/>
       <window.About/>
+
+      {/* Radical transparency */}
+      {window.Honest && <window.Honest/>}
+
       <window.FAQ/>
       <window.AuditCTA/>
       <window.Footer/>
+
+      {/* Floating audit CTA button */}
+      {window.FloatCTA && <window.FloatCTA/>}
 
       {/* Tweaks panel */}
       {window.TweaksPanel && (
@@ -53,11 +71,11 @@ const App = () => {
           <window.TweakSection label="Accent"/>
           <window.TweakColor
             label="Accent color"
-            value={tweaks.accent || '#ff7a3a'}
+            value={tweaks.accent || '#d85f1f'}
             onChange={v => setTweak('accent', v)}/>
           <div style={{display:'flex', gap:6, padding:'4px 0', flexWrap:'wrap'}}>
             {[
-              {n:'Amber', c:'#ff7a3a'},
+              {n:'Amber', c:'#d85f1f'},
               {n:'Gold', c:'#f6c453'},
               {n:'Coral', c:'#ff6b6b'},
               {n:'Lime', c:'#a8e063'},
@@ -95,7 +113,7 @@ window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "density": "tight",
   "motion": "high",
   "glow": true,
-  "accent": "#ff7a3a"
+  "accent": "#d85f1f"
 }/*EDITMODE-END*/;
 
 ReactDOM.createRoot(document.getElementById('app')).render(<App/>);

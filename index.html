@@ -12,10 +12,10 @@
 <style>
   :root{
     /* Cream Kinetic palette */
-    --bg:        #f3ecdc;        /* cream */
-    --bg-mid:    #ece4d0;        /* warmer cream */
-    --bg-glow:   #f8e9c8;        /* warm gold glow */
-    --ink:       #1a140a;        /* near-black ink */
+    --bg:        #f3ecdc;
+    --bg-mid:    #ece4d0;
+    --bg-glow:   #f8e9c8;
+    --ink:       #1a140a;
     --ink-2:     rgba(26,20,10,.74);
     --ink-3:     rgba(26,20,10,.5);
     --ink-4:     rgba(26,20,10,.3);
@@ -139,6 +139,8 @@
     background:radial-gradient(circle at 35% 30%, var(--gold), var(--accent) 50%, var(--accent-d));
     box-shadow:0 0 14px rgba(255,160,80,.5);
     position:relative;
+    display:inline-block;
+    flex-shrink:0;
   }
   .brand-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 6px rgba(255,160,80,.4)}
 
@@ -148,6 +150,8 @@
   @media (max-width:900px){ .nav-mid{display:none} }
 
   .nav-right{display:flex;align-items:center;gap:8px}
+  .nav-clock{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+  @media(max-width:700px){.nav-clock{display:none}}
   .pill-btn{
     display:inline-flex;align-items:center;gap:8px;
     padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;
@@ -214,6 +218,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-right">
+      <span class="nav-clock" id="nav-clock">—</span>
       <a href="#audit" class="pill-btn">Free Audit <span class="arr">↗</span></a>
       <button class="ham" id="ham" aria-label="Menu"><span></span></button>
     </div>
@@ -240,18 +245,38 @@
   <!-- Tweaks panel -->
   <script type="text/babel" src="tweaks-panel.jsx"></script>
 
-  <!-- App parts -->
+  <!-- App utilities -->
   <script type="text/babel" src="src/utils.jsx"></script>
+
+  <!-- ── NEW: Float CTA + Live Clock ── -->
+  <script type="text/babel" src="src/floatcta.jsx"></script>
+
+  <!-- ── NEW: Preloader ── -->
+  <script type="text/babel" src="src/preloader.jsx"></script>
+
+  <!-- App sections -->
   <script type="text/babel" src="src/hero.jsx"></script>
   <script type="text/babel" src="src/marquee.jsx"></script>
   <script type="text/babel" src="src/problem.jsx"></script>
+
+  <!-- ── NEW: Trust strip ── -->
+  <script type="text/babel" src="src/truststrip.jsx"></script>
+
   <script type="text/babel" src="src/who.jsx"></script>
   <script type="text/babel" src="src/showcase.jsx"></script>
   <script type="text/babel" src="src/process.jsx"></script>
   <script type="text/babel" src="src/numbers.jsx"></script>
   <script type="text/babel" src="src/pricing.jsx"></script>
+
+  <!-- ── NEW: After you pay timeline ── -->
+  <script type="text/babel" src="src/after.jsx"></script>
+
   <script type="text/babel" src="src/testimonials.jsx"></script>
   <script type="text/babel" src="src/about.jsx"></script>
+
+  <!-- ── NEW: Radical transparency / what we don't do ── -->
+  <script type="text/babel" src="src/honest.jsx"></script>
+
   <script type="text/babel" src="src/faq.jsx"></script>
   <script type="text/babel" src="src/audit.jsx"></script>
   <script type="text/babel" src="src/footer.jsx"></script>
@@ -284,11 +309,23 @@
       cur.classList.toggle('big', !!t);
     });
 
-    // reveal observer + word-split (preserves child elements like <br> and styled spans)
+    // Live clock in nav
+    function updateNavClock(){
+      const d = new Date();
+      const h = d.getHours(), m = d.getMinutes(), s = d.getSeconds();
+      const pad = n => (n < 10 ? '0' : '') + n;
+      const ampm = h < 12 ? ' am' : ' pm';
+      const el = document.getElementById('nav-clock');
+      if (el) el.textContent = pad(h) + ':' + pad(m) + ':' + pad(s) + ampm;
+    }
+    updateNavClock();
+    setInterval(updateNavClock, 1000);
+
+    // reveal observer + word-split
     let __wIdx = 0;
     const splitTextNode = (node, parent) => {
       const txt = node.nodeValue;
-      if (!txt || !txt.trim()) return; // keep whitespace-only nodes as-is
+      if (!txt || !txt.trim()) return;
       const frag = document.createDocumentFragment();
       const parts = txt.split(/(\s+)/);
       parts.forEach(part => {
@@ -307,13 +344,10 @@
       parent.replaceChild(frag, node);
     };
     const walkAndSplit = (el) => {
-      // snapshot childNodes first since we'll be mutating
       const kids = Array.from(el.childNodes);
       kids.forEach(node => {
-        if (node.nodeType === 3) { // text node
-          splitTextNode(node, el);
-        } else if (node.nodeType === 1) {
-          // skip <br> and already-split .w spans
+        if (node.nodeType === 3) { splitTextNode(node, el); }
+        else if (node.nodeType === 1) {
           if (node.tagName === 'BR' || node.classList.contains('w')) return;
           walkAndSplit(node);
         }
