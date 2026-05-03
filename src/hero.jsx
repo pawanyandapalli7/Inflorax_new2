@@ -84,8 +84,8 @@ const Hero = () => {
     for (let i = 0; i <= 4; i++) {
       const y2 = pad.t + gH * (1 - i / 4);
       ctx.beginPath(); ctx.moveTo(pad.l, y2); ctx.lineTo(W - pad.r, y2);
-      ctx.strokeStyle = 'rgba(216,95,31,.08)'; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = 'rgba(216,95,31,.35)'; ctx.font = '8px monospace';
+      ctx.strokeStyle = 'rgba(22,101,52,.08)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = 'rgba(22,101,52,.35)'; ctx.font = '8px monospace';
       ctx.fillText((i * 25) + '%', 2, y2 + 3);
     }
     ctx.beginPath();
@@ -94,16 +94,16 @@ const Hero = () => {
     ctx.lineTo(pad.l + (pts.length - 1) * xStep, pad.t + gH);
     ctx.closePath();
     const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + gH);
-    grad.addColorStop(0, 'rgba(216,95,31,.25)'); grad.addColorStop(1, 'rgba(216,95,31,.02)');
+    grad.addColorStop(0, 'rgba(22,101,52,.22)'); grad.addColorStop(1, 'rgba(22,101,52,.02)');
     ctx.fillStyle = grad; ctx.fill();
     ctx.beginPath();
     pts.forEach((v, i) => { const x2 = pad.l + i * xStep, y2 = pad.t + gH * (1 - v / 100); i === 0 ? ctx.moveTo(x2, y2) : ctx.lineTo(x2, y2); });
-    ctx.strokeStyle = '#d85f1f'; ctx.lineWidth = 2.5;
-    ctx.shadowColor = 'rgba(216,95,31,.5)'; ctx.shadowBlur = 10; ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.strokeStyle = '#166534'; ctx.lineWidth = 2.5;
+    ctx.shadowColor = 'rgba(22,101,52,.45)'; ctx.shadowBlur = 10; ctx.stroke(); ctx.shadowBlur = 0;
     pts.forEach((v, i) => {
       const x2 = pad.l + i * xStep, y2 = pad.t + gH * (1 - v / 100);
       ctx.beginPath(); ctx.arc(x2, y2, 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#d85f1f'; ctx.shadowColor = 'rgba(216,95,31,.7)'; ctx.shadowBlur = 7;
+      ctx.fillStyle = '#166534'; ctx.shadowColor = 'rgba(22,101,52,.6)'; ctx.shadowBlur = 7;
       ctx.fill(); ctx.shadowBlur = 0;
     });
   }, []);
@@ -123,7 +123,7 @@ const Hero = () => {
         position: 'absolute', right: -40, top: 80,
         fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
         fontSize: 'clamp(120px, 22vw, 420px)',
-        color: 'rgba(216,95,31,.06)', lineHeight: 1, letterSpacing: '-.04em',
+        color: 'rgba(22,101,52,.06)', lineHeight: 1, letterSpacing: '-.04em',
         pointerEvents: 'none', userSelect: 'none',
         transform: `translate(${m.x * 30 - 15}px, ${-y * .18}px)`,
         transition: 'transform .25s ease-out', zIndex: 0,
@@ -141,7 +141,7 @@ const Hero = () => {
           <div className="reveal" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '6px 14px', borderRadius: 999,
-            background: 'rgba(216,95,31,.12)', border: '1px solid rgba(216,95,31,.25)',
+            background: 'rgba(22,101,52,.10)', border: '1px solid rgba(22,101,52,.22)',
             fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase',
             color: 'var(--accent)', marginBottom: 20,
           }}>
@@ -199,7 +199,7 @@ const Hero = () => {
 
         {/* RIGHT — Chart + floating stat cards */}
         <div className="hero-right-col reveal reveal-d1" style={{ position:'relative', height:420 }}>
-          <div style={{ background:'rgba(26,20,10,.04)', border:'1px solid var(--line)', borderRadius:20, padding:20, backdropFilter:'blur(8px)', position:'absolute', inset:0 }}>
+          <div style={{ background:'rgba(255,255,255,.55)', border:'1px solid rgba(22,101,52,.12)', borderRadius:20, padding:20, backdropFilter:'blur(8px)', position:'absolute', inset:0 }}>
             <div style={{ fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.1em', textTransform:'uppercase', color:'var(--ink-3)', marginBottom:8 }}>Growth trajectory · 90 days</div>
             <canvas id="hero-chart-canvas" style={{ width:'100%', height:'auto' }}/>
           </div>
@@ -212,10 +212,10 @@ const Hero = () => {
           ].map((c, i) => (
             <div key={i} style={{
               position:'absolute', ...c.style,
-              background:'rgba(243,236,220,.92)', border:'1px solid var(--line)', borderRadius:14,
+              background:'rgba(255,255,255,.92)', border:'1px solid rgba(22,101,52,.12)', borderRadius:14,
               padding:'10px 14px', backdropFilter:'blur(12px)',
               display:'flex', alignItems:'center', gap:10,
-              boxShadow:'0 8px 28px rgba(26,20,10,.1)',
+              boxShadow:'0 8px 28px rgba(15,31,15,.1)',
               animation:`hfc${i} ${3.5+i*.7}s ease-in-out infinite`,
               minWidth:155, zIndex:3,
             }}>
@@ -233,26 +233,26 @@ const Hero = () => {
             position:'absolute', bottom:-20, left:-20,
             background:'var(--ink)', color:'var(--bone)',
             borderRadius:14, padding:'12px 16px', maxWidth:210,
-            boxShadow:'0 8px 32px rgba(26,20,10,.25)',
+            boxShadow:'0 8px 32px rgba(15,31,15,.25)',
             animation:'hfc2 4.8s ease-in-out infinite', zIndex:3,
           }}>
             <div style={{color:'var(--accent)', fontSize:11, marginBottom:4}}>★★★★★</div>
-            <p style={{fontSize:12, lineHeight:1.5, color:'rgba(245,236,217,.8)', marginBottom:6}}>"Inflorax changed everything. Finally real growth, real people."</p>
-            <div style={{fontSize:10, color:'rgba(245,236,217,.45)', fontFamily:'var(--mono)'}}>@creative.jade ✓</div>
+            <p style={{fontSize:12, lineHeight:1.5, color:'rgba(240,246,232,.8)', marginBottom:6}}>"Inflorax changed everything. Finally real growth, real people."</p>
+            <div style={{fontSize:10, color:'rgba(240,246,232,.45)', fontFamily:'var(--mono)'}}>@creative.jade ✓</div>
           </div>
         </div>
       </div>
 
       {/* Bottom CTA strip */}
-      <div style={{ position:'relative', zIndex:2, background:'var(--ink)', color:'var(--bone)' }}>
+      <div style={{ position:'relative', zIndex:2, background:'#0c190c', color:'#f5faf0' }}>
         <div className="wrap" style={{ padding:'24px 28px', display:'flex', alignItems:'center', gap:28, flexWrap:'wrap' }}>
           <div style={{flex:'0 0 auto'}}>
-            <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(245,236,217,.35)', marginBottom:4}}>THE CHOICE IS SIMPLE</div>
+            <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(240,246,232,.35)', marginBottom:4}}>THE CHOICE IS SIMPLE</div>
             <div style={{fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300, fontSize:'clamp(18px,2.5vw,28px)', lineHeight:1.1}}>
               Keep waiting. Or <span style={{color:'var(--accent)'}}>start growing.</span>
             </div>
           </div>
-          <p style={{flex:1, minWidth:160, fontSize:13, color:'rgba(245,236,217,.55)', lineHeight:1.5}}>
+          <p style={{flex:1, minWidth:160, fontSize:13, color:'rgba(240,246,232,.55)', lineHeight:1.5}}>
             You create. We amplify.<br/>Let's turn your content into the momentum you deserve.
           </p>
           <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:6}}>
@@ -265,7 +265,7 @@ const Hero = () => {
             onMouseLeave={e => e.currentTarget.style.transform='none'}>
               Start your growth system →
             </button>
-            <span style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.08em', textTransform:'uppercase', color:'rgba(245,236,217,.25)'}}>Takes less than 2 minutes</span>
+            <span style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.08em', textTransform:'uppercase', color:'rgba(240,246,232,.25)'}}>Takes less than 2 minutes</span>
           </div>
         </div>
       </div>
@@ -286,7 +286,7 @@ const Hero = () => {
 const HeroTickerStrip = () => {
   const items = ['Built for creators · plateau · serious about growth','No passwords · no fake engagement','Real visibility — not fake numbers','7–10 days to first lift','18+ creators active this week'];
   return (
-    <div style={{ position:'relative', zIndex:2, padding:'12px 0', borderTop:'1px solid var(--line)', background:'rgba(26,20,10,.04)', overflow:'hidden', maskImage:'linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)' }}>
+    <div style={{ position:'relative', zIndex:2, padding:'12px 0', borderTop:'1px solid var(--line)', background:'rgba(15,31,15,.04)', overflow:'hidden', maskImage:'linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)' }}>
       <div style={{ display:'flex', gap:48, animation:'tickerL 38s linear infinite', whiteSpace:'nowrap', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'.06em', color:'var(--ink-2)', textTransform:'uppercase' }}>
         {[...items,...items,...items].map((it,i)=>(
           <span key={i} style={{display:'flex',alignItems:'center',gap:48}}>

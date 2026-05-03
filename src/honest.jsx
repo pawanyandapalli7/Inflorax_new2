@@ -55,7 +55,7 @@ const Honest = () => {
           <span style={{fontSize:26}}>🛡️</span>
           <div style={{flex:1, minWidth:200}}>
             <div style={{fontWeight:700, fontSize:15, marginBottom:4}}>Honesty first. Results next.</div>
-            <div style={{fontSize:13, color:'rgba(245,236,217,.6)', lineHeight:1.5}}>That's how we've built trust with creators — and why they keep coming back.</div>
+            <div style={{fontSize:13, color:'rgba(240,246,232,.6)', lineHeight:1.5}}>That's how we've built trust with creators — and why they keep coming back.</div>
           </div>
           <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
             background:'var(--accent)', color:'#fff', border:'none',

@@ -47,8 +47,8 @@ const Process = () => {
             {steps.map((s, i) => (
               <div key={i} onMouseEnter={() => setActive(i)} className="reveal" style={{
                 padding:'24px 26px', borderRadius:18,
-                background: active===i ? 'rgba(216,95,31,.08)' : 'transparent',
-                border:'1px solid', borderColor: active===i ? 'rgba(216,95,31,.3)' : 'transparent',
+                background: active===i ? 'rgba(22,101,52,.08)' : 'transparent',
+                border:'1px solid', borderColor: active===i ? 'rgba(22,101,52,.3)' : 'transparent',
                 transition:'all .35s', cursor:'pointer',
                 opacity: active===i ? 1 : .35,
               }}>
@@ -79,16 +79,16 @@ const ProcessVisual = ({idx}) => {
   return (
     <div style={{
       height:'100%', minHeight:400,
-      background:'linear-gradient(160deg, rgba(40,30,16,.92), rgba(26,20,10,.85))',
+      background:'linear-gradient(160deg, rgba(10,25,12,.92), rgba(15,31,15,.85))',
       border:'1px solid var(--line)', borderRadius:24,
       padding:28, position:'relative', overflow:'hidden',
       display:'flex', flexDirection:'column', justifyContent:'space-between',
       backdropFilter:'blur(8px)', color:'var(--bone)',
     }}>
       <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-        <span style={{fontFamily:'var(--mono)', fontSize:11, color:'rgba(245,236,217,.55)', textTransform:'uppercase', letterSpacing:'.1em'}}>Step {idx+1} / 4</span>
+        <span style={{fontFamily:'var(--mono)', fontSize:11, color:'rgba(240,246,232,.55)', textTransform:'uppercase', letterSpacing:'.1em'}}>Step {idx+1} / 4</span>
         <span style={{display:'flex', gap:6}}>
-          {steps.map((_,i) => <span key={i} style={{width:24, height:3, borderRadius:2, background: i<=idx ? 'var(--accent)' : 'rgba(245,236,217,.15)', transition:'background .35s'}}/>)}
+          {steps.map((_,i) => <span key={i} style={{width:24, height:3, borderRadius:2, background: i<=idx ? 'var(--accent)' : 'rgba(240,246,232,.15)', transition:'background .35s'}}/>)}
         </span>
       </div>
       <div style={{flex:1, display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -101,7 +101,7 @@ const ProcessVisual = ({idx}) => {
         <h4 style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:24, letterSpacing:'-.02em', color:'var(--bone)', textTransform:'uppercase'}}>
           {steps[idx].t}
         </h4>
-        <p style={{marginTop:6, fontSize:13, color:'rgba(245,236,217,.55)', fontFamily:'var(--serif)', fontStyle:'italic'}}>{steps[idx].orig}</p>
+        <p style={{marginTop:6, fontSize:13, color:'rgba(240,246,232,.55)', fontFamily:'var(--serif)', fontStyle:'italic'}}>{steps[idx].orig}</p>
       </div>
     </div>
   );
@@ -110,7 +110,7 @@ const ProcessVisual = ({idx}) => {
 const PVPackages = () => (
   <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, width:'100%', maxWidth:340}}>
     {['$79','$199','$399','$799'].map((p,i) => (
-      <div key={i} style={{padding:'16px 12px', borderRadius:12, border:'1px solid', borderColor: i===1 ? 'var(--accent)' : 'rgba(245,236,217,.15)', background: i===1 ? 'var(--accent)' : 'rgba(245,236,217,.05)', color: i===1 ? '#fff' : 'var(--bone)', position:'relative'}}>
+      <div key={i} style={{padding:'16px 12px', borderRadius:12, border:'1px solid', borderColor: i===1 ? 'var(--accent)' : 'rgba(240,246,232,.15)', background: i===1 ? 'var(--accent)' : 'rgba(240,246,232,.05)', color: i===1 ? '#fff' : 'var(--bone)', position:'relative'}}>
         {i===1 && <span style={{position:'absolute', top:-7, right:6, fontSize:8, padding:'3px 6px', background:'#000', color:'#fff', borderRadius:999, fontFamily:'var(--mono)', textTransform:'uppercase'}}>Popular</span>}
         <div style={{fontSize:10, fontFamily:'var(--mono)', opacity:.6, textTransform:'uppercase'}}>Plan {i+1}</div>
         <div style={{fontWeight:800, fontSize:20, marginTop:4}}>{p}</div>
@@ -120,11 +120,11 @@ const PVPackages = () => (
 );
 
 const PVForm = () => (
-  <div style={{width:'100%', maxWidth:300, background:'rgba(245,236,217,.05)', borderRadius:14, padding:16, border:'1px solid rgba(245,236,217,.12)'}}>
+  <div style={{width:'100%', maxWidth:300, background:'rgba(240,246,232,.05)', borderRadius:14, padding:16, border:'1px solid rgba(240,246,232,.12)'}}>
     {['Handle','Niche','Followers'].map((l,i) => (
       <div key={i} style={{marginBottom:10}}>
-        <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(245,236,217,.55)', textTransform:'uppercase', letterSpacing:'.1em', marginBottom:5}}>{l}</div>
-        <div style={{height:30, background:'rgba(13,9,5,.4)', borderRadius:6, border:'1px solid rgba(245,236,217,.1)', display:'flex', alignItems:'center', padding:'0 10px', fontSize:12, color:'rgba(245,236,217,.78)'}}>
+        <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.55)', textTransform:'uppercase', letterSpacing:'.1em', marginBottom:5}}>{l}</div>
+        <div style={{height:30, background:'rgba(13,9,5,.4)', borderRadius:6, border:'1px solid rgba(240,246,232,.1)', display:'flex', alignItems:'center', padding:'0 10px', fontSize:12, color:'rgba(240,246,232,.78)'}}>
           {i===0 ? '@yourhandle' : i===1 ? 'Lifestyle' : '2.4K'}
         </div>
       </div>
@@ -156,17 +156,17 @@ const PVChart = () => {
   return (
     <div style={{width:'100%', maxWidth:320}}>
       <svg viewBox="0 0 200 100" style={{width:'100%', height:130}}>
-        <polyline fill="rgba(216,95,31,.18)" stroke="none" points={`0,100 ${pts.map((v,i)=>`${i*200/(pts.length-1)},${100-v}`).join(' ')} 200,100`}/>
+        <polyline fill="rgba(22,101,52,.18)" stroke="none" points={`0,100 ${pts.map((v,i)=>`${i*200/(pts.length-1)},${100-v}`).join(' ')} 200,100`}/>
         <polyline fill="none" stroke="var(--accent)" strokeWidth="2.5" points={pts.map((v,i)=>`${i*200/(pts.length-1)},${100-v}`).join(' ')}/>
         {pts.map((v,i) => <circle key={i} cx={i*200/(pts.length-1)} cy={100-v} r="2.5" fill="var(--accent)"/>)}
       </svg>
-      <div style={{display:'flex', justifyContent:'space-between', marginTop:12, padding:'12px 14px', background:'rgba(245,236,217,.05)', border:'1px solid rgba(245,236,217,.12)', borderRadius:10}}>
+      <div style={{display:'flex', justifyContent:'space-between', marginTop:12, padding:'12px 14px', background:'rgba(240,246,232,.05)', border:'1px solid rgba(240,246,232,.12)', borderRadius:10}}>
         <div>
-          <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(245,236,217,.55)', textTransform:'uppercase'}}>Reach</div>
+          <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.55)', textTransform:'uppercase'}}>Reach</div>
           <div style={{fontSize:20, fontWeight:800, color:'var(--accent)'}}>+412%</div>
         </div>
         <div>
-          <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(245,236,217,.55)', textTransform:'uppercase'}}>Avg views</div>
+          <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.55)', textTransform:'uppercase'}}>Avg views</div>
           <div style={{fontSize:20, fontWeight:800, color:'var(--accent)'}}>38K</div>
         </div>
       </div>

@@ -11,25 +11,25 @@
 
 <style>
   :root{
-    /* Cream Kinetic palette */
-    --bg:        #f3ecdc;
-    --bg-mid:    #ece4d0;
-    --bg-glow:   #f8e9c8;
-    --ink:       #1a140a;
-    --ink-2:     rgba(26,20,10,.74);
-    --ink-3:     rgba(26,20,10,.5);
-    --ink-4:     rgba(26,20,10,.3);
-    --line:      rgba(26,20,10,.12);
-    --line-soft: rgba(26,20,10,.06);
-    --soft:      #ebe2cc;
-    --paper:     #f3ecdc;
-    --bone:      #f5ecd9;
+    /* Light Green palette */
+    --bg:        #f0f6e8;
+    --bg-mid:    #eaf2e0;
+    --bg-glow:   #dff0d0;
+    --ink:       #0f1f0f;
+    --ink-2:     rgba(15,31,15,.72);
+    --ink-3:     rgba(15,31,15,.48);
+    --ink-4:     rgba(15,31,15,.28);
+    --line:      rgba(15,31,15,.10);
+    --line-soft: rgba(15,31,15,.05);
+    --soft:      #e2eed8;
+    --paper:     #f0f6e8;
+    --bone:      #f5faf0;
 
-    /* Accent — molten amber/orange */
-    --accent:    #d85f1f;
-    --accent-d:  #b04816;
-    --accent-l:  rgba(216,95,31,.18);
-    --gold:      #d4a23a;
+    /* Accent — forest green */
+    --accent:    #166534;
+    --accent-d:  #14532d;
+    --accent-l:  rgba(22,101,52,.14);
+    --gold:      #16a34a;
 
     --serif:'Fraunces','Instrument Serif',serif;
     --sans:'Geist','Inter',system-ui,sans-serif;
@@ -53,7 +53,7 @@
     position:fixed; inset:0;
     background:
       radial-gradient(ellipse 80% 60% at 50% 25%, var(--bg-glow), transparent 65%),
-      radial-gradient(ellipse 100% 80% at 50% 100%, #e6dcc4, transparent 60%),
+      radial-gradient(ellipse 100% 80% at 50% 100%, #d4ecc8, transparent 60%),
       var(--bg-mid);
     z-index:-2;
     pointer-events:none;
@@ -71,7 +71,7 @@
     content:"";
     position:fixed; inset:0;
     background:
-      radial-gradient(circle 600px at var(--mx,50%) var(--my,30%), rgba(216,95,31,.08), transparent 60%);
+      radial-gradient(circle 600px at var(--mx,50%) var(--my,30%), rgba(22,101,52,.07), transparent 60%);
     z-index:-1;
     pointer-events:none;
     transition:background .3s linear;
@@ -106,7 +106,7 @@
   #prog{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:9999;transition:width .15s linear}
 
   /* Cursor */
-  #cur{position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .25s,height .25s,opacity .25s}
+  #cur{position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .25s,height .25s,opacity .25s}
   #cur.big{width:80px;height:80px;opacity:.65}
   @media (hover:none){#cur{display:none}}
 
@@ -136,13 +136,13 @@
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;font-size:17px;color:var(--ink)}
   .brand-mark{
     width:22px;height:22px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, var(--gold), var(--accent) 50%, var(--accent-d));
-    box-shadow:0 0 14px rgba(255,160,80,.5);
+    background:radial-gradient(circle at 35% 30%, #4ade80, var(--accent) 50%, var(--accent-d));
+    box-shadow:0 0 14px rgba(22,163,74,.45);
     position:relative;
     display:inline-block;
     flex-shrink:0;
   }
-  .brand-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 6px rgba(255,160,80,.4)}
+  .brand-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 6px rgba(22,163,74,.3)}
 
   .nav-mid{display:flex;gap:2px}
   .nav-mid a{padding:8px 13px;border-radius:999px;font-size:13px;font-weight:500;color:var(--ink-2);transition:background .2s,color .2s}
@@ -157,9 +157,9 @@
     padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;
     background:var(--accent);color:#fff;
     transition:transform .2s,box-shadow .2s;
-    box-shadow:0 0 0 0 rgba(255,122,58,.6);
+    box-shadow:0 0 0 0 rgba(22,101,52,.5);
   }
-  .pill-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px -8px rgba(255,122,58,.7)}
+  .pill-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px -8px rgba(22,101,52,.6)}
   .pill-btn .arr{display:inline-block;transition:transform .25s}
   .pill-btn:hover .arr{transform:translate(3px,-3px) rotate(-12deg)}
 
@@ -184,7 +184,7 @@
   #drawer .pill-btn{justify-content:center;margin-top:6px}
 
   /* ───── Footer (shared) ───── */
-  footer.site{padding:80px 0 32px;background:#1a140a;color:var(--bone);position:relative;overflow:hidden;margin-top:0;border-top:1px solid var(--line)}
+  footer.site{padding:80px 0 32px;background:#0c190c;color:var(--bone);position:relative;overflow:hidden;margin-top:0;border-top:1px solid var(--line)}
   footer.site::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,rgba(216,95,31,.22),transparent 60%);pointer-events:none}
   .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;position:relative}
   @media (max-width:780px){ .foot-grid{grid-template-columns:1fr 1fr;gap:36px} }

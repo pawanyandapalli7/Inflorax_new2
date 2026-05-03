@@ -63,14 +63,14 @@ window.Btn = ({children, primary, href, onClick, sm, mag=true}) => {
     whiteSpace:'nowrap',
   };
   const styles = primary
-    ? {...base, background:'var(--accent)', color:'#fff', boxShadow:'0 0 0 0 rgba(255,122,58,.5)'}
+    ? {...base, background:'var(--accent)', color:'#fff', boxShadow:'0 0 0 0 rgba(22,163,74,.5)'}
     : {...base, background:'transparent', color:'var(--ink)', border:'1px solid var(--line)'};
   const Comp = href ? 'a' : 'button';
   return (
     <Comp href={href} onClick={onClick} style={styles}
       className={mag ? 'magnet' : ''}
-      onMouseEnter={(e)=>{ if(primary) e.currentTarget.style.boxShadow='0 12px 40px -10px rgba(255,122,58,.7)'; else e.currentTarget.style.background='var(--line)'; }}
-      onMouseLeave={(e)=>{ if(primary) e.currentTarget.style.boxShadow='0 0 0 0 rgba(255,122,58,.5)'; else e.currentTarget.style.background='transparent'; }}>
+      onMouseEnter={(e)=>{ if(primary) e.currentTarget.style.boxShadow='0 12px 40px -10px rgba(22,163,74,.7)'; else e.currentTarget.style.background='var(--line)'; }}
+      onMouseLeave={(e)=>{ if(primary) e.currentTarget.style.boxShadow='0 0 0 0 rgba(22,163,74,.5)'; else e.currentTarget.style.background='transparent'; }}>
       {children}
     </Comp>
   );

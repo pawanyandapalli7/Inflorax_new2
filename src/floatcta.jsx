@@ -17,7 +17,7 @@ const FloatCTA = () => {
         border: 'none', padding: '12px 22px', borderRadius: 999,
         fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 700,
         cursor: 'pointer', letterSpacing: '-.01em',
-        boxShadow: '0 8px 32px -8px rgba(216,95,31,.6)',
+        boxShadow: '0 8px 32px -8px rgba(22,101,52,.6)',
         opacity: visible ? 1 : 0,
         pointerEvents: visible ? 'auto' : 'none',
         transform: visible ? 'translateY(0)' : 'translateY(12px)',

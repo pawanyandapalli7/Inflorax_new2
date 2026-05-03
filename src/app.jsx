@@ -6,9 +6,9 @@ const App = () => {
   // Apply density + accent + glow to root
   useEffect(() => {
     document.body.dataset.density = tweaks.density || 'tight';
-    document.documentElement.style.setProperty('--accent', tweaks.accent || '#d85f1f');
-    document.documentElement.style.setProperty('--accent-d', shade(tweaks.accent || '#d85f1f', -.18));
-    document.documentElement.style.setProperty('--accent-l', hexToRgba(tweaks.accent || '#d85f1f', .18));
+    document.documentElement.style.setProperty('--accent', tweaks.accent || '#166534');
+    document.documentElement.style.setProperty('--accent-d', shade(tweaks.accent || '#166534', -.18));
+    document.documentElement.style.setProperty('--accent-l', hexToRgba(tweaks.accent || '#166534', .14));
     document.body.dataset.glow = tweaks.glow ? 'on' : 'off';
     document.body.dataset.motion = tweaks.motion || 'high';
   }, [tweaks.density, tweaks.accent, tweaks.glow, tweaks.motion]);
@@ -71,16 +71,16 @@ const App = () => {
           <window.TweakSection label="Accent"/>
           <window.TweakColor
             label="Accent color"
-            value={tweaks.accent || '#d85f1f'}
+            value={tweaks.accent || '#166534'}
             onChange={v => setTweak('accent', v)}/>
           <div style={{display:'flex', gap:6, padding:'4px 0', flexWrap:'wrap'}}>
             {[
-              {n:'Amber', c:'#d85f1f'},
-              {n:'Gold', c:'#f6c453'},
-              {n:'Coral', c:'#ff6b6b'},
-              {n:'Lime', c:'#a8e063'},
-              {n:'Sky', c:'#5ec5ff'},
-              {n:'Lavender', c:'#b794f4'},
+              {n:'Forest', c:'#166534'},
+              {n:'Emerald', c:'#059669'},
+              {n:'Lime',  c:'#65a30d'},
+              {n:'Teal',  c:'#0d9488'},
+              {n:'Sage',  c:'#4d7c5f'},
+              {n:'Mint',  c:'#16a34a'},
             ].map(p => (
               <button key={p.c} onClick={() => setTweak('accent', p.c)} title={p.n}
                 style={{width:24, height:24, borderRadius:'50%', background:p.c, border: tweaks.accent===p.c ? '2px solid #fff' : '2px solid rgba(0,0,0,.1)', cursor:'pointer', boxShadow: tweaks.accent===p.c ? `0 0 0 2px ${p.c}` : 'none'}}/>
@@ -113,7 +113,7 @@ window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "density": "tight",
   "motion": "high",
   "glow": true,
-  "accent": "#d85f1f"
+  "accent": "#166534"
 }/*EDITMODE-END*/;
 
 ReactDOM.createRoot(document.getElementById('app')).render(<App/>);

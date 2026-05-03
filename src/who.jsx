@@ -26,13 +26,13 @@ const Who = () => {
 const WhoCard = ({n,t,tag,d,cta}) => {
   return (
     <div className="reveal" style={{
-      background:'rgba(26,20,10,.04)', border:'1px solid var(--line)',
+      background:'rgba(15,31,15,.04)', border:'1px solid var(--line)',
       borderRadius:22, padding:'28px 24px',
       transition:'transform .3s, background .3s, border-color .3s',
       cursor:'default', backdropFilter:'blur(8px)',
     }}
-    onMouseEnter={e => {e.currentTarget.style.transform='translateY(-6px)'; e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.background='rgba(216,95,31,.07)'}}
-    onMouseLeave={e => {e.currentTarget.style.transform='none'; e.currentTarget.style.borderColor='var(--line)'; e.currentTarget.style.background='rgba(26,20,10,.04)'}}>
+    onMouseEnter={e => {e.currentTarget.style.transform='translateY(-6px)'; e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.background='rgba(22,101,52,.07)'}}
+    onMouseLeave={e => {e.currentTarget.style.transform='none'; e.currentTarget.style.borderColor='var(--line)'; e.currentTarget.style.background='rgba(15,31,15,.04)'}}>
       <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:18}}>
         <span style={{fontFamily:'var(--mono)', fontSize:13, color:'var(--accent)', fontWeight:600}}>{n}</span>
         <span style={{padding:'4px 10px', borderRadius:999, background:'var(--line)', fontSize:10, fontFamily:'var(--mono)', color:'var(--ink-2)', textTransform:'uppercase', letterSpacing:'.08em'}}>{tag}</span>

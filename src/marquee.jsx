@@ -5,7 +5,7 @@ const Marquee = ({words, speed=42, reverse=false, big=true}) => {
     <div style={{
       padding: big ? '40px 0' : '20px 0',
       borderTop:'1px solid var(--line)', borderBottom:'1px solid var(--line)',
-      overflow:'hidden', background:'rgba(26,20,10,.03)',
+      overflow:'hidden', background:'rgba(15,31,15,.03)',
     }}>
       <div style={{
         display:'flex', gap: big ? 48 : 36, whiteSpace:'nowrap',

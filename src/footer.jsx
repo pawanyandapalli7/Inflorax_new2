@@ -98,7 +98,7 @@ const Footer = () => {
             <div className="foot-h">Navigate</div>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[['#process','How it works'],['#pricing','Packages'],['#faq','FAQ'],['#about','About'],['#honest','Transparency']].map(([h,l]) => (
-                <li key={l}><a href={h} className="foot-link" style={{ fontSize:13, color:'rgba(245,236,217,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(245,236,217,.55)'}>{l}</a></li>
+                <li key={l}><a href={h} className="foot-link" style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -108,7 +108,7 @@ const Footer = () => {
             <div className="foot-h" style={{ color: 'rgba(74,222,128,.7)' }}>Get Started</div>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[['#audit','Free audit ↗'],['#pricing','Instagram plans'],['#pricing','YouTube plans'],['#','Terms of service'],['#','Privacy policy']].map(([h,l]) => (
-                <li key={l}><a href={h} style={{ fontSize:13, color:'rgba(245,236,217,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(245,236,217,.55)'}>{l}</a></li>
+                <li key={l}><a href={h} style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
               ))}
             </ul>
           </div>

@@ -71,7 +71,7 @@ const Pricing = () => {
         </header>
 
         <div className="reveal" style={{display:'flex', justifyContent:'center', marginBottom:36}}>
-          <div style={{display:'inline-flex', gap:4, padding:5, borderRadius:999, background:'rgba(26,20,10,.05)', border:'1px solid var(--line)'}}>
+          <div style={{display:'inline-flex', gap:4, padding:5, borderRadius:999, background:'rgba(15,31,15,.05)', border:'1px solid var(--line)'}}>
             {[
               {k:'instagram', label:'Instagram', icon:'IG'},
               {k:'youtube', label:'YouTube', icon:'YT'},
@@ -85,7 +85,7 @@ const Pricing = () => {
               }}>
                 <span style={{
                   width:16, height:16, borderRadius:4,
-                  background: platform===p.k ? 'rgba(255,255,255,.25)' : 'rgba(26,20,10,.08)',
+                  background: platform===p.k ? 'rgba(255,255,255,.25)' : 'rgba(15,31,15,.08)',
                   display:'inline-flex', alignItems:'center', justifyContent:'center',
                   fontSize:8, fontWeight:800,
                   color: platform===p.k ? '#fff' : 'var(--ink-3)',
@@ -100,7 +100,7 @@ const Pricing = () => {
           {plans.map((p, i) => <PriceCard key={`${platform}-${i}`} {...p} idx={i}/>)}
         </div>
 
-        <div className="reveal dis-grid" style={{marginTop:40, padding:'24px 28px', background:'rgba(26,20,10,.04)', border:'1px solid var(--line)', borderRadius:18, display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:24}}>
+        <div className="reveal dis-grid" style={{marginTop:40, padding:'24px 28px', background:'rgba(15,31,15,.04)', border:'1px solid var(--line)', borderRadius:18, display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:24}}>
           {[
             {ic:'⚡', t:'Real visibility — not fake numbers', s:'Designed for actual reach, not vanity metrics.'},
             {ic:'🔒', t:'No passwords or login access', s:'We never ask for credentials. Ever.'},
@@ -136,62 +136,62 @@ const PriceCard = (p) => {
   return (
     <div className="reveal" style={{
       position:'relative',
-      background: isPop ? 'linear-gradient(155deg, rgba(40,30,16,.96), rgba(26,20,10,.96))' : 'rgba(26,20,10,.04)',
+      background: isPop ? 'linear-gradient(155deg, rgba(10,25,12,.96), rgba(15,31,15,.96))' : 'rgba(15,31,15,.04)',
       color: isPop ? 'var(--bone)' : 'var(--ink)',
       border:'1px solid', borderColor: isPop ? 'var(--accent)' : 'var(--line)',
       borderRadius: 20, padding:'24px 20px',
       transition:'transform .3s, box-shadow .3s',
       display:'flex', flexDirection:'column',
       transform: isPop ? 'translateY(-12px)' : 'none',
-      boxShadow: isPop ? '0 30px 80px -30px rgba(216,95,31,.4)' : 'none',
+      boxShadow: isPop ? '0 30px 80px -30px rgba(22,101,52,.4)' : 'none',
       backdropFilter:'blur(8px)',
     }}
     onMouseEnter={e => { if (!isPop) { e.currentTarget.style.transform='translateY(-6px)'; e.currentTarget.style.borderColor='var(--accent)'; } }}
     onMouseLeave={e => { if (!isPop) { e.currentTarget.style.transform='none'; e.currentTarget.style.borderColor='var(--line)'; } }}>
       {isPop && (
-        <div style={{position:'absolute', top:-12, left:'50%', transform:'translateX(-50%)', padding:'5px 12px', background:'var(--accent)', color:'#fff', fontSize:9, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.12em', borderRadius:999, fontWeight:700, whiteSpace:'nowrap', boxShadow:'0 0 20px rgba(216,95,31,.6)'}}>★ Most Popular</div>
+        <div style={{position:'absolute', top:-12, left:'50%', transform:'translateX(-50%)', padding:'5px 12px', background:'var(--accent)', color:'#fff', fontSize:9, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.12em', borderRadius:999, fontWeight:700, whiteSpace:'nowrap', boxShadow:'0 0 20px rgba(22,101,52,.6)'}}>★ Most Popular</div>
       )}
       <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10}}>
-        <span style={{fontFamily:'var(--mono)', fontSize:10, color: isPop ? 'rgba(245,236,217,.55)' : 'var(--ink-3)', letterSpacing:'.1em'}}>{p.n} · {p.tier.toUpperCase()}</span>
+        <span style={{fontFamily:'var(--mono)', fontSize:10, color: isPop ? 'rgba(240,246,232,.55)' : 'var(--ink-3)', letterSpacing:'.1em'}}>{p.n} · {p.tier.toUpperCase()}</span>
       </div>
       <h3 style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:22, letterSpacing:'-.02em', lineHeight:1.05, color: isPop ? 'var(--bone)' : 'var(--ink)', textTransform:'uppercase'}}>
         {p.name}
       </h3>
-      <p style={{marginTop:6, fontSize:11, color: isPop ? 'rgba(245,236,217,.55)' : 'var(--ink-3)', lineHeight:1.45, fontStyle:'italic', fontFamily:'var(--serif)'}}>{p.tag}</p>
+      <p style={{marginTop:6, fontSize:11, color: isPop ? 'rgba(240,246,232,.55)' : 'var(--ink-3)', lineHeight:1.45, fontStyle:'italic', fontFamily:'var(--serif)'}}>{p.tag}</p>
 
       <div style={{margin:'18px 0 14px', display:'flex', alignItems:'baseline', gap:8, flexWrap:'wrap'}}>
         <span style={{fontFamily:'var(--sans)', fontWeight:900, fontSize:38, lineHeight:1, color:'var(--accent)', letterSpacing:'-.04em'}}>${p.price}</span>
-        <span style={{fontSize:13, textDecoration:'line-through', color: isPop ? 'rgba(245,236,217,.32)' : 'var(--ink-4)'}}>${p.was}</span>
+        <span style={{fontSize:13, textDecoration:'line-through', color: isPop ? 'rgba(240,246,232,.32)' : 'var(--ink-4)'}}>${p.was}</span>
         <span style={{fontSize:9, fontFamily:'var(--mono)', fontWeight:700, padding:'3px 7px', borderRadius:4, background:'var(--accent)', color:'#fff', letterSpacing:'.08em'}}>SAVE ${p.save}</span>
       </div>
 
-      <p style={{fontSize:12, lineHeight:1.55, color: isPop ? 'rgba(245,236,217,.78)' : 'var(--ink-2)', marginBottom:16, paddingBottom:16, borderBottom:'1px solid', borderColor: isPop ? 'rgba(245,236,217,.1)' : 'var(--line)'}}>{p.desc}</p>
+      <p style={{fontSize:12, lineHeight:1.55, color: isPop ? 'rgba(240,246,232,.78)' : 'var(--ink-2)', marginBottom:16, paddingBottom:16, borderBottom:'1px solid', borderColor: isPop ? 'rgba(240,246,232,.1)' : 'var(--line)'}}>{p.desc}</p>
 
       <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:8, marginBottom:18, flex:1}}>
         {p.feats.map((f, i) => (
-          <li key={i} style={{display:'flex', gap:10, fontSize:12, lineHeight:1.45, color: isPop ? 'rgba(245,236,217,.78)' : 'var(--ink-2)'}}>
+          <li key={i} style={{display:'flex', gap:10, fontSize:12, lineHeight:1.45, color: isPop ? 'rgba(240,246,232,.78)' : 'var(--ink-2)'}}>
             <span style={{color:'var(--accent)', fontWeight:700, marginTop:1}}>✓</span>
             <span>{f}</span>
           </li>
         ))}
       </ul>
 
-      <div style={{display:'flex', flexDirection:'column', gap:6, padding:'10px 12px', background: isPop ? 'rgba(245,236,217,.05)' : 'rgba(26,20,10,.05)', border:'1px solid', borderColor: isPop ? 'rgba(245,236,217,.1)' : 'var(--line-soft)', borderRadius:8, marginBottom:12}}>
-        <div style={{fontSize:9, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.08em', color: isPop ? 'rgba(245,236,217,.55)' : 'var(--ink-3)'}}>Best for</div>
+      <div style={{display:'flex', flexDirection:'column', gap:6, padding:'10px 12px', background: isPop ? 'rgba(240,246,232,.05)' : 'rgba(15,31,15,.05)', border:'1px solid', borderColor: isPop ? 'rgba(240,246,232,.1)' : 'var(--line-soft)', borderRadius:8, marginBottom:12}}>
+        <div style={{fontSize:9, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.08em', color: isPop ? 'rgba(240,246,232,.55)' : 'var(--ink-3)'}}>Best for</div>
         <div style={{fontSize:11, fontWeight:600, color: isPop ? 'var(--bone)' : 'var(--ink)', lineHeight:1.4}}>{p.best}</div>
       </div>
 
       <a href={p.stripe} target="_blank" rel="noopener" style={{
         display:'inline-flex', alignItems:'center', justifyContent:'center', gap:8,
         padding:'13px 18px', borderRadius:999,
-        background: isPop ? 'var(--accent)' : 'rgba(26,20,10,.06)',
+        background: isPop ? 'var(--accent)' : 'rgba(15,31,15,.06)',
         color: isPop ? '#fff' : 'var(--ink)',
         border:'1px solid', borderColor: isPop ? 'var(--accent)' : 'var(--line)',
         fontSize:13, fontWeight:700,
         transition:'transform .2s, background .2s',
       }}
       onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; if(!isPop) e.currentTarget.style.background='var(--accent)'; }}
-      onMouseLeave={e => { e.currentTarget.style.transform='none'; if(!isPop) e.currentTarget.style.background='rgba(26,20,10,.06)'; }}>
+      onMouseLeave={e => { e.currentTarget.style.transform='none'; if(!isPop) e.currentTarget.style.background='rgba(15,31,15,.06)'; }}>
         Get {p.tier} →
       </a>
     </div>

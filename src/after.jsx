@@ -65,7 +65,7 @@ const After = () => {
               <span style={{fontSize:26}}>🎁</span>
               <div style={{flex:1}}>
                 <div style={{fontWeight:700, fontSize:14, marginBottom:4}}>You're in good hands. <span style={{color:'var(--accent)', fontStyle:'italic', fontFamily:'var(--serif)'}}>Let's grow.</span></div>
-                <div style={{fontSize:12, color:'rgba(245,236,217,.6)', lineHeight:1.5}}>Once you complete checkout, we'll take it from there and keep you updated every step.</div>
+                <div style={{fontSize:12, color:'rgba(240,246,232,.6)', lineHeight:1.5}}>Once you complete checkout, we'll take it from there and keep you updated every step.</div>
               </div>
               <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
                 background:'var(--accent)', color:'#fff', border:'none',
@@ -103,7 +103,7 @@ const After = () => {
                   <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.12em', textTransform:'uppercase', color: s.light ? 'var(--ink-3)' : 'rgba(80,200,95,.6)', marginBottom:8}}>{s.eyebrow}</div>
                   <div style={{fontSize:18, marginBottom:6}}>{s.icon}</div>
                   <div style={{fontWeight:700, fontSize:16, letterSpacing:'-.01em', marginBottom:8}}>{s.title}</div>
-                  <p style={{fontSize:13, lineHeight:1.6, color: s.light ? 'var(--ink-2)' : 'rgba(245,236,217,.65)', marginBottom:10}}>{s.body}</p>
+                  <p style={{fontSize:13, lineHeight:1.6, color: s.light ? 'var(--ink-2)' : 'rgba(240,246,232,.65)', marginBottom:10}}>{s.body}</p>
                   <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.1em', textTransform:'uppercase', color:'var(--accent)', fontWeight:700}}>{s.tag}</div>
                 </div>
               </div>

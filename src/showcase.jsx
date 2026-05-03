@@ -33,7 +33,7 @@ const Showcase = () => {
         {/* glow following cursor */}
         <div aria-hidden style={{
           position:'absolute', inset:0, pointerEvents:'none',
-          background:`radial-gradient(circle at ${m.x*100}% ${m.y*100}%, rgba(216,95,31,.15), transparent 45%)`,
+          background:`radial-gradient(circle at ${m.x*100}% ${m.y*100}%, rgba(22,101,52,.15), transparent 45%)`,
           transition:'background .3s ease-out',
         }}/>
 
@@ -66,7 +66,7 @@ const Showcase = () => {
         <div style={{position:'relative', display:'flex', alignItems:'center', justifyContent:'center', zIndex:2, minHeight:'min(56vh, 520px)'}}>
           <div aria-hidden style={{
             position:'absolute', inset:0,
-            background:'radial-gradient(ellipse at center, rgba(255,122,58,.20), transparent 60%)',
+            background:'radial-gradient(ellipse at center, rgba(22,163,74,.20), transparent 60%)',
             filter:'blur(40px)',
           }}/>
           <div style={{position:'relative', textAlign:'center'}}>
