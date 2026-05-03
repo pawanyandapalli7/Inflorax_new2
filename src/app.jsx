@@ -3,7 +3,6 @@ const App = () => {
   const tw = window.useTweaks ? window.useTweaks(window.TWEAK_DEFAULTS) : [window.TWEAK_DEFAULTS, () => {}];
   const [tweaks, setTweak] = tw;
 
-  // Apply density + accent + glow to root
   useEffect(() => {
     document.body.dataset.density = tweaks.density || 'tight';
     document.documentElement.style.setProperty('--accent', tweaks.accent || '#166534');
@@ -15,39 +14,23 @@ const App = () => {
 
   return (
     <window.DirectionCtx.Provider value="kinetic">
-      {/* Preloader */}
-      {window.Preloader && <window.Preloader/>}
-
       <window.Hero/>
       <window.Marquee big speed={tweaks.motion === 'extra' ? 32 : 50}/>
       <window.Problem/>
-
-      {/* Trust strip between problem + who */}
       {window.TrustStrip && <window.TrustStrip/>}
-
       <window.Who/>
       <window.Process/>
-      <window.Numbers/>
       <window.Pricing/>
-
-      {/* What happens after you pay */}
-      {window.After && <window.After/>}
-
       <window.Testimonials/>
+      <window.Numbers/>
       <window.Showcase/>
       <window.About/>
-
-      {/* Radical transparency */}
       {window.Honest && <window.Honest/>}
-
       <window.FAQ/>
       <window.AuditCTA/>
       <window.Footer/>
-
-      {/* Floating audit CTA button */}
       {window.FloatCTA && <window.FloatCTA/>}
 
-      {/* Tweaks panel */}
       {window.TweaksPanel && (
         <window.TweaksPanel title="Tweaks">
           <window.TweakSection label="Density"/>
@@ -56,7 +39,6 @@ const App = () => {
             value={tweaks.density || 'tight'}
             onChange={v => setTweak('density', v)}
             options={['cozy', 'tight', 'compressed']}/>
-
           <window.TweakSection label="Motion"/>
           <window.TweakRadio
             label="Intensity"
@@ -67,7 +49,6 @@ const App = () => {
             label="Background glow"
             value={!!tweaks.glow}
             onChange={v => setTweak('glow', v)}/>
-
           <window.TweakSection label="Accent"/>
           <window.TweakColor
             label="Accent color"
@@ -77,10 +58,10 @@ const App = () => {
             {[
               {n:'Forest', c:'#166534'},
               {n:'Emerald', c:'#059669'},
-              {n:'Lime',  c:'#65a30d'},
-              {n:'Teal',  c:'#0d9488'},
-              {n:'Sage',  c:'#4d7c5f'},
-              {n:'Mint',  c:'#16a34a'},
+              {n:'Lime', c:'#65a30d'},
+              {n:'Teal', c:'#0d9488'},
+              {n:'Sage', c:'#4d7c5f'},
+              {n:'Mint', c:'#16a34a'},
             ].map(p => (
               <button key={p.c} onClick={() => setTweak('accent', p.c)} title={p.n}
                 style={{width:24, height:24, borderRadius:'50%', background:p.c, border: tweaks.accent===p.c ? '2px solid #fff' : '2px solid rgba(0,0,0,.1)', cursor:'pointer', boxShadow: tweaks.accent===p.c ? `0 0 0 2px ${p.c}` : 'none'}}/>
@@ -92,7 +73,6 @@ const App = () => {
   );
 };
 
-// helpers
 function hexToRgba(hex, a){
   const h = hex.replace('#','');
   const v = h.length === 3 ? h.split('').map(c=>c+c).join('') : h;

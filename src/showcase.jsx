@@ -1,172 +1,127 @@
-// SHOWCASE — hover-reveal typographic ladder
-const ITEMS = [
-  {id:1, name:'NORTH HARBOR',   niche:'LIFESTYLE',    title:'NORTH'},
-  {id:2, name:'AETHER STUDIO',  niche:'TECH/SAAS',    title:'AETHER'},
-  {id:3, name:'KILOJOULE',      niche:'FITNESS',      title:'KILO'},
-  {id:4, name:'MERIDIAN HOUSE', niche:'FINANCE',      title:'MERIDIAN'},
-  {id:5, name:'PARAGON CO.',    niche:'BEAUTY',       title:'PARAGON'},
-  {id:6, name:'OBSCURA',        niche:'COMEDY',       title:'OBSCURA'},
-  {id:7, name:'HALCYON',        niche:'WELLNESS',     title:'HALCYON'},
-  {id:8, name:'STRATA',         niche:'EDUCATION',    title:'STRATA'},
+// SHOWCASE — Niches we serve (replaces fake agency names)
+const NICHES = [
+  { id:1, niche:'FITNESS',     icon:'🏋️', desc:'Gym, nutrition, wellness, running, yoga — high-engagement audiences that follow consistently.',    color:'#1b4332', accent:'#40916c' },
+  { id:2, niche:'FINANCE',     icon:'📈', desc:'Personal finance, investing, crypto, budgeting — one of the most monetisable creator niches.',    color:'#1e3a5f', accent:'#2d7dd2' },
+  { id:3, niche:'LIFESTYLE',   icon:'✨', desc:'Daily life, home, travel, fashion — broad appeal and strong brand deal potential.',                 color:'#4a1942', accent:'#9d4edd' },
+  { id:4, niche:'FOOD',        icon:'🍳', desc:'Recipes, restaurants, food reviews — consistently high save rates and share-worthy content.',       color:'#7b2d00', accent:'#e76f51' },
+  { id:5, niche:'EDUCATION',   icon:'📚', desc:'How-to, tutorials, explainers — YouTube\'s most rewatchable content category.',                    color:'#1a3a2a', accent:'#52b788' },
+  { id:6, niche:'COMEDY',      icon:'😂', desc:'Sketches, reactions, relatable content — viral potential and rapid follower growth.',               color:'#3d2b00', accent:'#f4a261' },
+  { id:7, niche:'BEAUTY',      icon:'💄', desc:'Makeup, skincare, hair — one of Instagram\'s most engaged communities.',                            color:'#4a1228', accent:'#c9184a' },
+  { id:8, niche:'GAMING',      icon:'🎮', desc:'Gameplay, reviews, gaming culture — YouTube\'s largest single content category by watch time.',     color:'#0d1b2a', accent:'#4cc9f0' },
 ];
 
 const Showcase = () => {
-  const [active, setActive] = useState(1);
-  const ref = useRef(null);
-  const m = window.useMouse(ref);
-  const cur = ITEMS[active] || ITEMS[1];
+  const [active, setActive] = useState(0);
+  const cur = NICHES[active];
 
   return (
-    <window.Section id="showcase" padded={false} style={{padding:'80px 0 100px'}}>
-      <div className="wrap" style={{marginBottom:32}}>
-        <span className="reveal" style={window.labelStyle}>Selected work</span>
-        <h2 className="wreveal" style={{...window.bigHeadStyle(), fontSize:'clamp(40px,7vw,108px)', marginTop:14}}>
-          Where they got seen.
-        </h2>
-      </div>
+    <window.Section id="showcase" padded>
+      <div className="wrap">
+        <div style={{marginBottom:48}}>
+          <span className="reveal" style={window.labelStyle}>Niches we serve</span>
+          <h2 className="wreveal" style={{...window.bigHeadStyle(), fontSize:'clamp(40px,7vw,108px)', marginTop:14}}>
+            We grow creators<br/><window.Em>across every niche.</window.Em>
+          </h2>
+        </div>
 
-      <div ref={ref} style={{
-        position:'relative', minHeight:'min(78vh, 720px)',
-        display:'grid', gridTemplateColumns:'1fr 1.4fr 1fr', gap:24, alignItems:'stretch',
-        padding:'48px 28px', overflow:'hidden',
-      }} className="show-grid">
-        {/* glow following cursor */}
-        <div aria-hidden style={{
-          position:'absolute', inset:0, pointerEvents:'none',
-          background:`radial-gradient(circle at ${m.x*100}% ${m.y*100}%, rgba(22,101,52,.15), transparent 45%)`,
-          transition:'background .3s ease-out',
-        }}/>
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:24}} className="showcase-grid">
 
-        {/* LEFT — names */}
-        <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:6, justifyContent:'center', position:'relative', zIndex:2}} className="show-list">
-          {ITEMS.map((it, i) => (
-            <li key={it.id}
-              onMouseEnter={() => setActive(i)}
-              onClick={() => setActive(i)}
-              style={{
-                fontFamily:'var(--sans)', fontWeight: active===i ? 700 : 500,
-                fontSize:'clamp(13px,1.3vw,16px)', letterSpacing:'.04em',
-                color: active===i ? 'var(--ink)' : 'var(--ink-4)',
-                cursor:'pointer', display:'flex', alignItems:'center', gap:10,
-                padding:'4px 0', transition:'color .25s, transform .25s',
-                transform: active===i ? 'translateX(8px)' : 'none',
-              }}>
-              <span style={{
-                width:6, height:6, borderRadius:'50%',
-                background: active===i ? 'var(--accent)' : 'transparent',
-                boxShadow: active===i ? '0 0 12px var(--accent)' : 'none',
-                transition:'all .25s',
-              }}/>
-              {it.name}
-            </li>
-          ))}
-        </ul>
+          {/* LEFT — niche list */}
+          <div style={{display:'flex', flexDirection:'column', gap:6}}>
+            {NICHES.map((n, i) => (
+              <button key={n.id}
+                onMouseEnter={() => setActive(i)}
+                onClick={() => setActive(i)}
+                className="reveal"
+                style={{
+                  display:'flex', alignItems:'center', gap:16,
+                  padding:'16px 20px', borderRadius:14, textAlign:'left',
+                  border:'1px solid', cursor:'pointer',
+                  borderColor: active===i ? 'var(--accent)' : 'var(--line)',
+                  background: active===i ? 'var(--accent-l)' : 'var(--soft)',
+                  transition:'all .25s',
+                }}>
+                <span style={{fontSize:22, flexShrink:0}}>{n.icon}</span>
+                <div style={{flex:1}}>
+                  <div style={{
+                    fontFamily:'var(--mono)', fontWeight:700, fontSize:12,
+                    letterSpacing:'.1em', color: active===i ? 'var(--accent)' : 'var(--ink)',
+                    transition:'color .25s',
+                  }}>{n.niche}</div>
+                  <div style={{
+                    fontSize:12, color:'var(--ink-3)', marginTop:2, lineHeight:1.4,
+                    maxHeight: active===i ? 60 : 0, overflow:'hidden',
+                    transition:'max-height .35s cubic-bezier(.2,.8,.2,1)',
+                  }}>{n.desc}</div>
+                </div>
+                <span style={{
+                  color: active===i ? 'var(--accent)' : 'var(--ink-4)',
+                  fontSize:16, transition:'transform .25s, color .25s',
+                  transform: active===i ? 'translateX(4px)' : 'none',
+                }}>→</span>
+              </button>
+            ))}
+          </div>
 
-        {/* CENTER — giant title with displacement */}
-        <div style={{position:'relative', display:'flex', alignItems:'center', justifyContent:'center', zIndex:2, minHeight:'min(56vh, 520px)'}}>
-          <div aria-hidden style={{
-            position:'absolute', inset:0,
-            background:'radial-gradient(ellipse at center, rgba(22,163,74,.20), transparent 60%)',
-            filter:'blur(40px)',
-          }}/>
-          <div style={{position:'relative', textAlign:'center'}}>
-            <div style={{
-              fontFamily:'var(--mono)', fontSize:11, letterSpacing:'.18em',
-              textTransform:'uppercase', color:'var(--ink-3)', marginBottom:14,
+          {/* RIGHT — active niche hero card */}
+          <div className="reveal reveal-d1" style={{position:'sticky', top:120, alignSelf:'start'}}>
+            <div key={cur.id} style={{
+              background:`linear-gradient(145deg, ${cur.color}, ${cur.color}dd)`,
+              borderRadius:24, padding:'44px 36px',
+              minHeight:480, display:'flex', flexDirection:'column',
+              justifyContent:'space-between', position:'relative', overflow:'hidden',
+              animation:'nicheFadeIn .35s cubic-bezier(.2,.8,.2,1)',
             }}>
-              {String(active+1).padStart(2,'0')} / {String(ITEMS.length).padStart(2,'0')}
-            </div>
-            <ShowcaseTitle title={cur.title} key={cur.id} m={m}/>
-            <div style={{
-              marginTop:18, fontFamily:'var(--serif)', fontStyle:'italic',
-              fontWeight:300, fontSize:'clamp(16px,1.8vw,22px)',
-              color:'var(--accent)', letterSpacing:'-.02em',
-            }}>
-              {cur.niche.toLowerCase()}
+              {/* Glow blob */}
+              <div style={{position:'absolute', top:-60, right:-60, width:220, height:220, borderRadius:'50%', background:cur.accent, opacity:.18, filter:'blur(60px)'}}/>
+              <div style={{position:'absolute', bottom:-80, left:-40, width:180, height:180, borderRadius:'50%', background:cur.accent, opacity:.12, filter:'blur(50px)'}}/>
+
+              <div style={{position:'relative'}}>
+                <div style={{fontSize:56, marginBottom:20}}>{cur.icon}</div>
+                <div style={{fontFamily:'var(--mono)', fontSize:10, letterSpacing:'.14em', textTransform:'uppercase', color:'rgba(255,255,255,.4)', marginBottom:10}}>Niche {String(active+1).padStart(2,'0')} of {NICHES.length}</div>
+                <h3 style={{fontFamily:'var(--sans)', fontWeight:900, fontSize:'clamp(36px,6vw,72px)', letterSpacing:'-.04em', lineHeight:.9, color:'#fff', textTransform:'uppercase'}}>{cur.niche}</h3>
+                <p style={{marginTop:20, fontSize:15, lineHeight:1.65, color:'rgba(255,255,255,.65)', maxWidth:380}}>{cur.desc}</p>
+              </div>
+
+              <div style={{position:'relative', marginTop:32}}>
+                <div style={{display:'flex', gap:20, marginBottom:24}}>
+                  {[['Real accounts','No bots'],['Fast results','24–72h'],['Both platforms','IG + YT']].map(([t,s]) => (
+                    <div key={t}>
+                      <div style={{fontSize:12, fontWeight:700, color:'rgba(255,255,255,.9)'}}>{t}</div>
+                      <div style={{fontSize:11, color:'rgba(255,255,255,.45)', fontFamily:'var(--mono)'}}>{s}</div>
+                    </div>
+                  ))}
+                </div>
+                <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
+                  background:'rgba(255,255,255,.15)', color:'#fff', border:'1px solid rgba(255,255,255,.25)',
+                  padding:'12px 22px', borderRadius:999, fontSize:13, fontWeight:700, cursor:'pointer',
+                  backdropFilter:'blur(8px)', transition:'background .2s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.background='rgba(255,255,255,.25)'}
+                onMouseLeave={e => e.currentTarget.style.background='rgba(255,255,255,.15)'}>
+                  Get a free audit for {cur.niche.charAt(0) + cur.niche.slice(1).toLowerCase()} →
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT — niches */}
-        <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:6, justifyContent:'center', alignItems:'flex-end', position:'relative', zIndex:2}} className="show-list">
-          {ITEMS.map((it, i) => (
-            <li key={it.id}
-              onMouseEnter={() => setActive(i)}
-              onClick={() => setActive(i)}
-              style={{
-                fontFamily:'var(--sans)', fontWeight: active===i ? 700 : 500,
-                fontSize:'clamp(13px,1.3vw,16px)', letterSpacing:'.04em',
-                color: active===i ? 'var(--ink)' : 'var(--ink-4)',
-                cursor:'pointer', display:'flex', alignItems:'center', gap:10,
-                padding:'4px 0', transition:'color .25s, transform .25s',
-                transform: active===i ? 'translateX(-8px)' : 'none',
-                flexDirection:'row-reverse',
-              }}>
-              <span style={{
-                width:6, height:6, borderRadius:'50%',
-                background: active===i ? 'var(--accent)' : 'transparent',
-                boxShadow: active===i ? '0 0 12px var(--accent)' : 'none',
-                transition:'all .25s',
-              }}/>
-              {it.niche}
-            </li>
-          ))}
-        </ul>
-
-        {/* bottom counter line */}
-        <div style={{
-          position:'absolute', bottom:24, left:'50%', transform:'translateX(-50%)',
-          display:'flex', alignItems:'center', gap:12, zIndex:2,
-          fontFamily:'var(--mono)', fontSize:11, color:'var(--ink-3)',
-          letterSpacing:'.1em', textTransform:'uppercase',
-        }}>
-          <span>{String(active+1).padStart(2,'0')}</span>
-          <span style={{
-            width:120, height:1, background:'var(--line)', position:'relative',
-          }}>
-            <span style={{
-              position:'absolute', left:0, top:0, height:'100%',
-              width: `${((active+1)/ITEMS.length)*100}%`,
-              background:'var(--accent)', transition:'width .35s cubic-bezier(.2,.8,.2,1)',
+        {/* Progress dots */}
+        <div style={{display:'flex', justifyContent:'center', gap:8, marginTop:32}}>
+          {NICHES.map((_,i) => (
+            <button key={i} onClick={() => setActive(i)} style={{
+              width: active===i ? 28 : 8, height:8, borderRadius:999,
+              background: active===i ? 'var(--accent)' : 'var(--line)',
+              border:'none', cursor:'pointer', transition:'all .3s',
             }}/>
-          </span>
-          <span>{String(ITEMS.length).padStart(2,'0')}</span>
+          ))}
         </div>
       </div>
-
       <style>{`
-        @media (max-width:760px){
-          .show-grid{ grid-template-columns:1fr !important; padding:32px 20px !important }
-          .show-list{ flex-direction:row !important; flex-wrap:wrap !important; align-items:flex-start !important; gap:14px 18px !important; justify-content:center !important }
-          .show-list li{ padding:0 !important; transform:none !important }
-        }
+        @keyframes nicheFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+        @media(max-width:860px){.showcase-grid{grid-template-columns:1fr !important}}
       `}</style>
     </window.Section>
   );
 };
-
-const ShowcaseTitle = ({title, m}) => {
-  // displacement-style giant title — letter-by-letter with stagger
-  const letters = title.split('');
-  return (
-    <h3 style={{
-      fontFamily:'var(--sans)', fontWeight:900,
-      fontSize:'clamp(72px, 14vw, 220px)', letterSpacing:'-.06em',
-      lineHeight:.9, color:'var(--ink)', textTransform:'uppercase',
-      display:'flex', justifyContent:'center', flexWrap:'wrap',
-      animation:'showFadeIn .45s cubic-bezier(.2,.8,.2,1)',
-    }}>
-      {letters.map((l, i) => (
-        <span key={i} style={{
-          display:'inline-block',
-          transform:`translateY(${Math.sin((i+m.x*3))*4}px) skewY(${(m.x-.5)*4}deg)`,
-          transition:'transform .35s ease-out',
-          color: i % 2 === 0 ? 'var(--ink)' : 'var(--accent)',
-        }}>{l}</span>
-      ))}
-      <style>{`@keyframes showFadeIn{from{opacity:0; transform:translateY(20px) scaleY(.9); filter:blur(8px)} to{opacity:1; transform:none; filter:none}}`}</style>
-    </h3>
-  );
-};
-
 window.Showcase = Showcase;

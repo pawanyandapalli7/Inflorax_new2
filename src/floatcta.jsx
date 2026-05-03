@@ -12,13 +12,14 @@ const FloatCTA = () => {
     <button
       onClick={() => window.openAuditModal && window.openAuditModal()}
       style={{
-        position: 'fixed', bottom: 24, right: 24, zIndex: 9990,
+        position: fixed, bottom: 24, right: 24, zIndex: 9990,
         background: 'var(--accent)', color: '#fff',
         border: 'none', padding: '12px 22px', borderRadius: 999,
         fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 700,
         cursor: 'pointer', letterSpacing: '-.01em',
         boxShadow: '0 8px 32px -8px rgba(22,101,52,.6)',
-        opacity: visible ? 1 : 0,
+        id: 'float-cta-btn',
+      opacity: visible ? 1 : 0,
         pointerEvents: visible ? 'auto' : 'none',
         transform: visible ? 'translateY(0)' : 'translateY(12px)',
         transition: 'opacity .3s, transform .3s',
@@ -29,9 +30,11 @@ const FloatCTA = () => {
     >
       Free Audit →
     </button>
+    <style>{`@media(max-width:768px){#float-cta-btn{display:none!important}}`}</style>
   );
 };
 window.FloatCTA = FloatCTA;
+
 
 // LIVE CLOCK — updates every second, used by nav + footer
 const useClock = () => {

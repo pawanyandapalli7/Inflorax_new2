@@ -1,4 +1,4 @@
-// HERO — Kinetic, with stat cards + chart canvas + dot-grid + bottom strip
+// HERO — clean headline, stat cards, chart, no bottom strip
 const Hero = () => {
   const ref = useRef(null);
   const m = window.useMouse(ref);
@@ -112,7 +112,7 @@ const Hero = () => {
     <section id="hero-section" data-screen-label="01 hero" ref={ref} style={{
       minHeight: '100svh', position: 'relative', overflow: 'hidden',
       paddingTop: 'calc(74px + clamp(24px, 5vw, 56px))',
-      paddingBottom: 0,
+      paddingBottom: 'clamp(40px,6vw,80px)',
       display: 'flex', flexDirection: 'column',
     }}>
       {/* Interactive dot-grid */}
@@ -123,83 +123,81 @@ const Hero = () => {
         position: 'absolute', right: -40, top: 80,
         fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
         fontSize: 'clamp(120px, 22vw, 420px)',
-        color: 'rgba(22,101,52,.06)', lineHeight: 1, letterSpacing: '-.04em',
+        color: 'rgba(22,101,52,.05)', lineHeight: 1, letterSpacing: '-.04em',
         pointerEvents: 'none', userSelect: 'none',
         transform: `translate(${m.x * 30 - 15}px, ${-y * .18}px)`,
         transition: 'transform .25s ease-out', zIndex: 0,
       }}>seen</div>
 
-      {/* Two-col main content */}
+      {/* Main grid */}
       <div className="wrap hero-inner-grid" style={{
         position: 'relative', zIndex: 2, flex: 1,
-        display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 40, alignItems: 'center',
-        paddingBottom: 'clamp(40px, 5vw, 64px)',
+        display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 48, alignItems: 'center',
       }}>
         {/* LEFT */}
         <div>
-          {/* NOW ACCEPTING pill */}
+          {/* Status pill */}
           <div className="reveal" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '6px 14px', borderRadius: 999,
             background: 'rgba(22,101,52,.10)', border: '1px solid rgba(22,101,52,.22)',
             fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase',
-            color: 'var(--accent)', marginBottom: 20,
+            color: 'var(--accent)', marginBottom: 22,
           }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', animation: 'heroDot 2s ease-in-out infinite' }}/>
-            NOW ACCEPTING CREATORS — IG &amp; YT
+            Now accepting creators — Instagram &amp; YouTube
           </div>
 
-          <h1 className="wreveal" style={{ ...window.bigHeadStyle(), fontSize: 'clamp(44px, 8.5vw, 150px)', marginBottom: 0 }}>
+          {/* Clean headline — no mid-word splits */}
+          <h1 className="wreveal" style={{ ...window.bigHeadStyle(), fontSize: 'clamp(44px, 8.5vw, 148px)', marginBottom: 0 }}>
             Your content<br/>
-            <span style={{ display: 'inline-block', transform: `translateX(${m.x * 8 - 4}px)`, color: 'var(--accent)' }}>wasn't</span>
-            {' '}the<br/>
-            problem. It<br/>
-            <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, textTransform: 'none', letterSpacing: '-.04em', color: 'var(--accent)' }}>just wasn't seen.</span>
+            deserves<br/>
+            to be <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, textTransform: 'none', letterSpacing: '-.04em', color: 'var(--accent)' }}>seen.</span>
           </h1>
 
           <p className="reveal reveal-d2" style={{
-            fontSize: 17, lineHeight: 1.55, color: 'var(--ink-2)', maxWidth: 520, marginTop: 22,
+            fontSize: 18, lineHeight: 1.55, color: 'var(--ink-2)', maxWidth: 520, marginTop: 24,
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
           }}>
             We put your content in front of the right people — so <span style={{ color: 'var(--accent)', fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 600 }}>real momentum</span> can finally build.
           </p>
 
-          <div className="reveal reveal-d3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 24 }}>
+          <div className="reveal reveal-d3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }}>
             <window.Btn primary href="#pricing">View packages →</window.Btn>
             <window.Btn onClick={() => window.openAuditModal && window.openAuditModal()}>Get free audit</window.Btn>
           </div>
 
           {/* Trust icons */}
-          <div className="reveal reveal-d4" style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginTop: 22 }}>
-            {[['🔒','No passwords','required'],['🛡️','Secure checkout','via Stripe'],['⚡','Results depend on','your consistency']].map(([ic,l1,l2]) => (
-              <div key={l1} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 16 }}>{ic}</span>
-                <span style={{ fontSize: 11, color: 'var(--ink-3)', lineHeight: 1.3 }}>{l1}<br/>{l2}</span>
+          <div className="reveal reveal-d4" style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginTop: 28 }}>
+            {[['🔒','No passwords required'],['🛡️','Secure checkout via Stripe'],['⚡','Results in 24–72 hours']].map(([ic,l]) => (
+              <div key={l} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 15 }}>{ic}</span>
+                <span style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.3 }}>{l}</span>
               </div>
             ))}
           </div>
 
           {/* Social proof avatars */}
-          <div className="reveal reveal-d4" style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 18 }}>
+          <div className="reveal reveal-d4" style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 22 }}>
             <div style={{ display: 'flex' }}>
-              {[['M','#e74c3c,#8e44ad'],['J','#2980b9,#1a252f'],['S','#e67e22,#d35400'],['K','#27ae60,#1e8449'],['R','#8e44ad,#2c3e50']].map(([l,g], i) => (
+              {[['M','#2d6a4f,#1b4332'],['J','#1e6091,#023e8a'],['S','#6d4c41,#4e342e'],['K','#4a1942,#6a1e5e'],['R','#2d6a4f,#40916c']].map(([l,g], i) => (
                 <div key={i} style={{ width:28, height:28, borderRadius:'50%', background:`linear-gradient(135deg,${g})`, border:'2px solid var(--bg)', marginLeft: i ? -8 : 0, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, fontWeight:700, color:'#fff' }}>{l}</div>
               ))}
               <div style={{ width:28, height:28, borderRadius:'50%', background:'var(--accent)', border:'2px solid var(--bg)', marginLeft:-8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:8, fontWeight:700, color:'#fff' }}>18+</div>
             </div>
             <div>
               <div style={{ fontWeight:700, fontSize:12, color:'var(--ink)' }}>18 creators joined this week</div>
-              <div style={{ fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)' }}>
-                <span style={{ display:'inline-block', width:6, height:6, borderRadius:'50%', background:'var(--accent)', marginRight:4, verticalAlign:'middle' }}/>
-                Avg results: 24–72 hours
+              <div style={{ fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)', display:'flex', alignItems:'center', gap:5 }}>
+                <span style={{ width:6, height:6, borderRadius:'50%', background:'var(--accent)', display:'inline-block' }}/>
+                Avg first results in 24–72 hours
               </div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT — Chart + floating stat cards */}
+        {/* RIGHT — Chart + stat cards */}
         <div className="hero-right-col reveal reveal-d1" style={{ position:'relative', height:420 }}>
-          <div style={{ background:'rgba(255,255,255,.55)', border:'1px solid rgba(22,101,52,.12)', borderRadius:20, padding:20, backdropFilter:'blur(8px)', position:'absolute', inset:0 }}>
+          <div style={{ background:'rgba(255,255,255,.6)', border:'1px solid rgba(22,101,52,.12)', borderRadius:20, padding:20, backdropFilter:'blur(8px)', position:'absolute', inset:0 }}>
             <div style={{ fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.1em', textTransform:'uppercase', color:'var(--ink-3)', marginBottom:8 }}>Growth trajectory · 90 days</div>
             <canvas id="hero-chart-canvas" style={{ width:'100%', height:'auto' }}/>
           </div>
@@ -212,10 +210,10 @@ const Hero = () => {
           ].map((c, i) => (
             <div key={i} style={{
               position:'absolute', ...c.style,
-              background:'rgba(255,255,255,.92)', border:'1px solid rgba(22,101,52,.12)', borderRadius:14,
+              background:'rgba(255,255,255,.94)', border:'1px solid rgba(22,101,52,.14)', borderRadius:14,
               padding:'10px 14px', backdropFilter:'blur(12px)',
               display:'flex', alignItems:'center', gap:10,
-              boxShadow:'0 8px 28px rgba(15,31,15,.1)',
+              boxShadow:'0 8px 28px rgba(15,31,15,.08)',
               animation:`hfc${i} ${3.5+i*.7}s ease-in-out infinite`,
               minWidth:155, zIndex:3,
             }}>
@@ -233,39 +231,12 @@ const Hero = () => {
             position:'absolute', bottom:-20, left:-20,
             background:'var(--ink)', color:'var(--bone)',
             borderRadius:14, padding:'12px 16px', maxWidth:210,
-            boxShadow:'0 8px 32px rgba(15,31,15,.25)',
+            boxShadow:'0 8px 32px rgba(15,31,15,.18)',
             animation:'hfc2 4.8s ease-in-out infinite', zIndex:3,
           }}>
             <div style={{color:'var(--accent)', fontSize:11, marginBottom:4}}>★★★★★</div>
-            <p style={{fontSize:12, lineHeight:1.5, color:'rgba(240,246,232,.8)', marginBottom:6}}>"Inflorax changed everything. Finally real growth, real people."</p>
-            <div style={{fontSize:10, color:'rgba(240,246,232,.45)', fontFamily:'var(--mono)'}}>@creative.jade ✓</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom CTA strip */}
-      <div style={{ position:'relative', zIndex:2, background:'#0c190c', color:'#f5faf0' }}>
-        <div className="wrap" style={{ padding:'24px 28px', display:'flex', alignItems:'center', gap:28, flexWrap:'wrap' }}>
-          <div style={{flex:'0 0 auto'}}>
-            <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(240,246,232,.35)', marginBottom:4}}>THE CHOICE IS SIMPLE</div>
-            <div style={{fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300, fontSize:'clamp(18px,2.5vw,28px)', lineHeight:1.1}}>
-              Keep waiting. Or <span style={{color:'var(--accent)'}}>start growing.</span>
-            </div>
-          </div>
-          <p style={{flex:1, minWidth:160, fontSize:13, color:'rgba(240,246,232,.55)', lineHeight:1.5}}>
-            You create. We amplify.<br/>Let's turn your content into the momentum you deserve.
-          </p>
-          <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:6}}>
-            <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
-              background:'var(--accent)', color:'#fff', border:'none',
-              padding:'12px 22px', borderRadius:999, fontSize:13, fontWeight:700, cursor:'pointer',
-              transition:'transform .2s',
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform='translateY(-2px)'}
-            onMouseLeave={e => e.currentTarget.style.transform='none'}>
-              Start your growth system →
-            </button>
-            <span style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.08em', textTransform:'uppercase', color:'rgba(240,246,232,.25)'}}>Takes less than 2 minutes</span>
+            <p style={{fontSize:12, lineHeight:1.5, color:'rgba(240,246,232,.85)', marginBottom:6}}>"Finally real growth, real people. My reach doubled in the first week."</p>
+            <div style={{fontSize:10, color:'rgba(240,246,232,.4)', fontFamily:'var(--mono)'}}>@creative.jade · Lifestyle ✓</div>
           </div>
         </div>
       </div>
@@ -284,14 +255,13 @@ const Hero = () => {
 };
 
 const HeroTickerStrip = () => {
-  const items = ['Built for creators · plateau · serious about growth','No passwords · no fake engagement','Real visibility — not fake numbers','7–10 days to first lift','18+ creators active this week'];
+  const items = ['No passwords required','Real visibility — not fake numbers','Instagram & YouTube promotion','Results in 24–72 hours','18+ creators active this week','Secure checkout via Stripe'];
   return (
-    <div style={{ position:'relative', zIndex:2, padding:'12px 0', borderTop:'1px solid var(--line)', background:'rgba(15,31,15,.04)', overflow:'hidden', maskImage:'linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)' }}>
+    <div style={{ position:'relative', zIndex:2, padding:'12px 0', borderTop:'1px solid var(--line)', background:'rgba(15,31,15,.03)', overflow:'hidden', maskImage:'linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)' }}>
       <div style={{ display:'flex', gap:48, animation:'tickerL 38s linear infinite', whiteSpace:'nowrap', fontFamily:'var(--mono)', fontSize:11, letterSpacing:'.06em', color:'var(--ink-2)', textTransform:'uppercase' }}>
         {[...items,...items,...items].map((it,i)=>(
           <span key={i} style={{display:'flex',alignItems:'center',gap:48}}>
-            {it}
-            <span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--accent)'}}/>
+            {it}<span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--accent)'}}/>
           </span>
         ))}
       </div>
