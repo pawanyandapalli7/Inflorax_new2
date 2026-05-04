@@ -70,33 +70,36 @@ const AuditModal = ({open, onClose}) => {
   const submit = () => {
     if (!validate()) return;
     setLoading(true);
-    // Execute reCAPTCHA v3 — get token then submit
+
     const doSubmit = (token) => {
-      const fd = new FormData();
-      if (token) fd.append('g-recaptcha-response', token);
-      // Fields matched to form.jotform.com/inflorax/creator-audit-form-for-inflorax
-      // Jotform field order: Name→Email→Handle→Platform→Frequency→Goal→Challenge→Niche→Experience→Extra
-      fd.append('q3_name[first]',    data.fname);
-      fd.append('q3_name[last]',     data.lname);
-      fd.append('q4_email',          data.email);
-      fd.append('q5_handle',         data.handle);
-      fd.append('q6_platform',       data.platform);
-      fd.append('q7_frequency',      data.frequency);
-      fd.append('q8_goal',           data.goal);
-      fd.append('q9_challenge',      data.challenge);
-      fd.append('q10_niche',         data.niche);
-      fd.append('q11_experience',    data.experience);
-      fd.append('q12_extra',         [
-        data.followers ? 'Followers: ' + data.followers : '',
-        data.budget    ? 'Budget: '    + data.budget    : '',
-        data.tried     ? 'Tried: '     + data.tried     : '',
-      ].filter(Boolean).join(' | '));
-    fd.append('formID',              '261090594312049');
-    fd.append('simple_spc',          '261090594312049-261090594312049');
-      fetch('https://submit.jotform.com/submit/261090594312049', {method:'POST', body:fd, mode:'no-cors'})
-        .finally(() => { setLoading(false); setSubmitted(true); });
+      // Formspree — each field has a clear name, works without internal field IDs
+      const payload = {
+        'First name':        data.fname,
+        'Last name':         data.lname,
+        '_replyto':          data.email,
+        'Handle':            data.handle,
+        'Platform':          data.platform,
+        'Frequency':         data.frequency,
+        'Main goal':         data.goal,
+        'Challenge':         data.challenge,
+        'Niche':             data.niche,
+        'Followers':         data.followers,
+        'Experience':        data.experience,
+        'Tried before':      data.tried,
+        'Budget openness':   data.budget,
+        '_subject':          'New Creator Audit — ' + data.fname + ' ' + data.lname,
+        'g-recaptcha-response': token || '',
+      };
+      fetch('https://formspree.io/f/xojregkr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      .then(r => r.json())
+      .then(() => { setLoading(false); setSubmitted(true); })
+      .catch(() => { setLoading(false); setSubmitted(true); });
     };
-    // Run reCAPTCHA if ready, else submit directly
+
     if (recaptchaReady && window.grecaptcha) {
       window.grecaptcha.ready(() => {
         window.grecaptcha.execute('6LdCFNgsAAAAAJ5LaaMgTyy8ijFQLi2V9AoQLrRz', {action:'audit_submit'})
@@ -487,7 +490,7 @@ const AuditCTA = () => {
 
   useEffect(() => {
     const onClick = e => {
-      const trig = e.target.closest('a[href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("audit");}}], [data-audit-trigger]');
+      const trig = e.target.closest('[data-audit-trigger]');
       if (trig) { e.preventDefault(); setOpen(true); }
     };
     document.addEventListener('click', onClick);

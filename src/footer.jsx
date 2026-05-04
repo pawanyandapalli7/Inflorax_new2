@@ -98,7 +98,7 @@ const Footer = () => {
             <div className="foot-h">Navigate</div>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[['process','How it works'],['pricing','Packages'],['showcase','Niches'],['faq','FAQ'],['about','About']].map(([h,l]) => (
-                <li key={l}><a href={h} className="foot-link" style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
+                <li key={l}><a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection(h);}} className="foot-link" style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -108,7 +108,7 @@ const Footer = () => {
             <div className="foot-h" style={{ color: 'rgba(74,222,128,.7)' }}>Get Started</div>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[['audit','Free audit →'],['pricing','Instagram plans'],['pricing','YouTube plans']].map(([h,l]) => (
-                <li key={l}><a href={h} style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
+                <li key={l}><a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection(h);}} style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }} onMouseEnter={e=>e.target.style.color='var(--accent)'} onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
               ))}
             </ul>
           </div>

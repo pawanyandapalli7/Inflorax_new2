@@ -330,7 +330,7 @@ const PriceCard = ({plan: p, showCount}) => {
       </div>
 
       {/* CTA */}
-      <a href={p.stripe} target="_blank" rel="noopener" style={{
+      <a href={p.stripe}  style={{
         display:'flex', alignItems:'center', justifyContent:'center', gap:8,
         padding:'11px 14px', borderRadius:999,
         background:'var(--ink)', color:'#fff',
