@@ -14,6 +14,7 @@ const App = () => {
 
   return (
     <window.DirectionCtx.Provider value="kinetic">
+      {window.Preloader && <window.Preloader/>}
       <window.Hero/>
       <window.Marquee big speed={tweaks.motion === 'extra' ? 32 : 50}/>
       <window.Problem/>
