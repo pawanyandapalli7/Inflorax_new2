@@ -118,7 +118,7 @@ const Footer = () => {
             <div className="foot-h">Connect</div>
             <ul style={{ listStyle:'none', display:'flex', flexDirection:'column', gap:10 }}>
               {[
-                ['hello@inflorax.studio','mailto:hello@inflorax.studio'],
+                ['info@inflorax.com','mailto:info@inflorax.com'],
                 ['Free audit →','audit'],
               ].map(([l,h]) => (
                 <li key={l}><a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection(h);}} style={{ fontSize:13, color:'rgba(240,246,232,.55)', transition:'color .2s', textDecoration:'none' }}
@@ -126,7 +126,41 @@ const Footer = () => {
                   onMouseLeave={e=>e.target.style.color='rgba(240,246,232,.55)'}>{l}</a></li>
               ))}
             </ul>
-            <div style={{ marginTop:20, display:'flex', alignItems:'center', gap:8 }}>
+            {/* Social icons */}
+            <div style={{ marginTop:20, display:'flex', gap:10 }}>
+              {[
+                { label:'Instagram', href:'#', icon:(
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                  </svg>
+                )},
+                { label:'Facebook', href:'#', icon:(
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                  </svg>
+                )},
+                { label:'X / Twitter', href:'#', icon:(
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                )},
+              ].map(({label, href, icon}) => (
+                <a key={label} href={href} aria-label={label} style={{
+                  width:36, height:36, borderRadius:'50%',
+                  border:'1px solid rgba(240,246,232,.15)',
+                  display:'flex', alignItems:'center', justifyContent:'center',
+                  color:'rgba(240,246,232,.45)',
+                  transition:'color .2s, border-color .2s, background .2s',
+                  textDecoration:'none',
+                }}
+                onMouseEnter={e=>{e.currentTarget.style.color='var(--accent)';e.currentTarget.style.borderColor='var(--accent)';e.currentTarget.style.background='rgba(22,101,52,.12)';}}
+                onMouseLeave={e=>{e.currentTarget.style.color='rgba(240,246,232,.45)';e.currentTarget.style.borderColor='rgba(240,246,232,.15)';e.currentTarget.style.background='transparent';}}>
+                  {icon}
+                </a>
+              ))}
+            </div>
+
+            <div style={{ marginTop:16, display:'flex', alignItems:'center', gap:8 }}>
               <span style={{ width:7, height:7, borderRadius:'50%', background:'#22c55e' }}/>
               <span style={{ fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.08em', textTransform:'uppercase', color:'rgba(255,255,255,.45)' }}>Accepting creators</span>
             </div>

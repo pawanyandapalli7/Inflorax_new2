@@ -45,7 +45,7 @@ const FAQ = () => {
             </h2>
             <p className="reveal reveal-d2" style={{marginTop:18, color:'var(--ink-2)', fontSize:15, lineHeight:1.6}}>
               Still unsure?{' '}
-              <a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("audit");}} style={{color:'var(--accent)', textDecoration:'underline'}}>Get a free audit →</a>
+              <a href="mailto:info@inflorax.com" style={{color:'var(--accent)', textDecoration:'underline'}}>Email us at info@inflorax.com →</a>
             </p>
           </div>
 

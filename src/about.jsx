@@ -80,6 +80,9 @@ const About = () => (
             <window.Btn primary href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("pricing");}}>View packages →</window.Btn>
             <window.Btn onClick={() => window.openAuditModal && window.openAuditModal()}>Get free audit</window.Btn>
           </div>
+          <p style={{marginTop:16, fontSize:13, color:'var(--ink-3)'}}>
+            Questions? <a href="mailto:info@inflorax.com" style={{color:'var(--accent)', textDecoration:'none', fontWeight:600}}>info@inflorax.com</a>
+          </p>
         </div>
 
     <style>{`

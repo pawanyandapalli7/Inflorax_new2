@@ -27,7 +27,7 @@ const Showcase = () => {
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:24}} className="showcase-grid">
 
           {/* LEFT — niche list */}
-          <div style={{display:'flex', flexDirection:'column', gap:6}}>
+          <div className="showcase-niche-list" style={{display:'flex', flexDirection:'column', gap:6}}>
             {NICHES.map((n, i) => (
               <button key={n.id}
                 onMouseEnter={() => setActive(i)}
@@ -107,7 +107,7 @@ const Showcase = () => {
         </div>
 
         {/* Progress dots */}
-        <div style={{display:'flex', justifyContent:'center', gap:8, marginTop:32}}>
+        <div className="showcase-dots" style={{display:'flex', justifyContent:'center', gap:8, marginTop:32}}>
           {NICHES.map((_,i) => (
             <button key={i} onClick={() => setActive(i)} style={{
               width: active===i ? 28 : 8, height:8, borderRadius:999,
@@ -122,6 +122,8 @@ const Showcase = () => {
         @media(max-width:900px){
           .showcase-grid{grid-template-columns:1fr !important}
           .showcase-sticky{position:static !important; margin-top:16px}
+          .showcase-niche-list{display:none !important}
+          .showcase-dots{display:none !important}
         }
         @media(max-width:480px){
           .showcase-niche-btn{padding:12px 14px !important}

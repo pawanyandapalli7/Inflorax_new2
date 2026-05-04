@@ -79,11 +79,11 @@ const Process = () => {
         <style>{`
           @media(max-width:900px){
             .proc-head{grid-template-columns:1fr !important; gap:16px}
-            .proc-body{grid-template-columns:1fr !important; gap:24px}
-            .proc-sticky{position:relative !important; top:0 !important; height:auto !important; min-height:280px}
+            .proc-body{grid-template-columns:1fr !important; gap:24px; display:flex !important; flex-direction:column-reverse}
+            .proc-sticky{position:relative !important; top:0 !important; height:280px !important; min-height:280px}
           }
           @media(max-width:600px){
-            .proc-sticky{min-height:220px}
+            .proc-sticky{height:240px !important; min-height:240px}
           }
         `}</style>
       </div>

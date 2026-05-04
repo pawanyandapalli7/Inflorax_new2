@@ -121,15 +121,15 @@ const AuditModal = ({open, onClose}) => {
     value: data[k],
     onChange: e => set(k, e.target.value),
     style: {
-      width:'100%', padding:'14px 16px',
-      border: `1.5px solid ${errors[k] ? 'var(--accent)' : 'var(--line)'}`,
-      background: errors[k] ? 'rgba(22,101,52,.04)' : 'var(--soft)',
-      fontFamily:'var(--serif)', fontSize:16, color:'var(--ink)',
-      outline:'none', borderRadius:10, transition:'border-color .2s, background .2s',
+      width:'100%', padding:'15px 16px',
+      border: `2px solid ${errors[k] ? '#c0392b' : '#d0d8d0'}`,
+      background: '#fff',
+      fontFamily:'var(--serif)', fontSize:16, color:'#111',
+      outline:'none', borderRadius:10, transition:'border-color .2s',
       ...overrides,
     },
-    onFocus: e => { e.target.style.borderColor='var(--accent)'; e.target.style.background='#fff'; },
-    onBlur:  e => { e.target.style.borderColor=errors[k]?'var(--accent)':'var(--line)'; e.target.style.background=errors[k]?'rgba(22,101,52,.04)':'var(--soft)'; },
+    onFocus: e => { e.target.style.borderColor='var(--accent)'; },
+    onBlur:  e => { e.target.style.borderColor=errors[k]?'#c0392b':'#d0d8d0'; },
   });
 
   const ChoiceBtn = ({label, field, value}) => {
@@ -144,8 +144,8 @@ const AuditModal = ({open, onClose}) => {
         cursor:'pointer', transition:'all .18s', textAlign:'left',
         display:'flex', alignItems:'center', gap:8,
       }}
-      onMouseEnter={e=>{ if(!on){e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.color='var(--ink)';} }}
-      onMouseLeave={e=>{ if(!on){e.currentTarget.style.borderColor=errors[field]?'rgba(216,95,31,.4)':'var(--line)'; e.currentTarget.style.color='var(--ink-2)';} }}>
+      onMouseEnter={e=>{ if(!on){e.currentTarget.style.borderColor='var(--accent)'; e.currentTarget.style.color='var(--accent)';} }}
+      onMouseLeave={e=>{ if(!on){e.currentTarget.style.borderColor=errors[field]?'#c0392b':'#d0d8d0'; e.currentTarget.style.color='#111';} }}>
         <span style={{
           width:14, height:14, borderRadius:'50%', flexShrink:0,
           border:'1.5px solid', borderColor: on ? 'var(--accent)' : 'var(--line)',
@@ -161,10 +161,11 @@ const AuditModal = ({open, onClose}) => {
 
   const Label = ({children, error}) => (
     <div style={{
-      fontFamily:'var(--mono)', fontSize:10, letterSpacing:'.1em', textTransform:'uppercase',
-      color: error ? 'var(--accent)' : 'var(--ink-3)', marginBottom:8, display:'flex', alignItems:'center', gap:6,
+      fontFamily:'var(--mono)', fontSize:11, letterSpacing:'.08em', textTransform:'uppercase',
+      color: error ? '#c0392b' : '#1a1a1a', marginBottom:10, display:'flex', alignItems:'center', gap:6,
+      fontWeight: 600,
     }}>
-      {children}{error && <span style={{color:'var(--accent)'}}>← required</span>}
+      {children}{error && <span style={{color:'#c0392b', marginLeft:4}}>← required</span>}
     </div>
   );
 
@@ -216,7 +217,7 @@ const AuditModal = ({open, onClose}) => {
         </div>
 
         {/* Scrollable form body */}
-        <div className="audit-body" style={{flex:1, overflowY:'auto', padding:'24px 28px', display:'flex', flexDirection:'column', gap:24}}>
+        <div className="audit-body" style={{flex:1, overflowY:'auto', padding:'24px 28px', display:'flex', flexDirection:'column', gap:24, background:'#fff'}}>
 
           {!submitted ? (<>
 
@@ -305,14 +306,14 @@ const AuditModal = ({open, onClose}) => {
                 value={data.challenge}
                 onChange={e => set('challenge', e.target.value)}
                 style={{
-                  width:'100%', padding:'14px 16px',
-                  border:'1.5px solid var(--line)', background:'var(--soft)',
-                  fontFamily:'var(--serif)', fontSize:16, color:'var(--ink)',
+                  width:'100%', padding:'15px 16px',
+                  border:'2px solid #d0d8d0', background:'#fff',
+                  fontFamily:'var(--serif)', fontSize:16, color:'#111',
                   outline:'none', borderRadius:10, resize:'vertical',
-                  transition:'border-color .2s, background .2s',
+                  transition:'border-color .2s',
                 }}
-                onFocus={e=>{e.target.style.borderColor='var(--accent)';e.target.style.background='#fff';}}
-                onBlur={e=>{e.target.style.borderColor='var(--line)';e.target.style.background='var(--soft)';}}
+                onFocus={e=>{e.target.style.borderColor='var(--accent)';}}
+                onBlur={e=>{e.target.style.borderColor='#d0d8d0';}}
               />
             </div>
 
@@ -363,8 +364,8 @@ const AuditModal = ({open, onClose}) => {
                   outline:'none', borderRadius:10, transition:'border-color .2s, background .2s',
                   maxWidth:180,
                 }}
-                onFocus={e=>{e.target.style.borderColor='var(--accent)';e.target.style.background='#fff';}}
-                onBlur={e=>{e.target.style.borderColor=mathError?'var(--accent)':'var(--line)';e.target.style.background=mathError?'rgba(216,95,31,.04)':'var(--soft)';}}
+                onFocus={e=>{e.target.style.borderColor='var(--accent)';}}
+                onBlur={e=>{e.target.style.borderColor=mathError?'#c0392b':'#d0d8d0';}}
               />
               <p style={{marginTop:6, fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)'}}>
                 This confirms you're a real person, not a bot.
@@ -411,8 +412,12 @@ const AuditModal = ({open, onClose}) => {
                   <span style={{color:'var(--accent)', fontWeight:700}}>✓</span>{t}
                 </div>
               ))}
+              <p style={{marginTop:16, fontSize:13, color:'var(--ink-3)', textAlign:'center', lineHeight:1.6}}>
+                Questions? Email us at{' '}
+                <a href="mailto:info@inflorax.com" style={{color:'var(--accent)', textDecoration:'none', fontWeight:600}}>info@inflorax.com</a>
+              </p>
               <button onClick={handleClose} style={{
-                marginTop:24, background:'var(--ink)', color:'#fff', border:'none',
+                marginTop:16, background:'var(--ink)', color:'#fff', border:'none',
                 padding:'12px 28px', borderRadius:999, fontSize:13, fontWeight:700, cursor:'pointer',
               }}
               onMouseEnter={e=>e.currentTarget.style.background='var(--accent)'}
@@ -425,7 +430,7 @@ const AuditModal = ({open, onClose}) => {
         {!submitted && (
           <div className="audit-footer" style={{
             padding:'16px 28px 20px', flexShrink:0,
-            borderTop:'1px solid var(--line)', background:'var(--soft)',
+            borderTop:'1px solid #e8ede8', background:'#fff',
           }}>
             {hasErrors && (
               <p style={{fontFamily:'var(--mono)', fontSize:10, color:'var(--accent)', letterSpacing:'.06em', marginBottom:10}}>

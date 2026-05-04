@@ -77,6 +77,8 @@
     text-rendering:optimizeLegibility;
   }
   html{scroll-behavior:smooth}
+  /* Hide reCAPTCHA badge — privacy note shown inside form */
+  .grecaptcha-badge{visibility:hidden !important; opacity:0 !important}
   body{overflow-x:hidden;position:relative;min-height:100vh}
 
   /* ───── Background gradient glow ───── */
@@ -243,24 +245,24 @@
   <nav class="top">
     <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});window.history.replaceState(null,'',window.location.pathname);return false;" class="brand"><span class="brand-mark"></span>Inflorax</a>
     <div class="nav-mid">
-      <a href="#" data-scroll="problem" onclick="scrollTo('problem');return false;">Why</a>
-      <a href="#" data-scroll="process" onclick="scrollTo('process');return false;">Process</a>
-      <a href="#" data-scroll="pricing" onclick="scrollTo('pricing');return false;">Pricing</a>
-      <a href="#" data-scroll="showcase" onclick="scrollTo('showcase');return false;">Niches</a>
-      <a href="#" data-scroll="faq" onclick="scrollTo('faq');return false;">FAQ</a>
+      <a href="#" data-scroll="problem" onclick="goTo('problem');return false;">Why</a>
+      <a href="#" data-scroll="process" onclick="goTo('process');return false;">Process</a>
+      <a href="#" data-scroll="pricing" onclick="goTo('pricing');return false;">Pricing</a>
+      <a href="#" data-scroll="showcase" onclick="goTo('showcase');return false;">Niches</a>
+      <a href="#" data-scroll="faq" onclick="goTo('faq');return false;">FAQ</a>
     </div>
     <div class="nav-right">
-      <a href="#" class="pill-btn" onclick="scrollTo('audit');return false;">Free Audit <span class="arr">→</span></a>
+      <a href="#" class="pill-btn" onclick="goTo('audit');return false;">Free Audit <span class="arr">→</span></a>
       <button class="ham" id="ham" aria-label="Menu"><span></span></button>
     </div>
   </nav>
   <div id="drawer">
-    <a href="#" onclick="scrollTo('problem');closeDrawer();return false;">Why <span>→</span></a>
-    <a href="#" onclick="scrollTo('process');closeDrawer();return false;">Process <span>→</span></a>
-    <a href="#" onclick="scrollTo('pricing');closeDrawer();return false;">Pricing <span>→</span></a>
-    <a href="#" onclick="scrollTo('showcase');closeDrawer();return false;">Niches <span>→</span></a>
-    <a href="#" onclick="scrollTo('faq');closeDrawer();return false;">FAQ <span>→</span></a>
-    <a href="#" onclick="scrollTo('audit');closeDrawer();return false;" class="pill-btn">Get a Free Audit →</a>
+    <a href="#" onclick="goTo('problem');closeDrawer();return false;">Why <span>→</span></a>
+    <a href="#" onclick="goTo('process');closeDrawer();return false;">Process <span>→</span></a>
+    <a href="#" onclick="goTo('pricing');closeDrawer();return false;">Pricing <span>→</span></a>
+    <a href="#" onclick="goTo('showcase');closeDrawer();return false;">Niches <span>→</span></a>
+    <a href="#" onclick="goTo('faq');closeDrawer();return false;">FAQ <span>→</span></a>
+    <a href="#" onclick="goTo('audit');closeDrawer();return false;" class="pill-btn">Get a Free Audit →</a>
   </div>
 
   <!-- ───── ROOTS for React component sections ───── -->
@@ -311,7 +313,7 @@
   <!-- Plain JS -->
   <script>
     // Custom smooth scroll — no hash in URL
-    function scrollTo(id) {
+    function goTo(id) {
       var el = document.getElementById(id);
       if (!el) return;
       var top = el.getBoundingClientRect().top + window.pageYOffset - 72; // 72px nav offset
@@ -321,7 +323,7 @@
         window.history.replaceState(null, '', window.location.pathname);
       }
     }
-    window.scrollToSection = scrollTo;
+    window.scrollToSection = goTo;
 
     // scroll progress
     const prog = document.getElementById('prog');
