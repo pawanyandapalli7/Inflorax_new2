@@ -63,8 +63,8 @@ const Showcase = () => {
             ))}
           </div>
 
-          {/* RIGHT — active niche hero card */}
-          <div className="reveal reveal-d1 showcase-sticky" style={{position:'sticky', top:120, alignSelf:'start'}}>
+          {/* RIGHT — active niche hero card (desktop only) */}
+          <div className="reveal reveal-d1 showcase-sticky showcase-desktop-card" style={{position:'sticky', top:120, alignSelf:'start'}}>
             <div key={cur.id} style={{
               background:`linear-gradient(145deg, ${cur.color}, ${cur.color}dd)`,
               borderRadius:24, padding:'44px 36px',
@@ -106,6 +106,70 @@ const Showcase = () => {
           </div>
         </div>
 
+        {/* Mobile — horizontal scroll strip */}
+        <div className="showcase-mobile-scroll" style={{display:'none', marginTop:0}}>
+          <div style={{
+            display:'flex', gap:14, overflowX:'auto', paddingBottom:16,
+            scrollSnapType:'x mandatory', WebkitOverflowScrolling:'touch',
+            msOverflowStyle:'none', scrollbarWidth:'none',
+          }}
+          onScroll={e => {
+            const el = e.currentTarget;
+            const idx = Math.round(el.scrollLeft / (el.offsetWidth * 0.78 + 14));
+            setActive(Math.min(idx, NICHES.length - 1));
+          }}>
+            {NICHES.map((n, i) => (
+              <div key={n.id} style={{
+                flexShrink:0, width:'78vw', maxWidth:320,
+                scrollSnapAlign:'start',
+                background:`linear-gradient(145deg, ${n.color}, ${n.color}dd)`,
+                borderRadius:20, padding:'28px 24px',
+                display:'flex', flexDirection:'column', justifyContent:'space-between',
+                minHeight:360, position:'relative', overflow:'hidden',
+              }}>
+                {/* Glow */}
+                <div style={{position:'absolute', top:-40, right:-40, width:160, height:160, borderRadius:'50%', background:n.accent, opacity:.2, filter:'blur(50px)'}}/>
+                <div style={{position:'relative'}}>
+                  <div style={{fontSize:44, marginBottom:12}}>{n.icon}</div>
+                  <div style={{fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.14em', textTransform:'uppercase', color:'rgba(255,255,255,.4)', marginBottom:8}}>
+                    Niche {String(i+1).padStart(2,'0')} of {NICHES.length}
+                  </div>
+                  <h3 style={{fontFamily:'var(--sans)', fontWeight:900, fontSize:32, letterSpacing:'-.03em', lineHeight:.95, color:'#fff', textTransform:'uppercase'}}>
+                    {n.niche}
+                  </h3>
+                  <p style={{marginTop:14, fontSize:13, lineHeight:1.6, color:'rgba(255,255,255,.6)'}}>{n.desc}</p>
+                </div>
+                <div style={{position:'relative', marginTop:20}}>
+                  <div style={{display:'flex', gap:16, marginBottom:16, flexWrap:'wrap'}}>
+                    {[['Real accounts','No bots'],['Fast results','24–72h'],['IG + YT','Both']].map(([t,s]) => (
+                      <div key={t}>
+                        <div style={{fontSize:11, fontWeight:700, color:'rgba(255,255,255,.9)'}}>{t}</div>
+                        <div style={{fontSize:10, color:'rgba(255,255,255,.4)', fontFamily:'var(--mono)'}}>{s}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <button onClick={() => window.openAuditModal && window.openAuditModal()} style={{
+                    background:'rgba(255,255,255,.15)', color:'#fff', border:'1px solid rgba(255,255,255,.25)',
+                    padding:'10px 20px', borderRadius:999, fontSize:13, fontWeight:700, cursor:'pointer',
+                  }}>
+                    Get a free audit →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Scroll indicator */}
+          <div style={{display:'flex', justifyContent:'center', gap:6, marginTop:12}}>
+            {NICHES.map((_,i) => (
+              <div key={i} style={{
+                width: active===i ? 24 : 6, height:6, borderRadius:999,
+                background: active===i ? 'var(--accent)' : 'var(--line)',
+                transition:'all .3s',
+              }}/>
+            ))}
+          </div>
+        </div>
+
         {/* Progress dots */}
         <div className="showcase-dots" style={{display:'flex', justifyContent:'center', gap:8, marginTop:32}}>
           {NICHES.map((_,i) => (
@@ -124,6 +188,8 @@ const Showcase = () => {
           .showcase-sticky{position:static !important; margin-top:16px}
           .showcase-niche-list{display:none !important}
           .showcase-dots{display:none !important}
+          .showcase-mobile-scroll{display:block !important}
+          .showcase-desktop-card{display:none !important}
         }
         @media(max-width:480px){
           .showcase-niche-btn{padding:12px 14px !important}
