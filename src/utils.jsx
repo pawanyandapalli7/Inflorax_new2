@@ -31,6 +31,18 @@ window.useScrollY = () => {
   return y;
 };
 
+// useInView — fires once when element enters viewport
+window.useInView = (ref, rootMargin='-5% 0px -5% 0px') => {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } }, {rootMargin});
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return inView;
+};
+
 // Dummy DirectionCtx kept for compat (always 'kinetic')
 window.DirectionCtx = React.createContext('kinetic');
 window.useDir = () => 'kinetic';
@@ -49,6 +61,82 @@ window.Section = ({id, children, padded=true, bg, style, className}) => {
   );
 };
 
+// 3D scroll-reveal card wrapper — works on mobile via IntersectionObserver
+window.ScrollCard3D = ({children, delay=0, style}) => {
+  const ref = useRef(null);
+  const [vis, setVis] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [tilt, setTilt] = useState({x:0, y:0});
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+  useEffect(() => {
+    const el = ref.current; if(!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if(e.isIntersecting){ setVis(true); io.disconnect(); }
+    }, {rootMargin:'-4% 0px -4% 0px', threshold:0.1});
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const handleMove = (e) => {
+    if(isMobile) return;
+    const r = ref.current.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 12;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * -12;
+    setTilt({x, y});
+  };
+
+  return (
+    <div ref={ref}
+      onMouseEnter={() => setHovered(true)}
+      onMouseMove={handleMove}
+      onMouseLeave={() => { setHovered(false); setTilt({x:0,y:0}); }}
+      style={{
+        perspective: 800,
+        opacity: vis ? 1 : 0,
+        transform: vis
+          ? (hovered ? `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg) translateY(-4px) scale(1.015)` : 'translateY(0) scale(1)')
+          : 'translateY(32px) scale(.97)',
+        transition: vis
+          ? `opacity .7s cubic-bezier(.2,.7,.2,1) ${delay}s, transform .55s cubic-bezier(.2,.7,.2,1)`
+          : `opacity .7s ${delay}s, transform .7s cubic-bezier(.2,.7,.2,1) ${delay}s`,
+        willChange:'transform,opacity',
+        ...style,
+      }}>
+      {children}
+    </div>
+  );
+};
+
+// Mobile-optimized Stat counter that counts up when in view
+window.CountUp = ({end, suffix='', prefix='', duration=1800}) => {
+  const ref = useRef(null);
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current; if(!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if(e.isIntersecting && !started) {
+        setStarted(true);
+        io.disconnect();
+        const start = performance.now();
+        const step = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          setCount(Math.round(eased * end));
+          if(progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    }, {rootMargin:'-5% 0px -5% 0px', threshold:0.2});
+    io.observe(el);
+    return () => io.disconnect();
+  }, [started]);
+
+  return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>;
+};
+
 // Pill button
 window.Btn = ({children, primary, href, onClick, sm, mag=true}) => {
   const base = {
@@ -57,10 +145,11 @@ window.Btn = ({children, primary, href, onClick, sm, mag=true}) => {
     borderRadius: 999,
     fontSize: sm ? 13 : 14,
     fontWeight: 600,
-    transition:'background .2s, box-shadow .2s, color .2s',
+    transition:'background .2s, box-shadow .2s, color .2s, transform .2s',
     border:'1px solid transparent',
     cursor:'pointer',
     whiteSpace:'nowrap',
+    WebkitTapHighlightColor:'transparent',
   };
   const styles = primary
     ? {...base, background:'var(--accent)', color:'#fff', boxShadow:'0 0 0 0 rgba(22,163,74,.5)'}
