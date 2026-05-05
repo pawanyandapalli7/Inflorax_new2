@@ -509,7 +509,7 @@ const AuditCTA = () => {
         <div className="wrap">
           <div style={{
             background:'var(--ink)', color:'var(--bone)', borderRadius:28,
-            padding:'clamp(32px,5vw,88px) clamp(20px,5vw,88px)', position:'relative', overflow:'hidden', textAlign:'center',
+            padding:'clamp(48px,7vw,88px)', position:'relative', overflow:'hidden', textAlign:'center',
           }}>
             <div style={{position:'absolute',top:-100,right:-100,width:400,height:400,borderRadius:'50%',background:'var(--accent)',opacity:.15,filter:'blur(80px)'}}/>
             <div style={{position:'absolute',bottom:-120,left:-80,width:360,height:360,borderRadius:'50%',background:'var(--accent)',opacity:.1,filter:'blur(80px)'}}/>
@@ -517,7 +517,7 @@ const AuditCTA = () => {
               <span className="reveal" style={{...window.labelStyle, color:'rgba(240,246,232,.5)'}}>Free creator audit</span>
               <h2 className="reveal reveal-d1" style={{
                 marginTop:16, fontFamily:'var(--sans)', fontWeight:800,
-                fontSize:'clamp(28px,6vw,80px)', lineHeight:.95, letterSpacing:'-.04em',
+                fontSize:'clamp(36px,6vw,80px)', lineHeight:.95, letterSpacing:'-.04em',
               }}>
                 Get a real audit.<br/>Not a sales call.
               </h2>

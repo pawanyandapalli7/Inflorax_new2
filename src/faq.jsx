@@ -81,9 +81,7 @@ const FAQ = () => {
 
       <style>{`
         @media(max-width:900px){.faq-grid{grid-template-columns:1fr !important;gap:24px}.faq-grid>div:first-child{position:static !important}}
-        @media(max-width:480px){.faq-btn{padding:14px 0 !important}}
-        @media(max-width:480px){.faq-btn span:first-child{font-size:16px !important;line-height:1.3}}
-        @media(max-width:480px){.faq-answer{font-size:14px !important}}
+        @media(max-width:480px){.faq-btn{padding:16px 0 !important}}
       `}</style>
     </window.Section>
   );
