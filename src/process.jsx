@@ -1,9 +1,9 @@
 // PROCESS — dark warm Kinetic
 const steps = [
-  {n:'01', t:'Choose your plan — takes 30 seconds', d:'Pick a plan based on where you are. Spark if you're starting out, Ignite if you're stuck, Momentum and above if you're serious.', icon:'pkg'},
+  {n:'01', t:'Choose your plan — takes 30 seconds', d:"Pick a plan based on where you are. Spark if you're starting out, Ignite if you're stuck, Momentum and above if you're serious.", icon:'pkg'},
   {n:'02', t:'Share your handle — no passwords, ever', d:'Fill in a 2-minute form — your handle, niche, and goals. No passwords, no admin access, no complicated setup.', icon:'form'},
   {n:'03', t:'We get to work — you do nothing', d:'We run your promotion campaign across the right channels. Real accounts, real reach. You just keep posting.', icon:'rocket'},
-  {n:'04', t:'Your content reaches more people', d:'More people see your content. Your follower count moves. Your engagement picks up. That's the whole point.', icon:'chart'},
+  {n:'04', t:'Your content reaches more people', d:"More people see your content. Your follower count moves. Your engagement picks up. That's the whole point.", icon:'chart'},
 ];
 
 const Process = () => {
