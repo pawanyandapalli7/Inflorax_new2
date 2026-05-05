@@ -42,6 +42,7 @@ const Who = () => (
     <style>{`
       @media(max-width:900px){.who-grid{grid-template-columns:1fr !important}}
       @media(max-width:480px){.who-grid .who-card{padding:20px 18px !important}}
+      @media(max-width:480px){.who-card p{font-size:14px !important; margin-top:8px !important}}
     `}</style>
   </window.Section>
 );

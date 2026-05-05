@@ -108,6 +108,11 @@ const Showcase = () => {
 
         {/* Mobile — horizontal scroll strip */}
         <div className="showcase-mobile-scroll" style={{display:'none', marginTop:0}}>
+          {/* Swipe hint */}
+          <div style={{display:'flex', alignItems:'center', justifyContent:'flex-end', gap:6, marginBottom:10, paddingRight:4}}>
+            <span style={{fontSize:12, color:'var(--ink-3)', fontFamily:'var(--mono)', letterSpacing:'.06em', textTransform:'uppercase'}}>Swipe to explore</span>
+            <span style={{fontSize:14, color:'var(--accent)'}}>→</span>
+          </div>
           <div style={{
             display:'flex', gap:14, overflowX:'auto', paddingBottom:16,
             scrollSnapType:'x mandatory', WebkitOverflowScrolling:'touch',

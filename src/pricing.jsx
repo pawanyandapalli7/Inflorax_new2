@@ -224,6 +224,8 @@ const Pricing = () => {
           @media(max-width:720px){.price-grid{grid-template-columns:repeat(2,1fr) !important; gap:10px}}
           @media(max-width:480px){.price-grid{grid-template-columns:1fr !important; gap:12px}}
           @media(max-width:480px){.price-card-inner{padding:20px 16px 18px !important}}
+          @media(max-width:480px){.price-feat-list li:nth-child(n+4){display:none !important}}
+          @media(max-width:480px){.price-feat-more{display:block !important}}
         `}</style>
       </div>
     </window.Section>
@@ -310,7 +312,7 @@ const PriceCard = ({plan: p, showCount}) => {
       </div>
 
       {/* Features — tighter gap */}
-      <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:5, marginBottom:12, flex:1}}>
+      <ul className="price-feat-list" style={{listStyle:'none', display:'flex', flexDirection:'column', gap:5, marginBottom:12, flex:1}}>
         {p.feats.slice(0, showCount).map((f, i) => (
           <li key={i} style={{display:'flex', gap:7, fontSize:12, lineHeight:1.4, color:'var(--ink-2)'}}>
             <span style={{color:'var(--accent)', fontWeight:700, fontSize:10, marginTop:1, flexShrink:0}}>✓</span>
@@ -319,6 +321,10 @@ const PriceCard = ({plan: p, showCount}) => {
         ))}
       </ul>
 
+      {/* Mobile: show more hint */}
+      <div className="price-feat-more" style={{display:'none', fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)', marginBottom:8, marginTop:-6}}>
+        + {Math.max(0, showCount - 3)} more included
+      </div>
       {/* Best for */}
       <div style={{
         padding:'8px 10px', borderRadius:8, marginBottom:10,

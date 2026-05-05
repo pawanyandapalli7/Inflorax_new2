@@ -73,16 +73,16 @@ const Problem = () => {
           </div>
         </div>
         {/* Bridge to next section */}
-        <div className="reveal" style={{marginTop:48, display:'flex', alignItems:'center', justifyContent:'center', gap:16, flexWrap:'wrap'}}>
+        <div className="reveal" style={{marginTop:36, display:'flex', alignItems:'center', justifyContent:'center', gap:12, flexWrap:'wrap', padding:'0 16px'}}>
           <span style={{fontSize:15, color:'var(--ink-2)', fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:600}}>You're not alone. This is where most creators get stuck.</span>
           <a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("process");}} style={{
             display:'inline-flex', alignItems:'center', gap:8,
-            fontSize:14, fontWeight:700, color:'var(--accent)', textDecoration:'none',
-            borderBottom:'1.5px solid var(--accent-l)', paddingBottom:2,
-            transition:'border-color .2s',
+            fontSize:15, fontWeight:700, color:'#fff', textDecoration:'none',
+            background:'var(--accent)', padding:'12px 22px', borderRadius:999,
+            transition:'opacity .2s', boxShadow:'0 4px 16px rgba(22,101,52,.3)',
           }}
-          onMouseEnter={e=>e.currentTarget.style.borderColor='var(--accent)'}
-          onMouseLeave={e=>e.currentTarget.style.borderColor='var(--accent-l)'}>
+          onMouseEnter={e=>e.currentTarget.style.opacity='.85'}
+          onMouseLeave={e=>e.currentTarget.style.opacity='1'}>
             See how we fix it →
           </a>
         </div>
@@ -90,6 +90,7 @@ const Problem = () => {
         <style>{`
           @media(max-width:900px){.prob-grid{grid-template-columns:1fr !important; gap:16px}}
           @media(max-width:480px){.prob-card{padding:24px 20px !important}}
+          @media(max-width:480px){.prob-card p{font-size:14px !important}}
         `}</style>
       </div>
     </window.Section>

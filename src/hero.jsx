@@ -253,7 +253,8 @@ const Hero = () => {
         @keyframes hfc2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
         @media(max-width:900px){.hero-inner-grid{grid-template-columns:1fr !important;padding-bottom:clamp(32px,6vw,60px)}.hero-right-col{display:none !important}}
         @media(max-width:900px){#hero-section{min-height:auto !important;padding-bottom:0}}
-        @media(max-width:480px){.hero-trust{gap:10px !important;flex-direction:column}}
+        @media(max-width:480px){.hero-trust{gap:8px !important;flex-direction:row !important;flex-wrap:wrap}}
+        @media(max-width:480px){.hero-trust span[style]{font-size:11px !important}}
         @media(max-width:480px){.hero-social{flex-direction:column;align-items:flex-start !important;gap:8px !important}}
         @media(max-width:480px){#hero-section{padding-top:calc(74px + 10px) !important}}
         @media(max-width:380px){.hero-pill{font-size:8px !important;letter-spacing:.04em !important;padding:4px 10px !important}}

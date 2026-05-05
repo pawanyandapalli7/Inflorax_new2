@@ -54,7 +54,7 @@ const Marquee = ({words, speed=42, reverse=false, big=true}) => {
             return (
               <div key={w} style={{
                 display:'inline-flex', alignItems:'center', gap:7,
-                padding:'10px 16px', borderRadius:999,
+                padding:'12px 18px', borderRadius:999,
                 background: isAccent ? 'var(--accent)' : 'rgba(22,101,52,.08)',
                 border: `1.5px solid ${isAccent ? 'var(--accent)' : 'rgba(22,101,52,.15)'}`,
                 animation:`pillFade .5s ease both`,
@@ -62,7 +62,7 @@ const Marquee = ({words, speed=42, reverse=false, big=true}) => {
               }}>
                 <span style={{fontSize:15}}>{e}</span>
                 <span style={{
-                  fontFamily:'var(--sans)', fontWeight:700, fontSize:14,
+                  fontFamily:'var(--sans)', fontWeight:700, fontSize:15,
                   letterSpacing:'-.01em',
                   color: isAccent ? '#fff' : 'var(--ink)',
                 }}>{w}</span>

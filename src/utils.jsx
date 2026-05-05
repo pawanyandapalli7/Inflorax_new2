@@ -39,7 +39,7 @@ window.useDir = () => 'kinetic';
 window.Section = ({id, children, padded=true, bg, style, className}) => {
   return (
     <section id={id} data-screen-label={id} style={{
-      padding: padded ? 'clamp(64px,9vw,120px) 0' : 0,
+      padding: padded ? 'clamp(40px,7vw,120px) 0' : 0,
       background:bg ?? 'transparent',
       position:'relative',
       ...style,
