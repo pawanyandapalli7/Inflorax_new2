@@ -43,22 +43,26 @@ const Process = () => {
           <div style={{position:'sticky', top:120, alignSelf:'start', height:'min(64vh, 520px)'}} className="proc-sticky">
             <ProcessVisual idx={active}/>
           </div>
-          <div style={{display:'flex', flexDirection:'column', gap:10}}>
+          <div style={{display:'flex', flexDirection:'column', gap:8}}>
             {steps.map((s, i) => (
-              <div key={i} onMouseEnter={() => setActive(i)} className="reveal" style={{
-                padding:'24px 26px', borderRadius:18,
-                background: active===i ? 'rgba(22,101,52,.08)' : 'transparent',
-                border:'1px solid', borderColor: active===i ? 'rgba(22,101,52,.3)' : 'transparent',
-                transition:'all .35s', cursor:'pointer',
-                opacity: active===i ? 1 : .6,
-              }}>
-                <div style={{display:'flex', alignItems:'baseline', gap:18}}>
-                  <span style={{fontFamily:'var(--mono)', fontSize:13, color:'var(--accent)', fontWeight:700}}>{s.n}</span>
+              <div key={i}
+                onMouseEnter={() => setActive(i)}
+                onClick={() => setActive(i)}
+                className="reveal proc-step"
+                style={{
+                  padding:'20px 22px', borderRadius:16,
+                  background: active===i ? 'rgba(22,101,52,.08)' : 'transparent',
+                  border:'1px solid', borderColor: active===i ? 'rgba(22,101,52,.3)' : 'transparent',
+                  transition:'all .3s', cursor:'pointer',
+                }}>
+                <div style={{display:'flex', alignItems:'baseline', gap:16}}>
+                  <span style={{fontFamily:'var(--mono)', fontSize:12, color:'var(--accent)', fontWeight:700, flexShrink:0}}>{s.n}</span>
                   <div style={{flex:1}}>
-                    <h3 style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:'clamp(22px, 2.8vw, 32px)', letterSpacing:'-.02em', lineHeight:1.05, color:'var(--ink)', textTransform:'uppercase'}}>
+                    <h3 style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:'clamp(18px, 2.8vw, 30px)', letterSpacing:'-.02em', lineHeight:1.1, color: active===i ? 'var(--ink)' : 'var(--ink-2)', textTransform:'uppercase', transition:'color .3s'}}>
                       {s.t}
                     </h3>
-                    <p style={{marginTop:10, fontSize:14, lineHeight:1.55, color:'var(--ink-2)', maxHeight: active===i ? 200 : 0, overflow:'hidden', transition:'max-height .35s'}}>{s.d}</p>
+                    {/* Desktop: collapse inactive. Mobile: always show */}
+                    <p className="proc-step-desc" style={{marginTop:8, fontSize:13, lineHeight:1.55, color:'var(--ink-2)', maxHeight: active===i ? 200 : 0, overflow:'hidden', transition:'max-height .35s', opacity: active===i ? 1 : 0}}>{s.d}</p>
                   </div>
                 </div>
               </div>
@@ -78,12 +82,15 @@ const Process = () => {
 
         <style>{`
           @media(max-width:900px){
-            .proc-head{grid-template-columns:1fr !important; gap:16px}
-            .proc-body{grid-template-columns:1fr !important; gap:24px; display:flex !important; flex-direction:column-reverse}
-            .proc-sticky{position:relative !important; top:0 !important; height:280px !important; min-height:280px}
+            .proc-head{grid-template-columns:1fr !important; gap:12px}
+            .proc-head p{display:none}
+            .proc-body{grid-template-columns:1fr !important; gap:20px; display:flex !important; flex-direction:column-reverse}
+            .proc-sticky{position:relative !important; top:0 !important; height:380px !important; min-height:380px}
+            .proc-step-desc{max-height:200px !important; opacity:1 !important}
+            .proc-step{opacity:1 !important; padding:14px 16px !important}
           }
-          @media(max-width:600px){
-            .proc-sticky{height:240px !important; min-height:240px}
+          @media(max-width:480px){
+            .proc-sticky{height:340px !important; min-height:340px}
           }
         `}</style>
       </div>
@@ -172,22 +179,22 @@ const ProcessVisual = ({idx}) => {
       )}
 
       {idx === 1 && (
-        <div style={{display:'flex', flexDirection:'column', gap:8, flex:1, justifyContent:'center'}}>
+        <div style={{display:'flex', flexDirection:'column', gap:10, flex:1, justifyContent:'center'}}>
           {card.items.map((f,i) => (
-            <div key={i} style={{display:'flex', alignItems:'center', gap:10, background:'rgba(240,246,232,.04)', borderRadius:8, padding:'9px 12px', border:'1px solid rgba(240,246,232,.08)'}}>
-              <span style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.4)', textTransform:'uppercase', letterSpacing:'.08em', minWidth:60}}>{f.label}</span>
-              <span style={{fontSize:13, color:'rgba(240,246,232,.8)', fontWeight:500}}>{f.value}</span>
+            <div key={i} style={{display:'flex', alignItems:'center', gap:12, background:'rgba(240,246,232,.05)', borderRadius:10, padding:'13px 16px', border:'1px solid rgba(240,246,232,.1)'}}>
+              <span style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.4)', textTransform:'uppercase', letterSpacing:'.08em', minWidth:70}}>{f.label}</span>
+              <span style={{fontSize:15, color:'rgba(240,246,232,.85)', fontWeight:600}}>{f.value}</span>
             </div>
           ))}
         </div>
       )}
 
       {idx === 2 && (
-        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, flex:1, alignItems:'center'}}>
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gridTemplateRows:'1fr 1fr', gap:10, flex:1}}>
           {card.items.map((it,i) => (
-            <div key={i} style={{padding:'12px 10px', borderRadius:10, background:'rgba(240,246,232,.05)', border:'1px solid rgba(240,246,232,.1)', display:'flex', alignItems:'center', gap:8}}>
-              <span style={{fontSize:20}}>{it.icon}</span>
-              <span style={{fontSize:12, color:'rgba(240,246,232,.75)', lineHeight:1.3}}>{it.text}</span>
+            <div key={i} style={{padding:'18px 14px', borderRadius:12, background:'rgba(240,246,232,.05)', border:'1px solid rgba(240,246,232,.1)', display:'flex', flexDirection:'column', gap:8, justifyContent:'center'}}>
+              <span style={{fontSize:28}}>{it.icon}</span>
+              <span style={{fontSize:13, color:'rgba(240,246,232,.75)', lineHeight:1.3, fontWeight:500}}>{it.text}</span>
             </div>
           ))}
         </div>
@@ -197,15 +204,15 @@ const ProcessVisual = ({idx}) => {
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, flex:1, alignItems:'center'}}>
           {card.items.map((it,i) => (
             <div key={i} style={{padding:'12px 10px', borderRadius:10, background:'rgba(22,101,52,.12)', border:'1px solid rgba(22,101,52,.25)'}}>
-              <div style={{fontSize:9, fontFamily:'var(--mono)', color:'rgba(240,246,232,.45)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:4}}>{it.label}</div>
-              <div style={{fontWeight:800, fontSize:16, color:'#4ade80', letterSpacing:'-.01em'}}>{it.value}</div>
+              <div style={{fontSize:10, fontFamily:'var(--mono)', color:'rgba(240,246,232,.45)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:6}}>{it.label}</div>
+              <div style={{fontWeight:800, fontSize:20, color:'#4ade80', letterSpacing:'-.01em'}}>{it.value}</div>
             </div>
           ))}
         </div>
       )}
 
       {/* Step title */}
-      <div style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:15, letterSpacing:'-.01em', color:'rgba(240,246,232,.6)', textTransform:'uppercase'}}>
+      <div style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:17, letterSpacing:'-.01em', color:'rgba(240,246,232,.6)', textTransform:'uppercase'}}>
         {card.title}
       </div>
     </div>
