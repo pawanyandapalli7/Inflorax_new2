@@ -6,7 +6,7 @@ const Hero = () => {
   const [glowPos, setGlowPos] = useState({x:50,y:50});
   const [typed, setTyped] = useState('');
   const [wordIdx, setWordIdx] = useState(0);
-  const words = ['no one sees it.','nothing moves.','you\'re invisible.'];
+  const words = ['no one sees it.', 'nothing moves.', "you're invisible."];
 
   useEffect(() => {
     let i = 0, cancelled = false;
