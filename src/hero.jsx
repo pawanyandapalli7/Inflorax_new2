@@ -90,12 +90,20 @@ const Hero = () => {
             Now accepting creators — Instagram &amp; YouTube
           </div>
 
-          <h1 style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0}}>
+          <h1 style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0,willChange:'contents'}}>
             <span className="reveal" style={{display:'block'}}>You've been</span>
             <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
-            <span className="reveal reveal-d2" style={{display:'block',fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',minHeight:'1.15em'}}>
+            <span className="reveal reveal-d2" style={{
+              display:'block',
+              fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
+              textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',
+              /* Fixed height = 1 line — prevents layout reflow while typing */
+              height:'1.15em',
+              overflow:'hidden',
+              lineHeight:1.15,
+            }}>
               {typed}
-              <span style={{display:'inline-block',width:'2px',height:'.85em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
+              <span style={{display:'inline-block',width:'2px',height:'.8em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
             </span>
           </h1>
 
