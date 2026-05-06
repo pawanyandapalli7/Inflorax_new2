@@ -168,7 +168,29 @@ const Footer = () => {
 
         <div className="foot-bottom">
           <span>© {new Date().getFullYear()} Inflorax. All rights reserved.</span>
-          <span>Results depend on content quality, posting consistency &amp; niche.</span>
+          <div style={{display:'flex', gap:20, flexWrap:'wrap', alignItems:'center'}}>
+            <button onClick={()=>window.openTerms&&window.openTerms()} style={{
+              background:'none', border:'none', cursor:'pointer', padding:0,
+              fontSize:11, fontFamily:'var(--mono)', textTransform:'uppercase',
+              letterSpacing:'.1em', color:'rgba(245,236,217,.35)',
+              transition:'color .2s',
+            }}
+            onMouseEnter={e=>e.currentTarget.style.color='var(--accent)'}
+            onMouseLeave={e=>e.currentTarget.style.color='rgba(245,236,217,.35)'}>
+              Terms &amp; Conditions
+            </button>
+            <button onClick={()=>window.openPrivacy&&window.openPrivacy()} style={{
+              background:'none', border:'none', cursor:'pointer', padding:0,
+              fontSize:11, fontFamily:'var(--mono)', textTransform:'uppercase',
+              letterSpacing:'.1em', color:'rgba(245,236,217,.35)',
+              transition:'color .2s',
+            }}
+            onMouseEnter={e=>e.currentTarget.style.color='var(--accent)'}
+            onMouseLeave={e=>e.currentTarget.style.color='rgba(245,236,217,.35)'}>
+              Privacy Policy
+            </button>
+            <span>Results vary by account</span>
+          </div>
         </div>
       </div>
     </footer>
