@@ -217,52 +217,107 @@ const ProcessStep = ({s, i, active, onEnter}) => {
 };
 
 // Mobile timeline step
+// Mobile timeline step — compact tap-to-expand cards
 const MobileTimelineStep = ({s, i, total}) => {
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
+  const [open, setOpen] = useState(false);
+
   useEffect(()=>{
-    const el=ref.current;if(!el)return;
-    const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){setVis(true);io.disconnect();}},{threshold:0.18,rootMargin:'-3% 0px -3% 0px'});
-    io.observe(el);return()=>io.disconnect();
+    const el = ref.current; if(!el) return;
+    const io = new IntersectionObserver(([e])=>{
+      if(e.isIntersecting){ setVis(true); io.disconnect(); }
+    },{threshold:0.2});
+    io.observe(el); return ()=>io.disconnect();
   },[]);
+
   return (
-    <div ref={ref} style={{display:'flex', gap:0, position:'relative'}}>
-      {/* Timeline spine */}
-      <div style={{display:'flex', flexDirection:'column', alignItems:'center', width:48, flexShrink:0}}>
+    <div ref={ref} style={{
+      display:'flex', gap:0, position:'relative',
+      opacity: vis ? 1 : 0,
+      transform: vis ? 'translateY(0)' : 'translateY(14px)',
+      transition:`opacity .4s ease ${i*0.08}s, transform .4s ease ${i*0.08}s`,
+    }}>
+      {/* Spine */}
+      <div style={{display:'flex', flexDirection:'column', alignItems:'center', width:44, flexShrink:0}}>
         <div style={{
-          width:40, height:40, borderRadius:12, flexShrink:0,
+          width:36, height:36, borderRadius:10, flexShrink:0,
           background: vis ? 'var(--accent)' : 'var(--soft)',
-          border:'2px solid var(--line)',
           display:'flex', alignItems:'center', justifyContent:'center',
-          fontSize:20, transition:'background .5s .1s, box-shadow .5s .1s',
-          boxShadow: vis ? '0 0 0 6px rgba(22,101,52,.12)' : 'none',
+          fontSize:17, transition:'background .4s .1s',
+          boxShadow: vis ? '0 0 0 5px rgba(22,101,52,.1)' : 'none',
         }}>{s.icon}</div>
         {i < total-1 && (
           <div style={{
-            width:2, flex:1, minHeight:24, marginTop:4, marginBottom:4,
-            background: vis ? 'linear-gradient(to bottom,var(--accent),rgba(22,101,52,.15))' : 'var(--line)',
-            transition:'background .5s .3s',
+            width:2, flex:1, minHeight:12, margin:'3px 0',
+            background: vis ? 'linear-gradient(to bottom,var(--accent),rgba(22,101,52,.1))' : 'var(--line)',
+            transition:'background .4s .3s',
           }}/>
         )}
       </div>
-      {/* Content */}
-      <div style={{
-        flex:1, padding:'2px 0 28px 14px',
-        opacity: vis ? 1 : 0,
-        transform: vis ? 'translateX(0)' : 'translateX(18px)',
-        transition:`opacity .5s ease ${i*0.1}s, transform .5s ease ${i*0.1}s`,
-      }}>
-        <div style={{display:'flex', alignItems:'center', gap:8, marginBottom:4, marginTop:6}}>
-          <span style={{fontFamily:'var(--mono)', fontSize:9, color:'var(--accent)', letterSpacing:'.12em', textTransform:'uppercase', fontWeight:700}}>Step {s.n}</span>
-          <span style={{padding:'2px 8px', borderRadius:999, fontSize:9, fontFamily:'var(--mono)', letterSpacing:'.1em', textTransform:'uppercase', background:'var(--accent-l)', color:'var(--accent)', border:'1px solid rgba(22,101,52,.2)'}}>{s.tag}</span>
+
+      {/* Card */}
+      <button
+        onClick={()=>setOpen(p=>!p)}
+        style={{
+          flex:1, marginLeft:10, marginBottom:8, textAlign:'left',
+          background: open ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.75)',
+          backdropFilter:'blur(8px)',
+          border:'1px solid', borderColor: open ? 'var(--accent)' : 'var(--line)',
+          borderRadius:14, padding:'12px 14px',
+          cursor:'pointer', WebkitTapHighlightColor:'transparent',
+          transition:'border-color .2s, box-shadow .2s, background .2s',
+          boxShadow: open ? '0 4px 16px rgba(22,101,52,.1)' : 'none',
+          display:'block', width:'100%',
+        }}>
+
+        {/* Always-visible header */}
+        <div style={{display:'flex', alignItems:'flex-start', justifyContent:'space-between', gap:8}}>
+          <div style={{flex:1, minWidth:0}}>
+            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:4}}>
+              <span style={{fontFamily:'var(--mono)', fontSize:9, color:'var(--accent)', fontWeight:700, letterSpacing:'.1em'}}>{s.n}</span>
+              <span style={{
+                padding:'1px 7px', borderRadius:999, fontSize:8,
+                fontFamily:'var(--mono)', letterSpacing:'.1em', textTransform:'uppercase',
+                background:'var(--accent-l)', color:'var(--accent)',
+              }}>{s.tag}</span>
+            </div>
+            <div style={{
+              fontFamily:'var(--sans)', fontWeight:800, fontSize:15,
+              letterSpacing:'-.025em', color:'var(--ink)', textTransform:'uppercase',
+              lineHeight:1.1,
+            }}>{s.t}</div>
+            <div style={{
+              marginTop:3, fontSize:10, fontFamily:'var(--mono)',
+              color:'var(--accent)', letterSpacing:'.06em', textTransform:'uppercase',
+            }}>{s.sub}</div>
+          </div>
+          {/* Toggle */}
+          <div style={{
+            width:22, height:22, borderRadius:'50%', flexShrink:0, marginTop:2,
+            border:'1px solid', borderColor: open ? 'var(--accent)' : 'var(--line)',
+            background: open ? 'var(--accent)' : 'transparent',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            fontSize:14, color: open ? '#fff' : 'var(--ink-3)',
+            transform: open ? 'rotate(45deg)' : 'none',
+            transition:'transform .25s, background .2s, border-color .2s, color .2s',
+          }}>+</div>
         </div>
-        <h3 style={{fontFamily:'var(--sans)', fontWeight:800, fontSize:19, letterSpacing:'-.025em', color:'var(--ink)', textTransform:'uppercase', marginBottom:4, lineHeight:1.1}}>{s.t}</h3>
-        <div style={{fontSize:11, fontFamily:'var(--mono)', color:'var(--accent)', letterSpacing:'.06em', textTransform:'uppercase', marginBottom:8}}>{s.sub}</div>
-        <p style={{fontSize:14, lineHeight:1.65, color:'var(--ink-2)', marginBottom:6}}>{s.d}</p>
-        <div style={{fontSize:12, color:'var(--ink-3)', fontFamily:'var(--mono)', display:'flex', alignItems:'center', gap:5}}>
-          <span style={{color:'var(--accent)', fontWeight:700}}>→</span>{s.detail}
+
+        {/* Collapsible body */}
+        <div style={{
+          maxHeight: open ? 180 : 0,
+          overflow:'hidden',
+          transition:'max-height .38s cubic-bezier(.2,.8,.2,1)',
+        }}>
+          <div style={{paddingTop:10, marginTop:10, borderTop:'1px solid var(--line-soft)'}}>
+            <p style={{fontSize:13, lineHeight:1.6, color:'var(--ink-2)', margin:0}}>{s.d}</p>
+            <div style={{marginTop:7, display:'flex', alignItems:'center', gap:5, fontSize:11, color:'var(--ink-3)', fontFamily:'var(--mono)'}}>
+              <span style={{color:'var(--accent)', fontWeight:700, fontSize:12}}>→</span>{s.detail}
+            </div>
+          </div>
         </div>
-      </div>
+      </button>
     </div>
   );
 };

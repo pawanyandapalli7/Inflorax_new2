@@ -45,7 +45,7 @@ const Pricing = () => {
         </div>
 
         {/* Mobile: snap scroll — FIXED with end spacer + show-more */}
-        <div className="price-mobile-scroll" style={{display:'none',overflowX:'auto',gap:12,paddingBottom:20,scrollSnapType:'x mandatory',WebkitOverflowScrolling:'touch',scrollbarWidth:'none',marginLeft:-20,marginRight:-20,paddingLeft:20}}>
+        <div className="price-mobile-scroll" style={{display:'none',overflowX:'auto',gap:12,paddingTop:8,paddingBottom:20,scrollSnapType:'x mandatory',WebkitOverflowScrolling:'touch',scrollbarWidth:'none',marginLeft:-20,marginRight:-20,paddingLeft:20}}>
           {mobilePlans.map((p,i)=><PriceCard key={`mob-${platform}-${i}`} plan={p} showCount={FEAT_SHOW[p.name]||p.feats.length} mobile/>)}
           {/* FIXED: end spacer so last card isn't clipped */}
           <div style={{flexShrink:0,width:20}}/>
