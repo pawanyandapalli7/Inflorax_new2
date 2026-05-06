@@ -1,4 +1,4 @@
-// PRICING — 3D tilt cards, mobile horizontal scroll
+// PRICING — fixed: mobile end spacer, 'Show more' for Icon plan, improved disclaimer
 const igPlans = [
   {name:'Spark',tier:'Getting Started',n:'01',emoji:'✦',price:79,popular:false,tagline:'For creators who are trying but not getting reach',feats:['Your Reels start reaching more people','Initial visibility boost for your content','Better engagement signals on your posts','Your profile starts getting noticed'],best:'New creators stuck with low views',delivery:'5–7 days',stripe:'https://buy.stripe.com/7sY9AMb5Z69z3Odeuq67S00'},
   {name:'Ignite',tier:'Start Getting Seen',n:'02',emoji:'⚡',price:199,popular:true,tagline:'For creators stuck with low reach',feats:['Strong visibility push for multiple Reels','Your content reaches a larger audience','Higher engagement on your posts','Your profile starts building momentum','Direction to improve your content performance','Priority campaign handling'],best:'Creators who feel stuck and want real movement',delivery:'7–10 days',stripe:'https://buy.stripe.com/3cI00cb5Z2Xn3Od3PM67S01'},
@@ -15,7 +15,11 @@ const FEAT_SHOW={Spark:4,Ignite:6,Momentum:7,Influence:8,Icon:9,Foundation:4,Acc
 
 const Pricing = () => {
   const [platform,setPlatform] = useState('instagram');
+  // ADDED: show more toggle for mobile Instagram (5 plans is a lot)
+  const [showAll, setShowAll] = useState(false);
   const plans = platform==='instagram'?igPlans:ytPlans;
+  const mobilePlans = platform==='instagram' && !showAll ? plans.slice(0,3) : plans;
+
   return (
     <window.Section id="pricing" padded>
       <div className="wrap">
@@ -24,34 +28,68 @@ const Pricing = () => {
           <h2 className="wreveal" style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8vw,120px)',marginTop:14}}>Start from right now.</h2>
           <p className="reveal reveal-d2" style={{marginTop:14,fontSize:17,color:'var(--ink-2)',maxWidth:520,margin:'14px auto 0',fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>Pick what fits your situation — we'll help your content finally get seen.</p>
         </header>
+
         <div className="reveal" style={{display:'flex',justifyContent:'center',marginBottom:40}}>
           <div style={{display:'inline-flex',gap:4,padding:5,borderRadius:999,background:'rgba(15,31,15,.06)',border:'1px solid var(--line)'}}>
             {[{k:'instagram',label:'📸 Instagram'},{k:'youtube',label:'▶️ YouTube'}].map(p=>(
-              <button key={p.k} onClick={()=>setPlatform(p.k)} style={{padding:'11px 24px',borderRadius:999,background:platform===p.k?'var(--accent)':'transparent',color:platform===p.k?'#fff':'var(--ink-2)',fontSize:13,fontWeight:700,transition:'all .25s',fontFamily:'var(--mono)',letterSpacing:'.04em',textTransform:'uppercase',WebkitTapHighlightColor:'transparent'}}>{p.label}</button>
+              <button key={p.k} onClick={()=>{setPlatform(p.k);setShowAll(false);}} style={{
+                padding:'11px 24px',borderRadius:999,
+                background:platform===p.k?'var(--accent)':'transparent',
+                color:platform===p.k?'#fff':'var(--ink-2)',
+                fontSize:13,fontWeight:700,transition:'all .25s',
+                fontFamily:'var(--mono)',letterSpacing:'.04em',textTransform:'uppercase',
+                WebkitTapHighlightColor:'transparent',
+              }}>{p.label}</button>
             ))}
           </div>
         </div>
-        {/* Mobile: snap scroll */}
-        <div className="price-mobile-scroll" style={{display:'none',overflowX:'auto',gap:12,paddingBottom:20,scrollSnapType:'x mandatory',WebkitOverflowScrolling:'touch',scrollbarWidth:'none',marginLeft:-20,marginRight:-20,paddingLeft:20,paddingRight:20}}>
-          {plans.map((p,i)=><PriceCard key={`mob-${platform}-${i}`} plan={p} showCount={FEAT_SHOW[p.name]||p.feats.length} mobile/>)}
+
+        {/* Mobile: snap scroll — FIXED with end spacer + show-more */}
+        <div className="price-mobile-scroll" style={{display:'none',overflowX:'auto',gap:12,paddingBottom:20,scrollSnapType:'x mandatory',WebkitOverflowScrolling:'touch',scrollbarWidth:'none',marginLeft:-20,marginRight:-20,paddingLeft:20}}>
+          {mobilePlans.map((p,i)=><PriceCard key={`mob-${platform}-${i}`} plan={p} showCount={FEAT_SHOW[p.name]||p.feats.length} mobile/>)}
+          {/* FIXED: end spacer so last card isn't clipped */}
+          <div style={{flexShrink:0,width:20}}/>
         </div>
+
+        {/* Mobile show-more for Instagram */}
+        {platform==='instagram' && !showAll && (
+          <div className="price-show-more" style={{display:'none',textAlign:'center',marginTop:12}}>
+            <button onClick={()=>setShowAll(true)} style={{
+              padding:'10px 24px',borderRadius:999,
+              border:'1px solid var(--line)',background:'transparent',
+              fontSize:13,fontWeight:600,color:'var(--ink-2)',cursor:'pointer',
+              WebkitTapHighlightColor:'transparent',
+            }}>
+              Show all 5 plans ↓
+            </button>
+          </div>
+        )}
+
         {/* Desktop: grid */}
         <div style={{display:'grid',gridTemplateColumns:`repeat(${plans.length},1fr)`,gap:12,alignItems:'stretch'}} className="price-grid">
           {plans.map((p,i)=><PriceCard key={`${platform}-${i}`} plan={p} showCount={FEAT_SHOW[p.name]||p.feats.length}/>)}
         </div>
+
         <div className="reveal" style={{marginTop:32,padding:'20px 24px',background:'rgba(22,101,52,.06)',border:'1px solid rgba(22,101,52,.15)',borderRadius:16,display:'flex',alignItems:'center',justifyContent:'space-between',gap:20,flexWrap:'wrap'}}>
           <p style={{fontSize:15,color:'var(--ink-2)',fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>Not sure which plan fits you?</p>
-          <button onClick={()=>window.openAuditModal&&window.openAuditModal()} style={{background:'var(--accent)',color:'#fff',border:'none',padding:'11px 22px',borderRadius:999,fontSize:13,fontWeight:700,cursor:'pointer',whiteSpace:'nowrap',WebkitTapHighlightColor:'transparent'}}>Get a free audit — we'll recommend one →</button>
+          <button onClick={()=>window.openAuditModal&&window.openAuditModal()} style={{
+            background:'var(--accent)',color:'#fff',border:'none',
+            padding:'11px 22px',borderRadius:999,fontSize:13,fontWeight:700,
+            cursor:'pointer',whiteSpace:'nowrap',WebkitTapHighlightColor:'transparent',
+          }}>Get a free audit — we'll recommend one →</button>
         </div>
-        <div className="reveal" style={{marginTop:16,display:'flex',flexDirection:'column',gap:6,alignItems:'center'}}>
+
+        {/* FIXED: disclaimer slightly larger and more legible */}
+        <div className="reveal" style={{marginTop:14,display:'flex',flexDirection:'column',gap:5,alignItems:'center'}}>
           {['Results depend on content quality, consistency, and audience response.','We never ask for passwords or login access.','Designed for real visibility — not fake numbers.'].map(t=>(
-            <p key={t} style={{fontFamily:'var(--mono)',fontSize:11,color:'var(--ink-3)',letterSpacing:'.04em',textAlign:'center'}}>→ {t}</p>
+            <p key={t} style={{fontFamily:'var(--mono)',fontSize:12,color:'var(--ink-3)',letterSpacing:'.03em',textAlign:'center'}}>→ {t}</p>
           ))}
         </div>
       </div>
+
       <style>{`
         @media(max-width:1200px){.price-grid{grid-template-columns:repeat(3,1fr) !important;gap:10px}}
-        @media(max-width:720px){.price-grid{display:none !important}.price-mobile-scroll{display:flex !important}}
+        @media(max-width:720px){.price-grid{display:none !important}.price-mobile-scroll{display:flex !important}.price-show-more{display:block !important}}
         @media(max-width:480px){.price-card-inner{padding:18px 14px 16px !important}}
       `}</style>
     </window.Section>
@@ -66,7 +104,7 @@ const PriceCard = ({plan:p,showCount,mobile}) => {
   const isPop=p.popular;
   const fillRatio=showCount/9;
   useEffect(()=>{
-    if(mobile){setTimeout(()=>setVis(true),100);return;}
+    if(mobile){setTimeout(()=>setVis(true),80);return;}
     const el=ref.current;if(!el)return;
     const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){setVis(true);io.disconnect();}},{threshold:0.08});
     io.observe(el);return()=>io.disconnect();
@@ -81,7 +119,7 @@ const PriceCard = ({plan:p,showCount,mobile}) => {
       onMouseLeave={()=>{setHov(false);setTilt({x:0,y:0});}}
       style={{
         position:'relative',flexShrink:mobile?0:undefined,
-        width:mobile?'clamp(220px,72vw,280px)':undefined,
+        width:mobile?'clamp(230px,74vw,290px)':undefined,
         scrollSnapAlign:mobile?'start':undefined,
         background:'rgba(255,255,255,.85)',color:'var(--ink)',
         border:isPop?'2px solid var(--accent)':'1.5px solid var(--line)',
@@ -110,7 +148,7 @@ const PriceCard = ({plan:p,showCount,mobile}) => {
       <div style={{height:1,background:'var(--line)',marginBottom:10}}/>
       <div style={{marginBottom:8}}>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:4}}>
-          <span style={{fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.08em',textTransform:'uppercase',color:'var(--ink-3)'}}>What's included</span>
+          <span style={{fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.08em',textTransform:'uppercase',color:'var(--ink-3)'}}>Included</span>
           <span style={{fontFamily:'var(--mono)',fontSize:9,fontWeight:700,color:'var(--accent)',padding:'2px 6px',borderRadius:4,background:'var(--accent-l)'}}>{showCount} services</span>
         </div>
         <div style={{height:2,background:'var(--line)',borderRadius:999}}><div style={{height:'100%',borderRadius:999,width:`${fillRatio*100}%`,background:'var(--accent)',transition:'width .4s ease'}}/></div>
@@ -126,7 +164,15 @@ const PriceCard = ({plan:p,showCount,mobile}) => {
         <div style={{fontSize:8,fontFamily:'var(--mono)',textTransform:'uppercase',letterSpacing:'.08em',color:'var(--ink-3)',marginBottom:2}}>Best for</div>
         <div style={{fontSize:11,fontWeight:600,color:'var(--ink)',lineHeight:1.35}}>{p.best}</div>
       </div>
-      <a href={p.stripe} style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:'11px 14px',borderRadius:999,background:'var(--ink)',color:'#fff',border:'1.5px solid var(--ink)',fontSize:12,fontWeight:700,textDecoration:'none',transition:'background .2s,border-color .2s',WebkitTapHighlightColor:'transparent'}}
+      <a href={p.stripe} style={{
+        display:'flex',alignItems:'center',justifyContent:'center',gap:8,
+        padding:'11px 14px',borderRadius:999,
+        background:'var(--ink)',color:'#fff',
+        border:'1.5px solid var(--ink)',
+        fontSize:12,fontWeight:700,textDecoration:'none',
+        transition:'background .2s,border-color .2s',
+        WebkitTapHighlightColor:'transparent',
+      }}
       onMouseEnter={e=>{e.currentTarget.style.background='var(--accent)';e.currentTarget.style.borderColor='var(--accent)';}}
       onMouseLeave={e=>{e.currentTarget.style.background='var(--ink)';e.currentTarget.style.borderColor='var(--ink)';}}>
         Get {p.name} →

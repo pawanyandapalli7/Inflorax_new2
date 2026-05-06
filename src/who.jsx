@@ -32,7 +32,7 @@ const WhoCard = ({n,t,tag,d,cta,icon,delay=0}) => {
   const [vis,setVis] = useState(false);
   const [hov,setHov] = useState(false);
   const [tilt,setTilt] = useState({x:0,y:0});
-  const isMob = typeof window!=='undefined'&&('ontouchstart' in window);
+  const isMob = typeof window!=='undefined'&&window.matchMedia('(hover:none)').matches;
   useEffect(()=>{
     const el=ref.current;if(!el)return;
     const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){setVis(true);io.disconnect();}},{threshold:0.15});

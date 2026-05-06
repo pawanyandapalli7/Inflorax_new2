@@ -119,6 +119,7 @@
   .ham span::before,.ham span::after{content:"";position:absolute;left:0;width:14px;height:1.5px;background:var(--ink)}
   .ham span::before{top:-5px}.ham span::after{top:5px}
   @media(max-width:900px){.ham{display:inline-flex}}
+  @media(max-width:768px){nav.top .pill-btn{display:none !important}}
 
   /* Drawer */
   #drawer{position:fixed;inset:74px 14px auto 14px;z-index:999;background:rgba(243,236,220,.94);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:24px;padding:14px;display:none;flex-direction:column;gap:6px;}
@@ -146,7 +147,7 @@
   #mob-cta{
     position:fixed;bottom:0;left:0;right:0;z-index:9985;
     padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-    background:rgba(240,246,232,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    background:rgba(245,250,240,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
     border-top:1px solid var(--line);
     transform:translateY(0);transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .35s;
     display:none;

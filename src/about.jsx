@@ -1,4 +1,4 @@
-// ABOUT — founder story left, clean mission card right (no embedded CTA/service rows)
+// ABOUT — fixed: CTA inside wrap, improved headline
 const About = () => (
   <window.Section id="about" padded>
     <div className="wrap">
@@ -8,7 +8,7 @@ const About = () => (
         <div>
           <span className="reveal" style={window.labelStyle}>The studio</span>
           <h2 className="reveal reveal-d1" style={{...window.bigHeadStyle(), fontSize:'clamp(40px,6vw,96px)', marginTop:18}}>
-            Small team.<br/><window.Em>Real results.</window.Em>
+            Built for<br/><window.Em>creators.</window.Em>
           </h2>
           <p className="reveal reveal-d2" style={{marginTop:24, fontSize:17, lineHeight:1.7, color:'var(--ink-2)', maxWidth:480}}>
             Inflorax is a creator promotion studio focused entirely on one thing — getting your content seen by the right people on Instagram and YouTube.
@@ -23,7 +23,7 @@ const About = () => (
               ['🔒','Zero account access','Never ask for your login.'],
               ['📈','Real accounts only','No bots, no fakes.'],
               ['⚡','Fast start','Campaigns live in 24–72h.'],
-            ].map(([ic,t,d]) => (
+            ].map(([ic,t,d])=>(
               <div key={t} style={{padding:'14px', background:'var(--soft)', borderRadius:12, border:'1px solid var(--line)'}}>
                 <div style={{fontSize:18, marginBottom:6}}>{ic}</div>
                 <div style={{fontWeight:700, fontSize:13, color:'var(--ink)', marginBottom:3}}>{t}</div>
@@ -33,7 +33,7 @@ const About = () => (
           </div>
         </div>
 
-        {/* RIGHT — mission only, no CTA */}
+        {/* RIGHT — mission card */}
         <div className="reveal reveal-d1 about-mission-card" style={{
           background:'var(--ink)', color:'var(--bone)',
           padding:'44px 36px', borderRadius:28,
@@ -57,33 +57,27 @@ const About = () => (
             </p>
           </div>
 
-          {/* Simple platform tags — no service list */}
           <div style={{position:'relative', display:'flex', gap:10, flexWrap:'wrap'}}>
-            {[['📸','Instagram'],['▶️','YouTube'],['🌐','Both platforms']].map(([ic,t]) => (
-              <div key={t} style={{
-                display:'flex', alignItems:'center', gap:8,
-                padding:'8px 14px', borderRadius:999,
-                background:'rgba(240,246,232,.07)', border:'1px solid rgba(240,246,232,.1)',
-                fontSize:13, color:'rgba(240,246,232,.75)',
-              }}>
+            {[['📸','Instagram'],['▶️','YouTube'],['🌐','Both platforms']].map(([ic,t])=>(
+              <div key={t} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 14px',borderRadius:999,background:'rgba(240,246,232,.07)',border:'1px solid rgba(240,246,232,.1)',fontSize:13,color:'rgba(240,246,232,.75)'}}>
                 <span style={{fontSize:15}}>{ic}</span>{t}
               </div>
             ))}
           </div>
         </div>
+      </div>
 
+      {/* FIXED: CTA is now inside .wrap */}
+      <div className="reveal" style={{marginTop:56, textAlign:'center'}}>
+        <div style={{display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap'}}>
+          <window.Btn primary href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("pricing");}}>View packages →</window.Btn>
+          <window.Btn onClick={()=>window.openAuditModal&&window.openAuditModal()}>Get free audit</window.Btn>
+        </div>
+        <p style={{marginTop:16, fontSize:13, color:'var(--ink-3)'}}>
+          Questions? <a href="mailto:info@inflorax.com" style={{color:'var(--accent)',textDecoration:'none',fontWeight:600}}>info@inflorax.com</a>
+        </p>
       </div>
     </div>
-        {/* CTA */}
-        <div className="reveal" style={{marginTop:48, textAlign:'center'}}>
-          <div style={{display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap'}}>
-            <window.Btn primary href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("pricing");}}>View packages →</window.Btn>
-            <window.Btn onClick={() => window.openAuditModal && window.openAuditModal()}>Get free audit</window.Btn>
-          </div>
-          <p style={{marginTop:16, fontSize:13, color:'var(--ink-3)'}}>
-            Questions? <a href="mailto:info@inflorax.com" style={{color:'var(--accent)', textDecoration:'none', fontWeight:600}}>info@inflorax.com</a>
-          </p>
-        </div>
 
     <style>{`
       @media(max-width:900px){.about-grid{grid-template-columns:1fr !important;gap:28px}}

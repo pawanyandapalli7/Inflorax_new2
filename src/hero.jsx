@@ -1,4 +1,4 @@
-// HERO — typewriter headline, touch glow, 3D tilt card, gyroscope mobile
+// HERO — fixed trust strip mobile, typewriter, touch glow, 3D tilt card
 const Hero = () => {
   const ref = useRef(null);
   const m = window.useMouse(ref);
@@ -8,7 +8,6 @@ const Hero = () => {
   const [wordIdx, setWordIdx] = useState(0);
   const words = ['no one is seeing it.','nothing is happening.','the algorithm ignores you.'];
 
-  // Typewriter
   useEffect(() => {
     let i = 0, cancelled = false;
     setTyped('');
@@ -22,7 +21,6 @@ const Hero = () => {
     return () => { cancelled=true; clearInterval(interval); };
   }, [wordIdx]);
 
-  // Touch glow follows finger
   useEffect(() => {
     const move = (e) => {
       const t = e.touches?.[0] || e;
@@ -81,21 +79,17 @@ const Hero = () => {
     }}>
       <canvas id="hero-dot-canvas" style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:0}}/>
 
-      {/* Touch-reactive glow */}
       <div aria-hidden style={{position:'absolute',inset:0,zIndex:0,pointerEvents:'none',background:`radial-gradient(ellipse 55% 45% at ${glowPos.x}% ${glowPos.y}%,rgba(22,101,52,.12),transparent 70%)`,transition:'background .5s ease'}}/>
 
-      {/* Ghost word parallax */}
       <div aria-hidden style={{position:'absolute',right:-40,top:80,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,fontSize:'clamp(120px,22vw,420px)',color:'rgba(22,101,52,.05)',lineHeight:1,letterSpacing:'-.04em',pointerEvents:'none',userSelect:'none',transform:`translate(${m.x*30-15}px,${-y*.18}px)`,transition:'transform .25s ease-out',zIndex:0}}>seen</div>
 
       <div className="wrap hero-inner-grid" style={{position:'relative',zIndex:2,flex:1,display:'grid',gridTemplateColumns:'1.1fr 1fr',gap:48,alignItems:'center'}}>
-        {/* LEFT */}
         <div>
           <div className="reveal hero-pill" style={{display:'inline-flex',alignItems:'center',gap:6,padding:'5px 12px',borderRadius:999,background:'rgba(22,101,52,.10)',border:'1px solid rgba(22,101,52,.22)',fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.06em',textTransform:'uppercase',color:'var(--accent)',marginBottom:16}}>
             <span style={{width:6,height:6,borderRadius:'50%',background:'var(--accent)',animation:'heroDot 2s ease-in-out infinite'}}/>
             Now accepting creators — Instagram &amp; YouTube
           </div>
 
-          {/* Typewriter headline */}
           <h1 style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0}}>
             <span className="reveal" style={{display:'block'}}>You've been</span>
             <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
@@ -106,8 +100,8 @@ const Hero = () => {
           </h1>
 
           <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,marginTop:20,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
-            Not because your content is bad… but because it's not getting the <span style={{color:'var(--accent)',fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:600}}>visibility it needs.</span><br/>
-            <span style={{fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:400}}>We help your content finally get seen.</span>
+            Not because your content is bad… but because it's not getting the <span style={{color:'var(--accent)',fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:600}}>visibility it needs.</span>
+            <span style={{display:'block',marginTop:8,fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:400}}>We help your content finally get seen.</span>
           </p>
 
           <div className="reveal reveal-d3" style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:20}}>
@@ -115,13 +109,18 @@ const Hero = () => {
             <window.Btn href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("process");}}>See How It Works</window.Btn>
           </div>
 
-          <div className="reveal reveal-d4 hero-trust" style={{display:'flex',gap:16,flexWrap:'wrap',marginTop:16}}>
-            {[['🔒','No passwords required'],['🛡️','Secure checkout via Stripe'],['⚡','Results in 24–72 hours']].map(([ic,l])=>(
-              <div key={l} style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:15}}>{ic}</span><span style={{fontSize:12,color:'var(--ink-3)',lineHeight:1.3}}>{l}</span></div>
+          {/* FIXED: trust strip — flex-wrap instead of column stack, shortened labels for mobile */}
+          <div className="reveal reveal-d4 hero-trust" style={{display:'flex',gap:12,flexWrap:'wrap',marginTop:16,alignItems:'center'}}>
+            {[['🔒','No passwords'],['🛡️','Stripe checkout'],['⚡','24–72h results']].map(([ic,l])=>(
+              <div key={l} style={{display:'flex',alignItems:'center',gap:6,padding:'5px 10px',borderRadius:999,background:'rgba(22,101,52,.06)',border:'1px solid rgba(22,101,52,.12)'}}>
+                <span style={{fontSize:13}}>{ic}</span>
+                <span style={{fontSize:12,color:'var(--ink-2)',lineHeight:1,whiteSpace:'nowrap'}}>{l}</span>
+              </div>
             ))}
           </div>
 
-          <div className="reveal reveal-d4 hero-social" style={{display:'flex',alignItems:'center',gap:14,marginTop:14}}>
+          {/* Social proof */}
+          <div className="reveal reveal-d4 hero-social" style={{display:'flex',alignItems:'center',gap:12,marginTop:14}}>
             <div style={{display:'flex'}}>
               {[['M','#2d6a4f,#1b4332'],['J','#1e6091,#023e8a'],['S','#6d4c41,#4e342e'],['K','#4a1942,#6a1e5e'],['R','#2d6a4f,#40916c']].map(([l,g],i)=>(
                 <div key={i} style={{width:28,height:28,borderRadius:'50%',background:`linear-gradient(135deg,${g})`,border:'2px solid var(--bg)',marginLeft:i?-8:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:'#fff'}}>{l}</div>
@@ -143,25 +142,25 @@ const Hero = () => {
           <div style={{
             background:'rgba(255,255,255,.6)',border:'1px solid rgba(22,101,52,.12)',borderRadius:20,padding:20,backdropFilter:'blur(8px)',
             position:'absolute',inset:0,
-            transform: m.active?`rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`:'rotateX(0) rotateY(0)',
+            transform:m.active?`rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`:'rotateX(0) rotateY(0)',
             transition:'transform .35s cubic-bezier(.2,.7,.2,1)',
             transformStyle:'preserve-3d',
-            boxShadow: m.active?`${-tiltY*1.5}px ${tiltX*1.5}px 40px rgba(22,101,52,.14)`:'0 8px 40px rgba(22,101,52,.07)',
+            boxShadow:m.active?`${-tiltY*1.5}px ${tiltX*1.5}px 40px rgba(22,101,52,.14)`:'0 8px 40px rgba(22,101,52,.07)',
           }}>
             <div style={{fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--ink-3)',marginBottom:8}}>Growth trajectory · 90 days</div>
             <canvas id="hero-chart-canvas" style={{width:'100%',height:'auto'}}/>
           </div>
           {[
-            {icon:'🔒',num:'Zero',label:'Passwords ever asked',sub:'Your account stays yours',style:{top:-20,right:-20}},
+            {icon:'🔒',num:'Zero',label:'Passwords asked',sub:'Your account stays yours',style:{top:-20,right:-20}},
             {icon:'✓',num:'Real',label:'Accounts only',sub:'No bots, no fakes',style:{top:'38%',right:-28}},
             {icon:'⚡',num:'24–72h',label:'To first results',sub:'From campaign launch',style:{bottom:50,right:-20}},
           ].map((c,i)=>(
-            <div key={i} style={{position:'absolute',...c.style,background:'rgba(255,255,255,.95)',border:'1px solid rgba(22,101,52,.14)',borderRadius:14,padding:'10px 14px',backdropFilter:'blur(12px)',display:'flex',alignItems:'center',gap:10,boxShadow:'0 8px 28px rgba(15,31,15,.08)',animation:`hfc${i} ${3.5+i*.7}s ease-in-out infinite`,minWidth:155,zIndex:3}}>
+            <div key={i} style={{position:'absolute',...c.style,background:'rgba(255,255,255,.95)',border:'1px solid rgba(22,101,52,.14)',borderRadius:14,padding:'10px 14px',backdropFilter:'blur(12px)',display:'flex',alignItems:'center',gap:10,boxShadow:'0 8px 28px rgba(15,31,15,.08)',animation:`hfc${i} ${3.5+i*.7}s ease-in-out infinite`,minWidth:148,zIndex:3}}>
               <span style={{fontSize:20}}>{c.icon}</span>
               <div>
-                <div style={{fontWeight:900,fontSize:18,letterSpacing:'-.03em',color:'var(--accent)',lineHeight:1}}>{c.num}</div>
+                <div style={{fontWeight:900,fontSize:17,letterSpacing:'-.03em',color:'var(--accent)',lineHeight:1}}>{c.num}</div>
                 <div style={{fontSize:11,fontWeight:600,color:'var(--ink)'}}>{c.label}</div>
-                <div style={{fontSize:10,color:'var(--ink-3)',fontFamily:'var(--mono)'}}>{c.sub} <span style={{color:'var(--accent)'}}>↗</span></div>
+                <div style={{fontSize:9,color:'var(--ink-3)',fontFamily:'var(--mono)'}}>{c.sub} <span style={{color:'var(--accent)'}}>↗</span></div>
               </div>
             </div>
           ))}
@@ -190,10 +189,8 @@ const Hero = () => {
         @keyframes scrollDotAnim{0%,100%{transform:translateY(0)}60%{transform:translateY(5px)}}
         @media(max-width:900px){.hero-inner-grid{grid-template-columns:1fr !important;padding-bottom:clamp(32px,6vw,60px)}.hero-right-col{display:none !important}.hero-scroll-cue{display:flex !important}}
         @media(max-width:900px){#hero-section{min-height:auto !important;padding-bottom:0}}
-        @media(max-width:480px){.hero-trust{gap:10px !important;flex-direction:column}}
-        @media(max-width:480px){.hero-social{flex-direction:column;align-items:flex-start !important;gap:8px !important}}
         @media(max-width:480px){#hero-section{padding-top:calc(74px + 10px) !important}}
-        @media(max-width:380px){.hero-pill{font-size:8px !important;letter-spacing:.04em !important;padding:4px 10px !important}}
+        @media(max-width:380px){.hero-pill{font-size:8px !important;padding:4px 10px !important}}
       `}</style>
     </section>
   );

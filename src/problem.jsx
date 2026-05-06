@@ -84,9 +84,15 @@ const Problem = () => {
 
         <div className="reveal" style={{marginTop:48,display:'flex',alignItems:'center',justifyContent:'center',gap:16,flexWrap:'wrap'}}>
           <span style={{fontSize:15,color:'var(--ink-2)',fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:600}}>You're not alone. This is where most creators get stuck.</span>
-          <a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("process");}} style={{display:'inline-flex',alignItems:'center',gap:8,fontSize:14,fontWeight:700,color:'var(--accent)',textDecoration:'none',borderBottom:'1.5px solid var(--accent-l)',paddingBottom:2,transition:'border-color .2s'}}
-          onMouseEnter={e=>e.currentTarget.style.borderColor='var(--accent)'}
-          onMouseLeave={e=>e.currentTarget.style.borderColor='var(--accent-l)'}>See how we fix it →</a>
+          <a href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("process");}} style={{
+            display:'inline-flex',alignItems:'center',gap:8,
+            fontSize:14,fontWeight:700,color:'#fff',textDecoration:'none',
+            background:'var(--accent)',padding:'12px 22px',borderRadius:999,
+            transition:'opacity .2s',boxShadow:'0 4px 16px rgba(22,101,52,.3)',
+            WebkitTapHighlightColor:'transparent',
+          }}
+          onMouseEnter={e=>e.currentTarget.style.opacity='.85'}
+          onMouseLeave={e=>e.currentTarget.style.opacity='1'}>See how we fix it →</a>
         </div>
       </div>
       <style>{`
