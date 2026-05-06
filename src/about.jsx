@@ -1,77 +1,91 @@
-// Insight cards — cycling "Did you know?" facts
+// Insight cards — flip cards like hotel cards, image top + fact bottom
 const insightCards = [
   {
-    line1: "Most creators only reach people they already know.",
-    line2: "Real growth starts when strangers begin seeing your content.",
+    emoji: '👁️',
+    bg: 'linear-gradient(160deg,#0d2818,#1a4a2e)',
+    accent: '#4ade80',
+    front: 'Most creators only reach people they already know.',
+    back: 'Real growth starts when strangers begin seeing your content.',
   },
   {
-    line1: "Low reach doesn't always mean low-quality content.",
-    line2: "Sometimes the algorithm simply hasn't understood your audience yet.",
+    emoji: '📉',
+    bg: 'linear-gradient(160deg,#0f1e2e,#1a3a4a)',
+    accent: '#60c8f0',
+    front: 'Low reach doesn't always mean low-quality content.',
+    back: 'Sometimes the algorithm simply hasn't understood your audience yet.',
   },
   {
-    line1: "Most creators think they need a better camera…",
-    line2: "when they actually need better visibility.",
+    emoji: '📷',
+    bg: 'linear-gradient(160deg,#1e1a0d,#3a2e0f)',
+    accent: '#fbbf24',
+    front: 'Most creators think they need a better camera…',
+    back: 'when they actually need better visibility.',
   },
   {
-    line1: "A Reel shown to the wrong audience can completely fail…",
-    line2: "the same Reel can go viral with the right one.",
+    emoji: '🎯',
+    bg: 'linear-gradient(160deg,#1e0d18,#3a0f2e)',
+    accent: '#f472b6',
+    front: 'A Reel shown to the wrong audience can completely fail…',
+    back: 'The same Reel can go viral with the right one.',
   },
   {
-    line1: "Many creators quit during the exact phase",
-    line2: "where growth is about to begin.",
+    emoji: '🚀',
+    bg: 'linear-gradient(160deg,#0d1e18,#0f3a2a)',
+    accent: '#34d399',
+    front: 'Many creators quit during the exact phase',
+    back: 'where growth is about to begin.',
   },
 ];
 
 const InsightCards = () => {
-  const [idx, setIdx] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
+  const [active, setActive] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
 
-  const goTo = (next, dir=1) => {
-    if (animating) return;
-    setAnimating(true);
-    setDirection(dir);
+  // Auto-advance every 4.5s — flip then move to next
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!flipped) {
+        setFlipped(true);
+        setTimeout(() => {
+          setTransitioning(true);
+          setTimeout(() => {
+            setActive(p => (p + 1) % insightCards.length);
+            setFlipped(false);
+            setTransitioning(false);
+          }, 300);
+        }, 2000);
+      }
+    }, 4500);
+    return () => clearInterval(id);
+  }, [flipped, active]);
+
+  const goTo = (i) => {
+    if (transitioning) return;
+    setTransitioning(true);
+    setFlipped(false);
     setTimeout(() => {
-      setIdx(next);
-      setAnimating(false);
-    }, 320);
+      setActive(i);
+      setTransitioning(false);
+    }, 250);
   };
 
-  const prev = () => goTo((idx - 1 + insightCards.length) % insightCards.length, -1);
-  const next = () => goTo((idx + 1) % insightCards.length, 1);
-
-  // Auto-advance every 4s
-  useEffect(() => {
-    const id = setInterval(() => goTo((idx + 1) % insightCards.length, 1), 4000);
-    return () => clearInterval(id);
-  }, [idx, animating]);
-
-  const card = insightCards[idx];
+  const card = insightCards[active];
 
   return (
     <div style={{position:'relative'}}>
-      {/* Header */}
-      <div style={{
-        display:'flex', alignItems:'center', justifyContent:'space-between',
-        marginBottom:10,
-      }}>
+      {/* Header row */}
+      <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:12}}>
         <div style={{display:'flex', alignItems:'center', gap:8}}>
-          <span style={{
-            width:6, height:6, borderRadius:'50%', background:'var(--accent)',
-            animation:'insightPulse 2s ease-in-out infinite',
-            display:'inline-block',
-          }}/>
-          <span style={{
-            fontFamily:'var(--mono)', fontSize:9, letterSpacing:'.16em',
-            textTransform:'uppercase', color:'rgba(240,246,232,.4)',
-          }}>Did you know?</span>
+          <span style={{width:6,height:6,borderRadius:'50%',background:'var(--accent)',display:'inline-block',animation:'insightPulse 2s ease-in-out infinite'}}/>
+          <span style={{fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.16em',textTransform:'uppercase',color:'rgba(240,246,232,.4)'}}>Did you know?</span>
         </div>
         {/* Dot indicators */}
         <div style={{display:'flex', gap:5, alignItems:'center'}}>
           {insightCards.map((_,i) => (
-            <button key={i} onClick={() => goTo(i, i > idx ? 1 : -1)} style={{
-              width: i===idx ? 16 : 5, height:5, borderRadius:999,
-              background: i===idx ? 'var(--accent)' : 'rgba(240,246,232,.2)',
+            <button key={i} onClick={() => goTo(i)} style={{
+              width: i===active ? 16 : 5, height:5, borderRadius:999,
+              background: i===active ? 'var(--accent)' : 'rgba(240,246,232,.2)',
               border:'none', cursor:'pointer', padding:0,
               transition:'width .3s, background .3s',
               WebkitTapHighlightColor:'transparent',
@@ -80,66 +94,128 @@ const InsightCards = () => {
         </div>
       </div>
 
-      {/* Card */}
-      <div style={{
-        background:'rgba(240,246,232,.06)',
-        border:'1px solid rgba(240,246,232,.1)',
-        borderRadius:16, padding:'18px 18px',
-        minHeight:90,
-        position:'relative', overflow:'hidden',
-      }}>
-        {/* Subtle accent line left */}
+      {/* Flip card */}
+      <div
+        onClick={() => setFlipped(f => !f)}
+        style={{
+          perspective: 900,
+          cursor: 'pointer',
+          WebkitTapHighlightColor:'transparent',
+          userSelect:'none',
+        }}
+      >
         <div style={{
-          position:'absolute', left:0, top:16, bottom:16,
-          width:2, borderRadius:999, background:'var(--accent)', opacity:.6,
-        }}/>
-
-        <div style={{
-          paddingLeft:12,
-          opacity: animating ? 0 : 1,
-          transform: animating
-            ? `translateX(${direction * 12}px)`
-            : 'translateX(0)',
-          transition:'opacity .32s ease, transform .32s ease',
+          position:'relative',
+          width:'100%',
+          height:180,
+          transformStyle:'preserve-3d',
+          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transition: transitioning
+            ? 'none'
+            : 'transform .55s cubic-bezier(.4,0,.2,1)',
         }}>
-          <p style={{
-            fontSize:14, lineHeight:1.6,
-            color:'rgba(240,246,232,.85)',
-            fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:300,
-            margin:0,
+
+          {/* FRONT — emoji image area + short question */}
+          <div style={{
+            position:'absolute', inset:0,
+            backfaceVisibility:'hidden',
+            WebkitBackfaceVisibility:'hidden',
+            borderRadius:18,
+            background: card.bg,
+            overflow:'hidden',
+            border:'1px solid rgba(240,246,232,.08)',
+            opacity: transitioning ? 0 : 1,
+            transition:'opacity .25s',
           }}>
-            {card.line1}
-          </p>
-          <p style={{
-            fontSize:14, lineHeight:1.6,
-            color:'var(--accent)',
-            fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:400,
-            margin:'4px 0 0',
+            {/* Top image area */}
+            <div style={{
+              height:110,
+              display:'flex', alignItems:'center', justifyContent:'center',
+              position:'relative', overflow:'hidden',
+              background: card.bg,
+            }}>
+              {/* Decorative radial glow */}
+              <div style={{
+                position:'absolute', inset:0,
+                background:`radial-gradient(ellipse at 50% 60%, ${card.accent}22, transparent 70%)`,
+              }}/>
+              {/* Big emoji */}
+              <div style={{
+                fontSize:52,
+                filter:'drop-shadow(0 4px 16px rgba(0,0,0,.3))',
+                position:'relative',
+                animation:'cardEmojiBob 3s ease-in-out infinite',
+              }}>{card.emoji}</div>
+              {/* Gradient overlay at bottom */}
+              <div style={{
+                position:'absolute', bottom:0, left:0, right:0, height:40,
+                background:'linear-gradient(to bottom, transparent, rgba(0,0,0,.4))',
+              }}/>
+            </div>
+
+            {/* Bottom content */}
+            <div style={{padding:'12px 16px 14px'}}>
+              <p style={{
+                fontSize:13, lineHeight:1.5,
+                color:'rgba(240,246,232,.85)',
+                fontFamily:'var(--serif)', fontStyle:'italic',
+                margin:0,
+              }}>{card.front}</p>
+              <div style={{
+                marginTop:8, display:'flex', alignItems:'center', gap:6,
+                fontSize:10, fontFamily:'var(--mono)',
+                color:'rgba(240,246,232,.35)', letterSpacing:'.08em',
+              }}>
+                <span>TAP TO REVEAL</span>
+                <span style={{color:card.accent}}>→</span>
+              </div>
+            </div>
+          </div>
+
+          {/* BACK — answer */}
+          <div style={{
+            position:'absolute', inset:0,
+            backfaceVisibility:'hidden',
+            WebkitBackfaceVisibility:'hidden',
+            transform:'rotateY(180deg)',
+            borderRadius:18,
+            background: card.bg,
+            border:`1px solid ${card.accent}44`,
+            boxShadow:`0 0 32px ${card.accent}18`,
+            overflow:'hidden',
+            display:'flex', flexDirection:'column',
+            justifyContent:'center',
+            padding:'22px 20px',
+            opacity: transitioning ? 0 : 1,
+            transition:'opacity .25s',
           }}>
-            {card.line2}
-          </p>
+            {/* Accent glow */}
+            <div style={{
+              position:'absolute', top:-40, right:-40, width:180, height:180,
+              borderRadius:'50%', background:card.accent, opacity:.08, filter:'blur(50px)',
+            }}/>
+            <div style={{
+              fontSize:28, marginBottom:14,
+              filter:'drop-shadow(0 2px 8px rgba(0,0,0,.3))',
+            }}>{card.emoji}</div>
+            <p style={{
+              fontSize:15, lineHeight:1.65,
+              color: card.accent,
+              fontFamily:'var(--serif)', fontStyle:'italic', fontWeight:400,
+              margin:0, position:'relative',
+            }}>{card.back}</p>
+            <div style={{
+              marginTop:12, fontSize:10, fontFamily:'var(--mono)',
+              color:'rgba(240,246,232,.25)', letterSpacing:'.08em',
+            }}>TAP TO FLIP BACK</div>
+          </div>
         </div>
       </div>
 
-      {/* Prev / Next */}
-      <div style={{display:'flex', justifyContent:'flex-end', gap:6, marginTop:8}}>
-        {[['←', prev], ['→', next]].map(([label, fn]) => (
-          <button key={label} onClick={fn} style={{
-            width:28, height:28, borderRadius:'50%',
-            border:'1px solid rgba(240,246,232,.15)',
-            background:'transparent', color:'rgba(240,246,232,.5)',
-            fontSize:12, cursor:'pointer', display:'flex',
-            alignItems:'center', justifyContent:'center',
-            transition:'border-color .2s, color .2s, background .2s',
-            WebkitTapHighlightColor:'transparent',
-          }}
-          onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--accent)';e.currentTarget.style.color='var(--accent)';e.currentTarget.style.background='rgba(22,101,52,.15)';}}
-          onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(240,246,232,.15)';e.currentTarget.style.color='rgba(240,246,232,.5)';e.currentTarget.style.background='transparent';}}
-          >{label}</button>
-        ))}
-      </div>
-
-      <style>{`@keyframes insightPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}`}</style>
+      <style>{`
+        @keyframes insightPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+        @keyframes cardEmojiBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+      `}</style>
     </div>
   );
 };

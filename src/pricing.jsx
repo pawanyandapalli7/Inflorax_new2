@@ -15,10 +15,8 @@ const FEAT_SHOW={Spark:4,Ignite:6,Momentum:7,Influence:8,Icon:9,Foundation:4,Acc
 
 const Pricing = () => {
   const [platform,setPlatform] = useState('instagram');
-  // ADDED: show more toggle for mobile Instagram (5 plans is a lot)
-  const [showAll, setShowAll] = useState(false);
   const plans = platform==='instagram'?igPlans:ytPlans;
-  const mobilePlans = platform==='instagram' && !showAll ? plans.slice(0,3) : plans;
+  const mobilePlans = plans;
 
   return (
     <window.Section id="pricing" padded>
@@ -32,7 +30,7 @@ const Pricing = () => {
         <div className="reveal" style={{display:'flex',justifyContent:'center',marginBottom:40}}>
           <div style={{display:'inline-flex',gap:4,padding:5,borderRadius:999,background:'rgba(15,31,15,.06)',border:'1px solid var(--line)'}}>
             {[{k:'instagram',label:'📸 Instagram'},{k:'youtube',label:'▶️ YouTube'}].map(p=>(
-              <button key={p.k} onClick={()=>{setPlatform(p.k);setShowAll(false);}} style={{
+              <button key={p.k} onClick={()=>setPlatform(p.k)} style={{
                 padding:'11px 24px',borderRadius:999,
                 background:platform===p.k?'var(--accent)':'transparent',
                 color:platform===p.k?'#fff':'var(--ink-2)',
@@ -51,19 +49,7 @@ const Pricing = () => {
           <div style={{flexShrink:0,width:20}}/>
         </div>
 
-        {/* Mobile show-more for Instagram */}
-        {platform==='instagram' && !showAll && (
-          <div className="price-show-more" style={{display:'none',textAlign:'center',marginTop:12}}>
-            <button onClick={()=>setShowAll(true)} style={{
-              padding:'10px 24px',borderRadius:999,
-              border:'1px solid var(--line)',background:'transparent',
-              fontSize:13,fontWeight:600,color:'var(--ink-2)',cursor:'pointer',
-              WebkitTapHighlightColor:'transparent',
-            }}>
-              Show all 5 plans ↓
-            </button>
-          </div>
-        )}
+
 
         {/* Desktop: grid */}
         <div style={{display:'grid',gridTemplateColumns:`repeat(${plans.length},1fr)`,gap:12,alignItems:'stretch'}} className="price-grid">
@@ -89,7 +75,7 @@ const Pricing = () => {
 
       <style>{`
         @media(max-width:1200px){.price-grid{grid-template-columns:repeat(3,1fr) !important;gap:10px}}
-        @media(max-width:720px){.price-grid{display:none !important}.price-mobile-scroll{display:flex !important}.price-show-more{display:block !important}}
+        @media(max-width:720px){.price-grid{display:none !important}.price-mobile-scroll{display:flex !important}}
         @media(max-width:480px){.price-card-inner{padding:18px 14px 16px !important}}
       `}</style>
     </window.Section>
