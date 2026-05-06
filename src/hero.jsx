@@ -1,4 +1,4 @@
-// HERO — fixed trust strip mobile, typewriter, touch glow, 3D tilt card
+// HERO — clean structure, fixed typewriter, no layout shift
 const Hero = () => {
   const ref = useRef(null);
   const m = window.useMouse(ref);
@@ -13,12 +13,12 @@ const Hero = () => {
     setTyped('');
     const word = words[wordIdx % words.length];
     const interval = setInterval(() => {
-      if(cancelled) return;
-      setTyped(word.slice(0, i+1));
+      if (cancelled) return;
+      setTyped(word.slice(0, i + 1));
       i++;
-      if(i >= word.length){ clearInterval(interval); setTimeout(()=>{ if(!cancelled) setWordIdx(p=>p+1); }, 3200); }
+      if (i >= word.length) { clearInterval(interval); setTimeout(() => { if (!cancelled) setWordIdx(p => p + 1); }, 3200); }
     }, 90);
-    return () => { cancelled=true; clearInterval(interval); };
+    return () => { cancelled = true; clearInterval(interval); };
   }, [wordIdx]);
 
   useEffect(() => {
@@ -34,11 +34,10 @@ const Hero = () => {
   const tiltX = m.active ? (m.y-.5)*-14 : 0;
   const tiltY = m.active ? (m.x-.5)*14 : 0;
 
-  // Dot-grid canvas
   useEffect(() => {
     const cv = document.getElementById('hero-dot-canvas');
     const hero = ref.current;
-    if(!cv||!hero) return;
+    if (!cv||!hero) return;
     const ctx = cv.getContext('2d');
     let W,H,t2=0,particles=[];
     const mouse={x:-999,y:-999,active:false};
@@ -56,10 +55,9 @@ const Hero = () => {
     return ()=>{cancelAnimationFrame(animId);window.removeEventListener('resize',setSize);};
   }, []);
 
-  // Chart canvas
   useEffect(() => {
     const cv = document.getElementById('hero-chart-canvas');
-    if(!cv) return;
+    if (!cv) return;
     const ctx=cv.getContext('2d');cv.width=400;cv.height=240;
     const pts=[8,10,13,18,24,34,48,66,82,95];const W=cv.width,H=cv.height;const pad={t:16,r:16,b:24,l:32};const gW=W-pad.l-pad.r,gH=H-pad.t-pad.b;const xStep=gW/(pts.length-1);
     ctx.clearRect(0,0,W,H);
@@ -72,41 +70,50 @@ const Hero = () => {
 
   return (
     <section id="hero-section" data-screen-label="01 hero" ref={ref} style={{
-      minHeight:'100svh',position:'relative',overflow:'hidden',
+      minHeight:'100svh', position:'relative', overflow:'hidden',
       paddingTop:'calc(74px + clamp(12px,3vw,56px))',
       paddingBottom:'clamp(40px,6vw,80px)',
-      display:'flex',flexDirection:'column',
+      display:'flex', flexDirection:'column',
     }}>
       <canvas id="hero-dot-canvas" style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:0}}/>
-
       <div aria-hidden style={{position:'absolute',inset:0,zIndex:0,pointerEvents:'none',background:`radial-gradient(ellipse 55% 45% at ${glowPos.x}% ${glowPos.y}%,rgba(22,101,52,.12),transparent 70%)`,transition:'background .5s ease'}}/>
-
       <div aria-hidden style={{position:'absolute',right:-40,top:80,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,fontSize:'clamp(120px,22vw,420px)',color:'rgba(22,101,52,.05)',lineHeight:1,letterSpacing:'-.04em',pointerEvents:'none',userSelect:'none',transform:`translate(${m.x*30-15}px,${-y*.18}px)`,transition:'transform .25s ease-out',zIndex:0}}>seen</div>
 
       <div className="wrap hero-inner-grid" style={{position:'relative',zIndex:2,flex:1,display:'grid',gridTemplateColumns:'1.1fr 1fr',gap:48,alignItems:'center'}}>
+
+        {/* LEFT */}
         <div>
           <div className="reveal hero-pill" style={{display:'inline-flex',alignItems:'center',gap:6,padding:'5px 12px',borderRadius:999,background:'rgba(22,101,52,.10)',border:'1px solid rgba(22,101,52,.22)',fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.06em',textTransform:'uppercase',color:'var(--accent)',marginBottom:16}}>
             <span style={{width:6,height:6,borderRadius:'50%',background:'var(--accent)',animation:'heroDot 2s ease-in-out infinite'}}/>
             Now accepting creators — Instagram &amp; YouTube
           </div>
 
-          <div style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0}}>
-            <span className="reveal" style={{display:'block'}}>You've been</span>
-            <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
-            {/* Typewriter line — FIXED height = always exactly 1 line, phrases kept short */}
-            <div className="reveal reveal-d2" style={{
+          {/* Line 1 — static */}
+          <div className="reveal" style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)'}}>You've been</div>
+          {/* Line 2 — static */}
+          <div className="reveal reveal-d1" style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)'}}>posting… but</div>
+          {/* Line 3 — typewriter in FIXED HEIGHT box, isolated from flow below */}
+          <div className="reveal reveal-d2" style={{
+            height:'clamp(56px,10vw,172px)',
+            overflow:'hidden',
+            marginBottom:20,
+          }}>
+            <span style={{
+              display:'block',
               fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
               fontSize:'clamp(44px,8.5vw,148px)',
               letterSpacing:'-.04em',color:'var(--accent)',
               lineHeight:1.15,
-              height:'clamp(56px,10vw,172px)',
-              overflow:'hidden',
             }}>
-              {typed || ' '}
+              {typed || '\u00A0'}
               <span style={{display:'inline-block',width:'2px',height:'.7em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
-            </div>
-          <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,marginTop:20,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
-            Not because your content is bad… but because it's not getting the <span style={{color:'var(--accent)',fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:600}}>visibility it needs.</span>
+            </span>
+          </div>
+
+          {/* Subtext — lives OUTSIDE headline, never affected by typewriter */}
+          <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
+            Not because your content is bad… but because it's not getting the{' '}
+            <span style={{color:'var(--accent)',fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:600}}>visibility it needs.</span>
             <span style={{display:'block',marginTop:8,fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:400}}>We help your content finally get seen.</span>
           </p>
 
@@ -115,8 +122,7 @@ const Hero = () => {
             <window.Btn href="#" onClick={e=>{e.preventDefault();window.scrollToSection&&window.scrollToSection("process");}}>See How It Works</window.Btn>
           </div>
 
-          {/* FIXED: trust strip — flex-wrap instead of column stack, shortened labels for mobile */}
-          <div className="reveal reveal-d4 hero-trust" style={{display:'flex',gap:12,flexWrap:'wrap',marginTop:16,alignItems:'center'}}>
+          <div className="reveal reveal-d4 hero-trust" style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:16,alignItems:'center'}}>
             {[['🔒','No passwords'],['🛡️','Stripe checkout'],['⚡','24–72h results']].map(([ic,l])=>(
               <div key={l} style={{display:'flex',alignItems:'center',gap:6,padding:'5px 10px',borderRadius:999,background:'rgba(22,101,52,.06)',border:'1px solid rgba(22,101,52,.12)'}}>
                 <span style={{fontSize:13}}>{ic}</span>
@@ -125,7 +131,6 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* Social proof */}
           <div className="reveal reveal-d4 hero-social" style={{display:'flex',alignItems:'center',gap:12,marginTop:14}}>
             <div style={{display:'flex'}}>
               {[['M','#2d6a4f,#1b4332'],['J','#1e6091,#023e8a'],['S','#6d4c41,#4e342e'],['K','#4a1942,#6a1e5e'],['R','#2d6a4f,#40916c']].map(([l,g],i)=>(
@@ -143,16 +148,9 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT — 3D tilt card */}
+        {/* RIGHT — 3D card */}
         <div className="hero-right-col reveal reveal-d1" style={{position:'relative',height:420,perspective:900}}>
-          <div style={{
-            background:'rgba(255,255,255,.6)',border:'1px solid rgba(22,101,52,.12)',borderRadius:20,padding:20,backdropFilter:'blur(8px)',
-            position:'absolute',inset:0,
-            transform:m.active?`rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`:'rotateX(0) rotateY(0)',
-            transition:'transform .35s cubic-bezier(.2,.7,.2,1)',
-            transformStyle:'preserve-3d',
-            boxShadow:m.active?`${-tiltY*1.5}px ${tiltX*1.5}px 40px rgba(22,101,52,.14)`:'0 8px 40px rgba(22,101,52,.07)',
-          }}>
+          <div style={{background:'rgba(255,255,255,.6)',border:'1px solid rgba(22,101,52,.12)',borderRadius:20,padding:20,backdropFilter:'blur(8px)',position:'absolute',inset:0,transform:m.active?`rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`:'rotateX(0) rotateY(0)',transition:'transform .35s cubic-bezier(.2,.7,.2,1)',transformStyle:'preserve-3d',boxShadow:m.active?`${-tiltY*1.5}px ${tiltX*1.5}px 40px rgba(22,101,52,.14)`:'0 8px 40px rgba(22,101,52,.07)'}}>
             <div style={{fontFamily:'var(--mono)',fontSize:9,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--ink-3)',marginBottom:8}}>Growth trajectory · 90 days</div>
             <canvas id="hero-chart-canvas" style={{width:'100%',height:'auto'}}/>
           </div>
