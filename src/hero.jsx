@@ -6,7 +6,7 @@ const Hero = () => {
   const [glowPos, setGlowPos] = useState({x:50,y:50});
   const [typed, setTyped] = useState('');
   const [wordIdx, setWordIdx] = useState(0);
-  const words = ['no one is seeing it.','nothing is happening.','the algorithm ignores you.'];
+  const words = ['no one sees it.','nothing moves.','you\'re invisible.'];
 
   useEffect(() => {
     let i = 0, cancelled = false;
@@ -93,18 +93,18 @@ const Hero = () => {
           <div style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0}}>
             <span className="reveal" style={{display:'block'}}>You've been</span>
             <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
-            {/* Typewriter line — natural flow, height reserved via padding */}
+            {/* Typewriter line — FIXED height = always exactly 1 line, phrases kept short */}
             <div className="reveal reveal-d2" style={{
               fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
               fontSize:'clamp(44px,8.5vw,148px)',
               letterSpacing:'-.04em',color:'var(--accent)',
               lineHeight:1.15,
-              paddingBottom:'clamp(8px,1.5vw,24px)',
+              height:'clamp(56px,10vw,172px)',
+              overflow:'hidden',
             }}>
               {typed || ' '}
               <span style={{display:'inline-block',width:'2px',height:'.7em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
             </div>
-          </div>
           <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,marginTop:20,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
             Not because your content is bad… but because it's not getting the <span style={{color:'var(--accent)',fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:600}}>visibility it needs.</span>
             <span style={{display:'block',marginTop:8,fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:400}}>We help your content finally get seen.</span>
