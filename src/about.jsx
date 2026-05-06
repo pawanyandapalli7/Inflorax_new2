@@ -11,8 +11,8 @@ const insightCards = [
     emoji: '📉',
     bg: 'linear-gradient(160deg,#0f1e2e,#1a3a4a)',
     accent: '#60c8f0',
-    front: 'Low reach doesn't always mean low-quality content.',
-    back: 'Sometimes the algorithm simply hasn't understood your audience yet.',
+    front: "Low reach doesn't always mean low-quality content.",
+    back: "Sometimes the algorithm simply hasn't understood your audience yet.",
   },
   {
     emoji: '📷',
