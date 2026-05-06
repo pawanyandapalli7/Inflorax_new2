@@ -97,10 +97,10 @@ const Hero = () => {
               display:'block',
               fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
               textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',
-              /* Fixed height = 1 line — prevents layout reflow while typing */
-              height:'1.15em',
+              /* Fixed height — tall enough for descenders in italic serif */
+              height:'1.4em',
               overflow:'hidden',
-              lineHeight:1.15,
+              lineHeight:1.4,
             }}>
               {typed}
               <span style={{display:'inline-block',width:'2px',height:'.8em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>

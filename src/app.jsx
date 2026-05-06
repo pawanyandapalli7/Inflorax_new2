@@ -2,6 +2,8 @@
 const App = () => {
   const tw = window.useTweaks ? window.useTweaks(window.TWEAK_DEFAULTS) : [window.TWEAK_DEFAULTS, () => {}];
   const [tweaks, setTweak] = tw;
+  // Audit modal state — lives here so openAuditModal works even without AuditCTA section
+  const [auditOpen, setAuditOpen] = useState(false);
 
   useEffect(() => {
     document.body.dataset.density = tweaks.density || 'tight';
@@ -11,6 +13,12 @@ const App = () => {
     document.body.dataset.glow = tweaks.glow ? 'on' : 'off';
     document.body.dataset.motion = tweaks.motion || 'high';
   }, [tweaks.density, tweaks.accent, tweaks.glow, tweaks.motion]);
+
+  // Register global opener so any button on the page can trigger the modal
+  useEffect(() => {
+    window.openAuditModal = () => setAuditOpen(true);
+    return () => { window.openAuditModal = null; };
+  }, []);
 
   return (
     <window.DirectionCtx.Provider value="kinetic">
@@ -26,6 +34,8 @@ const App = () => {
       <window.FAQ/>
       <window.Footer/>
       {window.FloatCTA && <window.FloatCTA/>}
+      {/* Audit modal — always mounted, opened via window.openAuditModal() */}
+      {window.AuditModal && <window.AuditModal open={auditOpen} onClose={()=>setAuditOpen(false)}/>}
 
       {window.TweaksPanel && (
         <window.TweaksPanel title="Tweaks">
