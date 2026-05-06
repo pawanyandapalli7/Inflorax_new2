@@ -93,19 +93,23 @@ const Hero = () => {
           <h1 style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0,willChange:'contents'}}>
             <span className="reveal" style={{display:'block'}}>You've been</span>
             <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
-            <span className="reveal reveal-d2" style={{
-              display:'block',
-              fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
-              textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',
-              /* Enough room for descenders (g, y, p) in italic Fraunces */
-              height:'1.6em',
-              lineHeight:1.3,
-              overflow:'visible',
-              paddingBottom:'.2em',
+            {/* Typewriter line — fixed-height wrapper prevents reflow, inner span shows full descenders */}
+            <div style={{
+              height:'clamp(58px, 10vw, 180px)',
+              overflow:'hidden',
+              display:'flex', alignItems:'flex-start',
             }}>
-              {typed}
-              <span style={{display:'inline-block',width:'2px',height:'.8em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
-            </span>
+              <span className="reveal reveal-d2" style={{
+                display:'block',
+                fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
+                textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',
+                lineHeight:1.15, fontSize:'clamp(44px,8.5vw,148px)',
+                whiteSpace:'nowrap',
+              }}>
+                {typed}
+                <span style={{display:'inline-block',width:'2px',height:'.75em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
+              </span>
+            </div>
           </h1>
 
           <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,marginTop:20,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
