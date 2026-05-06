@@ -90,23 +90,28 @@ const Hero = () => {
             Now accepting creators — Instagram &amp; YouTube
           </div>
 
-          <h1 style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0,willChange:'contents'}}>
+          <div style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0}}>
             <span className="reveal" style={{display:'block'}}>You've been</span>
             <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
-            {/* Typewriter line — natural flow, no clipping */}
-            <span className="reveal reveal-d2" style={{
-              display:'block',
-              fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
-              textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',
-              lineHeight:1.2,
-              /* Reserve space so content below never shifts */
-              minHeight:'1.35em',
+            {/* Typewriter line — fully isolated fixed-height container, nothing outside can shift */}
+            <div className="reveal reveal-d2" style={{
+              height:'clamp(60px,9.5vw,160px)',
+              overflow:'hidden',
+              position:'relative',
             }}>
-              {typed || ' '}
-              <span style={{display:'inline-block',width:'2px',height:'.75em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
-            </span>
-          </h1>
-
+              <span style={{
+                display:'block',
+                fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
+                fontSize:'clamp(44px,8.5vw,148px)',
+                letterSpacing:'-.04em',color:'var(--accent)',
+                lineHeight:1, paddingTop:'.04em',
+                position:'absolute', top:0, left:0, whiteSpace:'nowrap',
+              }}>
+                {typed || ' '}
+                <span style={{display:'inline-block',width:'2px',height:'.7em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
+              </span>
+            </div>
+          </div>
           <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,marginTop:20,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
             Not because your content is bad… but because it's not getting the <span style={{color:'var(--accent)',fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:600}}>visibility it needs.</span>
             <span style={{display:'block',marginTop:8,fontStyle:'normal',fontFamily:'var(--sans)',fontWeight:400}}>We help your content finally get seen.</span>
