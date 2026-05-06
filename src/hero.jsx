@@ -93,23 +93,16 @@ const Hero = () => {
           <div style={{...window.bigHeadStyle(),fontSize:'clamp(44px,8.5vw,148px)',marginBottom:0}}>
             <span className="reveal" style={{display:'block'}}>You've been</span>
             <span className="reveal reveal-d1" style={{display:'block'}}>posting… but</span>
-            {/* Typewriter line — fully isolated fixed-height container, nothing outside can shift */}
+            {/* Typewriter line — natural flow, height reserved via padding */}
             <div className="reveal reveal-d2" style={{
-              height:'clamp(60px,9.5vw,160px)',
-              overflow:'hidden',
-              position:'relative',
+              fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
+              fontSize:'clamp(44px,8.5vw,148px)',
+              letterSpacing:'-.04em',color:'var(--accent)',
+              lineHeight:1.15,
+              paddingBottom:'clamp(8px,1.5vw,24px)',
             }}>
-              <span style={{
-                display:'block',
-                fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
-                fontSize:'clamp(44px,8.5vw,148px)',
-                letterSpacing:'-.04em',color:'var(--accent)',
-                lineHeight:1, paddingTop:'.04em',
-                position:'absolute', top:0, left:0, whiteSpace:'nowrap',
-              }}>
-                {typed || ' '}
-                <span style={{display:'inline-block',width:'2px',height:'.7em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
-              </span>
+              {typed || ' '}
+              <span style={{display:'inline-block',width:'2px',height:'.7em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>
             </div>
           </div>
           <p className="reveal reveal-d2" style={{fontSize:'clamp(14px,1.6vw,18px)',lineHeight:1.55,color:'var(--ink-2)',maxWidth:520,marginTop:20,fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300}}>
