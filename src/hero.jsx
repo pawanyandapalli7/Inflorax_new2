@@ -16,8 +16,8 @@ const Hero = () => {
       if(cancelled) return;
       setTyped(word.slice(0, i+1));
       i++;
-      if(i >= word.length){ clearInterval(interval); setTimeout(()=>{ if(!cancelled) setWordIdx(p=>p+1); }, 2400); }
-    }, 55);
+      if(i >= word.length){ clearInterval(interval); setTimeout(()=>{ if(!cancelled) setWordIdx(p=>p+1); }, 3200); }
+    }, 90);
     return () => { cancelled=true; clearInterval(interval); };
   }, [wordIdx]);
 
@@ -97,10 +97,11 @@ const Hero = () => {
               display:'block',
               fontFamily:'var(--serif)',fontStyle:'italic',fontWeight:300,
               textTransform:'none',letterSpacing:'-.04em',color:'var(--accent)',
-              /* Fixed height — tall enough for descenders in italic serif */
-              height:'1.4em',
-              overflow:'hidden',
-              lineHeight:1.4,
+              /* Enough room for descenders (g, y, p) in italic Fraunces */
+              height:'1.6em',
+              lineHeight:1.3,
+              overflow:'visible',
+              paddingBottom:'.2em',
             }}>
               {typed}
               <span style={{display:'inline-block',width:'2px',height:'.8em',background:'var(--accent)',marginLeft:'2px',verticalAlign:'middle',animation:'cursorBlink .75s step-end infinite'}}/>

@@ -187,7 +187,7 @@
       <a href="#" onclick="goTo('faq');return false;">FAQ</a>
     </div>
     <div class="nav-right">
-      <a href="#" class="pill-btn" onclick="goTo('audit');return false;">Free Audit <span class="arr">→</span></a>
+      <a href="#" class="pill-btn" onclick="window.openAuditModal&&window.openAuditModal();return false;">Free Audit <span class="arr">→</span></a>
       <button class="ham" id="ham" aria-label="Menu"><span></span></button>
     </div>
   </nav>
@@ -197,7 +197,7 @@
     <a href="#" onclick="goTo('pricing');closeDrawer();return false;">Pricing <span>→</span></a>
     <a href="#" onclick="goTo('showcase');closeDrawer();return false;">Niches <span>→</span></a>
     <a href="#" onclick="goTo('faq');closeDrawer();return false;">FAQ <span>→</span></a>
-    <a href="#" onclick="goTo('audit');closeDrawer();return false;" class="pill-btn">Get a Free Audit →</a>
+    <a href="#" onclick="window.openAuditModal&&window.openAuditModal();closeDrawer();return false;" class="pill-btn">Get a Free Audit →</a>
   </div>
 
   <!-- Mobile sticky bottom CTA -->
