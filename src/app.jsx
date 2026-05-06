@@ -35,9 +35,9 @@ const App = () => {
       <window.Footer/>
       {window.FloatCTA && <window.FloatCTA/>}
       {/* Audit modal — always mounted, opened via window.openAuditModal() */}
-      {window.AuditModal && <window.AuditModal open={auditOpen} onClose={()=>setAuditOpen(false)}/>
+      {window.AuditModal && <window.AuditModal open={auditOpen} onClose={()=>setAuditOpen(false)}/>}
       {/* Legal modals */}
-      {window.LegalProvider && <window.LegalProvider/>}}
+      {window.LegalProvider && <window.LegalProvider/>}
 
       {window.TweaksPanel && (
         <window.TweaksPanel title="Tweaks">
