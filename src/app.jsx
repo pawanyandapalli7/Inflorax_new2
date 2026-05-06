@@ -24,7 +24,6 @@ const App = () => {
       <window.Showcase/>
       <window.About/>
       <window.FAQ/>
-      <window.AuditCTA/>
       <window.Footer/>
       {window.FloatCTA && <window.FloatCTA/>}
 
