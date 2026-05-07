@@ -143,25 +143,7 @@
   .foot-mega{font-family:var(--sans);font-weight:900;font-size:clamp(32px,5vw,80px);line-height:1.05;letter-spacing:-.03em;margin:clamp(24px,4vw,48px) 0 clamp(20px,3vw,36px);color:var(--bone);text-transform:uppercase}
   .foot-mega em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);text-transform:none;letter-spacing:-.04em}
 
-  /* Mobile sticky bottom CTA */
-  #mob-cta{
-    position:fixed;bottom:0;left:0;right:0;z-index:9985;
-    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-    background:rgba(245,250,240,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    border-top:1px solid var(--line);
-    transform:translateY(0);transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .35s;
-    display:none;
-  }
-  #mob-cta.hide{transform:translateY(110%);opacity:0;pointer-events:none}
-  #mob-cta button{
-    width:100%;padding:15px 20px;border-radius:14px;
-    background:var(--accent);color:#fff;border:none;
-    font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:-.01em;
-    cursor:pointer;box-shadow:0 4px 20px rgba(22,101,52,.35);
-    -webkit-tap-highlight-color:transparent;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-  }
-  @media(max-width:768px){#mob-cta{display:block}}
+
 
   /* Tweaks */
   #tweaks-root{position:fixed;z-index:99999}
@@ -200,12 +182,7 @@
     <a href="#" onclick="window.openAuditModal&&window.openAuditModal();closeDrawer();return false;" class="pill-btn">Get a Free Audit →</a>
   </div>
 
-  <!-- Mobile sticky bottom CTA -->
-  <div id="mob-cta" class="hide">
-    <button onclick="window.openAuditModal&&window.openAuditModal()">
-      ✦ Get My Free Audit <span style="opacity:.7;font-weight:400;font-size:13px">— No credit card</span> →
-    </button>
-  </div>
+
 
   <div id="top"></div>
   <main id="app"></main>
@@ -290,29 +267,7 @@
     function closeDrawer(){drawer.classList.remove('open');}
     window.closeDrawer=closeDrawer;
 
-    // Mobile bottom CTA — show after hero scrolled past
-    (function(){
-      const mob=document.getElementById('mob-cta');
-      if(!mob)return;
-      let lastY=0,ticking=false;
-      const check=()=>{
-        const y=window.scrollY;
-        if(window.innerWidth>768){mob.classList.add('hide');return;}
-        const heroEl=document.getElementById('hero-section');
-        const threshold=heroEl?heroEl.offsetHeight*0.55:400;
-        if(y<threshold){mob.classList.add('hide');}
-        else{
-          // hide when scrolling fast down, show when slowing/going up
-          const delta=y-lastY;
-          if(delta>8)mob.classList.add('hide');
-          else if(delta<-2||Math.abs(delta)<3)mob.classList.remove('hide');
-        }
-        lastY=y;ticking=false;
-      };
-      window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(check);}},{passive:true});
-      window.addEventListener('resize',check,{passive:true});
-      check();
-    })();
+
   </script>
 </body>
 </html>
